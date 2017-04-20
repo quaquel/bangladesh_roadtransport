@@ -1,0 +1,83 @@
+body {
+    font-size: 10px;
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+    margin: 50px auto 20px;
+    /*width: 720px;*/
+    background: #fcfcfc;
+    line-height: 1.45em;
+}
+
+#example {
+    height: 400px;
+    margin: 12px 0;
+}
+
+.download {
+    background: #333;
+    color: #FFF;
+    font-weight: 900;
+    border: 2px solid #B10000;
+    padding: 4px;
+    margin:4px;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+/*path {*/
+    /*stroke: steelblue;*/
+    /*stroke-width: 2;*/
+    /*fill: none;*/
+/*}*/
+
+label {
+    font-size: 12px;
+}
+
+#selected{
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+
+#unselected{
+    stroke: lightgrey;
+    stroke-width: 1;
+    fill: none;
+}
+
+/*brush properties*/
+rect.background {
+    fill: transparent;
+}
+rect.background:hover {
+    fill: rgba(120,120,120,0.2);
+}
+.resize rect {
+    fill: rgba(0,0,0,0.1);
+}
+rect.extent {
+    fill: rgba(255,255,255,0.25);
+    stroke: rgba(0,0,0,0.6);
+}
+.resize text{
+    /*text propoerties of brush labels*/
+    font-size: 10px;
+}
+
+/*general text size*/
+text{
+    font-size: 12px;
+    background-color: white;
+}
+
+.color-box {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+}
