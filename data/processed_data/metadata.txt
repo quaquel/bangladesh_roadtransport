@@ -1,0 +1,13 @@
+Processed data used for further analysis.
+
+1. District_level_data_v6
+Key statistics on district level for model inputs
+
+2. _roads3.csv
+Location Reference Points of all roads in Bangladesh with corrected longitude-latitude information
+
+3. road_rmms_v9.shp
+Shapefile of fully connected and routable road network from the RMMS database.
+
+4. BGD_Districtdata_Citycentroid_level2_v02.shp
+Shapefile of centroids of each district. Centroid represents the biggest city in the district.

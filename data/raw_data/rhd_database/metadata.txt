@@ -1,0 +1,17 @@
+Data parsed from Bangladesh Road and Highway Department (RHD) website.
+http://www.rhd.gov.bd/Databases/Databases.asp
+
+1. BMMS.zip
+Html files of bridges information taken from Bridge Maintenance Management System
+
+2. RMMS.zip
+Html files of roads information taken from Road Maintenance Management System
+
+3. BMMS_overview.xlsx
+Bridges information scrapped from html files inside BMMS.zip
+
+4. _roads2.csv
+Roads Location Reference Points (LRPs) geocoded information scrapped from html files inside RMMS.zip
+
+5. road_traffic_extract2.csv
+Road traffic (AADT) information scrapped from html files inside RMMS.zip
