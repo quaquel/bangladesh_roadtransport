@@ -1,0 +1,386 @@
+
+
+<html>
+<head>
+<title>::RMMS::</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="bmms.css" rel="stylesheet" type="text/css">
+<script src="code.js" type="text/javascript"></script>
+<script language="JavaScript">
+
+function ShowPop(theURL,winName,myWidth,myHeight) { //v2.0
+lt=(screen.width-myWidth)/2;
+tp=(screen.height-myHeight)/2;
+fea="width="+myWidth+",height="+myHeight+",scrollbars=yes,resizable=yes,left="+lt+",top="+tp+"";
+//alert(fea);
+  window.open(theURL,winName,fea);
+}
+/*
+function filterLinks(PAGE){
+var pDF='L1';
+var pAD='L2';
+var pADM='L3';
+var lColor='#D8D8D8';
+try{
+if(PAGE==pDF){
+document.getElementById(pDF).style.color=lColor;
+document.getElementById(pDF).href='#';
+}else if(PAGE==pAD){
+document.getElementById(pAD).style.color=lColor;
+document.getElementById(pAD).href='#';
+}else if(PAGE==pADM){
+document.getElementById(pADM).style.color=lColor;
+document.getElementById(pADM).href='#';
+}
+}catch(e){
+return false;
+}
+}
+*/
+function exportToExcel()
+{
+var oExcel = new ActiveXObject("Excel.Application");
+var oBook = oExcel.Workbooks.Add;
+var oSheet = oBook.Worksheets(1);
+var y=0;
+var x=0;
+for (y=0;y<detailsTable.rows.length;y++)
+// detailsTable is the table where the content to be exported is
+{
+	for (x=0;x<detailsTable.rows(y).cells.length;x++)
+	{
+	if (detailsTable.rows(y).cells(x).id!="ex"){
+oSheet.Cells(y+1,x+1) =detailsTable.rows(y).cells(x).innerText;
+
+
+}
+	}
+}
+
+
+
+oExcel.Visible = true;
+oExcel.UserControl = true;
+}
+function checkExcel(){
+
+try{
+var oExcel = new ActiveXObject("Excel.Application");
+return true;
+}catch(e){
+return false;
+}
+} 
+function exBodyLoad(){
+if (checkExcel()){
+}else{
+EXCEL.style.display="none";
+}
+}
+function checkForm1(CTRL){
+	var VAL=CTRL.value.trim();
+	try{
+	if(VAL==""){
+		alert("Road name is empty");
+		CTRL.focus();
+		return false;
+	}else{
+		return true;
+	}
+	}catch(e){
+		alert(CTRL.value)
+	}
+}
+String.prototype.trim = function()
+{
+   return this.replace(/(^\s*)|(\s*$)/g, "");
+}
+function blink() {
+            if (x % 2) {
+                col = "rgb(255,0,0)";
+            } else {
+                col = "rgb(255,255,255)";
+            }
+
+            aF.style.color = col;
+			//aF1.style.color = col;
+			//aF2.style.color = col;
+			//aF3.style.color = col;
+            x++;
+
+            if (x > 2)
+                { x = 1 }; 
+            setTimeout("blink()", 2000);
+        }
+
+</script>
+
+<style type="text/css">
+.blink {
+font-size: 12px;
+color: red;
+display: inline;
+}
+</style>
+</head>
+<body topmargin="5" bottommargin="5" leftmargin="5" rightmargin="5" >
+
+
+
+<TABLE  border=0 width=100% cellspacing=0 cellpadding=0 bgcolor="#ffffff" style="border:1px solid #4574A7;" align="center">
+	<tr> 
+		<td width="472" valign="bottom">&nbsp;<img src="image/RMMS_BANNER.gif" width="468" height="60" border="0">
+		</td>    
+		<td height="64" align="right"><img src="image/BRIDGE.gif">&nbsp;</td>    
+	</tr>
+</table>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="DONTPrint"> 
+<tr>
+<td colspan="4" height="5"> </td>
+</tr>
+<tr>
+<td colspan="4" height="5" style="color:red; font-size:14px; font-weight:bold;" align="center"><span id ="aF">The RMMS Database upgradation is going on.<br /><font size="4px">***The information being shown here is under review.***</font></span></td>
+</tr>
+   <tr> 
+    <td width="3%"> &nbsp;</td>
+    <td colspan="3" align="right"><a href="searchbyoffice_2.asp"  align="absmiddle" id="L2"><img src="image/SearchSS.gif" width="22" height="22" align="absmiddle" border="0">&nbsp;Search by location</a>
+	  &nbsp; &nbsp;
+		<a href="default.asp"  align="absmiddle" id="L1"><img src="image/Home.gif" width="23" height="24" align="absmiddle" border="0">&nbsp;Home</a>
+	  &nbsp;
+	</td> 	
+  </tr>
+  <form action="searchresult_2.asp" method="get" onSubmit="checkForm1(this.RoadName);" name="hForm">
+   <tr bgcolor="#F7F7F7">
+     <td height="25" colspan="2" class="tdHead">&nbsp;&nbsp;&nbsp;Search Result</td>
+     <td width="43%" align="right" class="tdHead"><span class="text5">Search by Road name</span>&nbsp;
+       <input type="text" name="RoadName" maxlength="50" style="width:125px;border: 1px solid #000066;">
+       &nbsp;
+      <input type="submit" name="SEARCH"   style="cursor:hand" value=" Go " class="button"></td>
+     <td width="3%" align="right" class="tdHead">&nbsp;</td>
+   </tr>  
+   </form>
+</table>
+  
+
+
+<table width="100%" align="center" cellpadding="1" cellspacing="1">
+          <tr>
+            <td width="5%" height="20" valign="top">&nbsp;            </td>
+            <td width="90%" valign="top"><table width="100%"  border="0" cellpadding="0" cellspacing="0" class="clsTbl">
+              <tr>
+                <td width="23%" height="20" valign="top" class="tdHead">Selected Options</td>
+                <td width="77%" valign="top" class="tdHead">&nbsp;Road No like:&nbsp;<u>Z</u></td>
+              </tr>
+              <tr>
+                <td colspan="2">&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="20" colspan="2" class="text1">&nbsp;662 matches found</td>
+              </tr>
+              <tr>
+                <td colspan="2"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td height="20" colspan="5" class="dingbat">&nbsp;Search Result</td>
+                  </tr>
+                  <tr>
+                    <td height="20" class="tdHead" width="10%"><a href="?COL=RoadNo&PageNo=26&RoadNo=Z&RoadName=&Submit=GO&ORDERBY=2" class="navOrder">Road No</a>&nbsp;<img src="image/ASC.gif"  border="0"></td>
+                    <td class="tdHead" width="50%"><a href="?COL=RoadName&PageNo=26&RoadNo=Z&RoadName=&Submit=GO&ORDERBY=2" class="navOrder">Name</a>&nbsp;<img src="image/ASC.gif"  border="0"></td>
+                    <td class="tdHead" align="right" width="10%"><a href="?COL=RoadLength&PageNo=26&RoadNo=Z&RoadName=&Submit=GO&ORDERBY=2" class="navOrder">Length</a>&nbsp;<img src="image/ASC.gif"  border="0">&nbsp;</td>
+                    <td class="tdHead" width="15%">&nbsp;<a href="?COL=startLocation&PageNo=26&RoadNo=Z&RoadName=&Submit=GO&ORDERBY=2" class="navOrder">Starts at</a>&nbsp;<img src="image/ASC.gif"  border="0"></td>
+                    <td class="tdHead" width="15%"><a href="?COL=EndLocation&PageNo=26&RoadNo=Z&RoadName=&Submit=GO&ORDERBY=2" class="navOrder">Ends at </a>&nbsp;<img src="image/ASC.gif"  border="0"></td>
+                  </tr>
+				  
+                  <tr>
+                    <td height="20" class="tdRow">&nbsp;<a href="roaddetail.asp?RoadID=888">Z7059      </a></td>
+                    <td class="tdRow">&nbsp;Bolianpur-Kuada Road</td>
+                    <td align="right"  class="tdRow" style="border-right:1px solid #F0F0F0;">&nbsp;1</td>
+                    <td class="tdRow">&nbsp;Bolianpur</td>
+                    <td class="tdRow">&nbsp;Kuada</td>
+                  </tr>
+					
+                  <tr>
+                    <td height="20" class="tdRow">&nbsp;<a href="roaddetail.asp?RoadID=1259">Z7102      </a></td>
+                    <td class="tdRow">&nbsp;Rajbari-Baliakandi-Jamalpur-Madhukhali Road</td>
+                    <td align="right"  class="tdRow" style="border-right:1px solid #F0F0F0;">&nbsp;37</td>
+                    <td class="tdRow">&nbsp;Rajbari</td>
+                    <td class="tdRow">&nbsp;Modhukhali</td>
+                  </tr>
+					
+                  <tr>
+                    <td height="20" class="tdRow">&nbsp;<a href="roaddetail.asp?RoadID=1171">Z7105      </a></td>
+                    <td class="tdRow">&nbsp;Ishwardi-Paikpara-Mirzapur-Fultala More-Singra-Fulbaria-Bhabaniganj Road</td>
+                    <td align="right"  class="tdRow" style="border-right:1px solid #F0F0F0;">&nbsp;15</td>
+                    <td class="tdRow">&nbsp;Ishwardi</td>
+                    <td class="tdRow">&nbsp;Bhabaniganj</td>
+                  </tr>
+					
+                  <tr>
+                    <td height="20" class="tdRow">&nbsp;<a href="roaddetail.asp?RoadID=1166">Z7106      </a></td>
+                    <td class="tdRow">&nbsp;Goalonda (Jamtala)-Godarbazar-Pangsha-Habashpur Road</td>
+                    <td align="right"  class="tdRow" style="border-right:1px solid #F0F0F0;">&nbsp;49</td>
+                    <td class="tdRow">&nbsp;Jamtala</td>
+                    <td class="tdRow">&nbsp;Habashpur</td>
+                  </tr>
+					
+                  <tr>
+                    <td height="20" class="tdRow">&nbsp;<a href="roaddetail.asp?RoadID=1603">Z7108      </a></td>
+                    <td class="tdRow">&nbsp;Goalanda-Faridpur-Tarail Road</td>
+                    <td align="right"  class="tdRow" style="border-right:1px solid #F0F0F0;">&nbsp;65</td>
+                    <td class="tdRow">&nbsp;Goalanda</td>
+                    <td class="tdRow">&nbsp;Tarail</td>
+                  </tr>
+					
+                  <tr>
+                    <td height="20" class="tdRow">&nbsp;<a href="roaddetail.asp?RoadID=995">Z7201      </a></td>
+                    <td class="tdRow">&nbsp;Arpara-Salikha Road</td>
+                    <td align="right"  class="tdRow" style="border-right:1px solid #F0F0F0;">&nbsp;12</td>
+                    <td class="tdRow">&nbsp;Arpara</td>
+                    <td class="tdRow">&nbsp;Shalikha</td>
+                  </tr>
+					
+                  <tr>
+                    <td height="20" class="tdRow">&nbsp;<a href="roaddetail.asp?RoadID=1026">Z7404      </a></td>
+                    <td class="tdRow">&nbsp;Amtali-Tailtupi-Alamdanga Road</td>
+                    <td align="right"  class="tdRow" style="border-right:1px solid #F0F0F0;">&nbsp;56</td>
+                    <td class="tdRow">&nbsp;Amtoli</td>
+                    <td class="tdRow">&nbsp;Alamdanga</td>
+                  </tr>
+					
+                  <tr>
+                    <td height="20" class="tdRow">&nbsp;<a href="roaddetail.asp?RoadID=863">Z7405      </a></td>
+                    <td class="tdRow">&nbsp;Shekhpara-Shailkupa-Langalbandh Road</td>
+                    <td align="right"  class="tdRow" style="border-right:1px solid #F0F0F0;">&nbsp;27</td>
+                    <td class="tdRow">&nbsp;Shekhpara</td>
+                    <td class="tdRow">&nbsp;Langalbandh</td>
+                  </tr>
+					
+                  <tr>
+                    <td height="20" class="tdRow">&nbsp;<a href="roaddetail.asp?RoadID=1701">Z7406      </a></td>
+                    <td class="tdRow">&nbsp;Jhenaidah Circuit House Link Road</td>
+                    <td align="right"  class="tdRow" style="border-right:1px solid #F0F0F0;">&nbsp;1</td>
+                    <td class="tdRow">&nbsp;Nimtola</td>
+                    <td class="tdRow">&nbsp;Alaipur</td>
+                  </tr>
+					
+                  <tr>
+                    <td height="20" class="tdRow">&nbsp;<a href="roaddetail.asp?RoadID=1781">Z7407      </a></td>
+                    <td class="tdRow">&nbsp;Chuadanga Rail Station to Court More (Chuadanga Old Town Road)</td>
+                    <td align="right"  class="tdRow" style="border-right:1px solid #F0F0F0;">&nbsp;2</td>
+                    <td class="tdRow">&nbsp;Rail Station</td>
+                    <td class="tdRow">&nbsp;Court More</td>
+                  </tr>
+					
+                  <tr>
+                    <td height="20" class="tdRow">&nbsp;<a href="roaddetail.asp?RoadID=1765">Z7408      </a></td>
+                    <td class="tdRow">&nbsp;WAPDA More-Kalibari Link Road</td>
+                    <td align="right"  class="tdRow" style="border-right:1px solid #F0F0F0;">&nbsp;1</td>
+                    <td class="tdRow">&nbsp;WAPDA More</td>
+                    <td class="tdRow">&nbsp;Kalibari</td>
+                  </tr>
+					
+                  <tr>
+                    <td height="20" class="tdRow">&nbsp;<a href="roaddetail.asp?RoadID=998">Z7409      </a></td>
+                    <td class="tdRow">&nbsp;Bheramara Rail Station-Bheramara Ferry Ghat Road</td>
+                    <td align="right"  class="tdRow" style="border-right:1px solid #F0F0F0;">&nbsp;6</td>
+                    <td class="tdRow">&nbsp;Bheramara Rail Station</td>
+                    <td class="tdRow">&nbsp;Bheramara Ferryghat</td>
+                  </tr>
+					
+                  <tr>
+                    <td height="20" class="tdRow">&nbsp;<a href="roaddetail.asp?RoadID=859">Z7411      </a></td>
+                    <td class="tdRow">&nbsp;Bheramara-Daulatpur Road</td>
+                    <td align="right"  class="tdRow" style="border-right:1px solid #F0F0F0;">&nbsp;21</td>
+                    <td class="tdRow">&nbsp;Bheramara</td>
+                    <td class="tdRow">&nbsp;Daulatpur</td>
+                  </tr>
+					
+                  <tr>
+                    <td height="20" class="tdRow">&nbsp;<a href="roaddetail.asp?RoadID=996">Z7412      </a></td>
+                    <td class="tdRow">&nbsp;Daulatpur-Daulatkhali-Mathurapur High School Bazar Road</td>
+                    <td align="right"  class="tdRow" style="border-right:1px solid #F0F0F0;">&nbsp;12</td>
+                    <td class="tdRow">&nbsp;Daulatpur</td>
+                    <td class="tdRow">&nbsp;Mathurapur High School</td>
+                  </tr>
+					
+                  <tr>
+                    <td height="20" class="tdRow">&nbsp;<a href="roaddetail.asp?RoadID=1082">Z7451      </a></td>
+                    <td class="tdRow">&nbsp;8th km of Kushtia-Meherpur Highway to Miupur Thana Connecting Road</td>
+                    <td align="right"  class="tdRow" style="border-right:1px solid #F0F0F0;">&nbsp;2</td>
+                    <td class="tdRow">&nbsp;8th Mile</td>
+                    <td class="tdRow">&nbsp;Mirpur G.P.O</td>
+                  </tr>
+					
+                  <tr>
+                    <td height="20" class="tdRow">&nbsp;<a href="roaddetail.asp?RoadID=1022">Z7452      </a></td>
+                    <td class="tdRow">&nbsp;Gangni-Kathuli-Kulbaria Road</td>
+                    <td align="right"  class="tdRow" style="border-right:1px solid #F0F0F0;">&nbsp;20</td>
+                    <td class="tdRow">&nbsp;Gangni</td>
+                    <td class="tdRow">&nbsp;Kulbaria</td>
+                  </tr>
+					
+                  <tr>
+                    <td height="20" class="tdRow">&nbsp;<a href="roaddetail.asp?RoadID=1021">Z7456      </a></td>
+                    <td class="tdRow">&nbsp;Bamundi-Hatboalia-Alamdanga Road</td>
+                    <td align="right"  class="tdRow" style="border-right:1px solid #F0F0F0;">&nbsp;24</td>
+                    <td class="tdRow">&nbsp;Bamundi</td>
+                    <td class="tdRow">&nbsp;Alamdanga</td>
+                  </tr>
+					
+                  <tr>
+                    <td height="20" class="tdRow">&nbsp;<a href="roaddetail.asp?RoadID=1025">Z7457      </a></td>
+                    <td class="tdRow">&nbsp;Jhenaidah-Harinakundu Road</td>
+                    <td align="right"  class="tdRow" style="border-right:1px solid #F0F0F0;">&nbsp;20</td>
+                    <td class="tdRow">&nbsp;Jhenaidah (D.C Office)</td>
+                    <td class="tdRow">&nbsp;Harinakundu</td>
+                  </tr>
+					
+                  <tr>
+                    <td height="20" class="tdRow">&nbsp;<a href="roaddetail.asp?RoadID=1070">Z7458      </a></td>
+                    <td class="tdRow">&nbsp;Garagonj-Shailkupa Road</td>
+                    <td align="right"  class="tdRow" style="border-right:1px solid #F0F0F0;">&nbsp;6</td>
+                    <td class="tdRow">&nbsp;Garagonj</td>
+                    <td class="tdRow">&nbsp;Shailkupa</td>
+                  </tr>
+					
+                  <tr>
+                    <td height="20" class="tdRow">&nbsp;<a href="roaddetail.asp?RoadID=988">Z7460      </a></td>
+                    <td class="tdRow">&nbsp;Dakbanglabazar-Gopalpur-Kaliganj Road</td>
+                    <td align="right"  class="tdRow" style="border-right:1px solid #F0F0F0;">&nbsp;23</td>
+                    <td class="tdRow">&nbsp;Dakbanglow Bazar</td>
+                    <td class="tdRow">&nbsp;Kaliganj</td>
+                  </tr>
+					
+                  <tr>
+                    <td height="20" class="tdRow">&nbsp;<a href="roaddetail.asp?RoadID=999">Z7461      </a></td>
+                    <td class="tdRow">&nbsp;Mirpur-Shehala-Pragpur BDR Camp Road</td>
+                    <td align="right"  class="tdRow" style="border-right:1px solid #F0F0F0;">&nbsp;35</td>
+                    <td class="tdRow">&nbsp;Mirpur (Zia Road)</td>
+                    <td class="tdRow">&nbsp;Pragpur BDR Camp</td>
+                  </tr>
+					
+                </table></td>
+              </tr>
+              <tr>
+                <td colspan="2" align="center"><table align="center"><tr><td><a href="?PageNo=1&RoadNo=Z&RoadName=&Submit=GO"><img src="image/FIRST.jpg" border=0 alt="First"></a><a href="?PageNo=25&RoadNo=Z&RoadName=&Submit=GO"><img src="image/PREVIOUS.jpg" border=0 alt="Previous"></a></td><td><a href="?PageNo=17&RoadNo=Z&RoadName=&Submit=GO"><b>17</b></a>&nbsp;<a href="?PageNo=18&RoadNo=Z&RoadName=&Submit=GO"><b>18</b></a>&nbsp;<a href="?PageNo=19&RoadNo=Z&RoadName=&Submit=GO"><b>19</b></a>&nbsp;<a href="?PageNo=20&RoadNo=Z&RoadName=&Submit=GO"><b>20</b></a>&nbsp;<a href="?PageNo=21&RoadNo=Z&RoadName=&Submit=GO"><b>21</b></a>&nbsp;<a href="?PageNo=22&RoadNo=Z&RoadName=&Submit=GO"><b>22</b></a>&nbsp;<a href="?PageNo=23&RoadNo=Z&RoadName=&Submit=GO"><b>23</b></a>&nbsp;<a href="?PageNo=24&RoadNo=Z&RoadName=&Submit=GO"><b>24</b></a>&nbsp;<a href="?PageNo=25&RoadNo=Z&RoadName=&Submit=GO"><b>25</b></a>&nbsp;<font color=red><b>[26]</b></font>&nbsp;</td><td><a href="?PageNo=27&RoadNo=Z&RoadName=&Submit=GO">....  33</a></td><td><a href="?PageNo=27&RoadNo=Z&RoadName=&Submit=GO"><img src="image/NEXT.jpg" border=0 alt="Next"></a>&nbsp;<a href="?PageNo=33&RoadNo=Z&RoadName=&Submit=GO"><img src="image/LAST.jpg" border=0 alt="Last"></a></td></tr></table></td>
+              </tr>
+            </table></td>
+            <td width="5%" align="left" valign="top">&nbsp;            </td>
+          </tr>
+          <tr>
+            <td colspan="3" align="left" valign="top" class="text7">&nbsp;</td>
+          </tr>
+</table>
+
+
+<table width="60%"  border="0" align="center" class="DONTPrint">
+ <tr>
+    <td align="center" bgcolor="#FFFFFF" height="20"></td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#FFFFFF" style="border-top:1px solid #dedeca;">&nbsp;</td>
+  </tr>
+</table>
+
+</body>
+</html>
