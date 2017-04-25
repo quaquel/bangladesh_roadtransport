@@ -1,0 +1,269 @@
+,Start date,End date,Country name,ISO,Location,Disaster type,Disaster subtype,Associated dis.,Associated dis2.,Total deaths,Total affected,Total damage,Insured loss,Disaster ID
+0,00/11/1904,00/11/1904.1,Bangladesh,BGD,Chittagong,Storm,Tropical cyclone,--,--,--,--,--,--,1904-0003
+1,15/10/1909,15/10/1909.1,Bangladesh,BGD,Bakerganj,Storm,Tropical cyclone,--,--,172,--,--,--,1909-0010
+2,00/12/1909,00/12/1909.1,Bangladesh,BGD,West Sundarbans,Storm,Tropical cyclone,--,--,--,--,--,--,1909-0013
+3,00/04/1911,00/04/1911.1,Bangladesh,BGD,Teknaf,Storm,Tropical cyclone,--,--,--,--,--,--,1911-0004
+4,23/09/1919,23/09/1919.1,Bangladesh,BGD,Bakerganj,Storm,Tropical cyclone,--,--,--,--,--,--,1919-0003
+5,19/04/1922,19/04/1922.1,Bangladesh,BGD,Teknaf,Storm,Tropical cyclone,--,--,--,--,--,--,1922-0003
+6,07/05/1923,07/05/1923.1,Bangladesh,BGD,"Cox's Bazar, Chittagong",Storm,Tropical cyclone,--,--,6,25000,--,--,1923-0003
+7,19/05/1926,19/05/1926.1,Bangladesh,BGD,Cox's Bazar,Storm,Tropical cyclone,--,--,--,--,--,--,1926-0004
+8,11/10/1937,11/10/1937.1,Bangladesh,BGD,Noakhali,Storm,Tropical cyclone,--,--,--,--,--,--,1937-0006
+9,21/05/1941,21/05/1941.1,Bangladesh,BGD,"Bhola, East Meghna estuary",Storm,Tropical cyclone,--,--,5000,--,--,--,1941-0003
+10,00/10/1942,00/10/1942.1,Bangladesh,BGD,West Sundarbans,Storm,Tropical cyclone,--,--,61000,--,--,--,1942-0008
+11,21/10/1947,21/10/1947.1,Bangladesh,BGD,"Cox's Bazar, Chittagong",Storm,Tropical cyclone,--,--,500,--,--,--,1947-0012
+12,00/05/1951,00/05/1951.1,Bangladesh,BGD,Unnamed: 4,Storm,--,--,--,200,--,--,--,1951-0036
+13,00/05/1958,00/05/1958.1,Bangladesh,BGD,East Meghna Estuary,Storm,Tropical cyclone,--,--,--,--,--,--,1958-0008
+14,20/10/1958,20/10/1958.1,Bangladesh,BGD,Unnamed: 4,Storm,Tropical cyclone,--,--,500,--,--,--,1958-0014
+15,00/00/1960,00/00/1960.1,Bangladesh,BGD,Unnamed: 4,Flood,--,--,--,10000,--,--,--,1960-0001
+16,09/10/1960,09/10/1960.1,Bangladesh,BGD,"Noakhali, Off-Shore Islands",Storm,Tropical cyclone,--,--,3000,--,--,--,1960-0030
+17,30/10/1960,30/10/1960.1,Bangladesh,BGD,"Chittagong area, Off-Shore Islands",Storm,Tropical cyclone,--,--,5149,200000,--,--,1960-0031
+18,09/05/1961,09/05/1961.1,Bangladesh,BGD,Megna Eestuary,Storm,Tropical cyclone,--,--,11000,--,11900,--,1961-0004
+19,30/05/1961,30/05/1961.1,Bangladesh,BGD,Chittagong,Storm,Tropical cyclone,--,--,--,--,--,--,1961-0005
+20,00/03/1961,00/03/1961.1,Bangladesh,BGD,Unnamed: 4,Storm,--,--,--,266,--,--,--,1961-0046
+21,28/05/1963,28/05/1963.1,Bangladesh,BGD,"Chittagong, Noakhali",Storm,Tropical cyclone,--,--,22000,1000000,50000,--,1963-0013
+22,00/07/1963,00/07/1963.1,Bangladesh,BGD,Unnamed: 4,Flood,--,--,--,30,--,--,--,1963-0069
+23,00/10/1963,00/10/1963.1,Bangladesh,BGD,Unnamed: 4,Storm,Tropical cyclone,--,--,79,--,--,--,1963-0079
+24,12/04/1964,12/04/1964.1,Bangladesh,BGD,Jessore district,Storm,Tropical cyclone,--,--,300,800,250,--,1964-0024
+25,00/07/1964,00/07/1964.1,Bangladesh,BGD,"Rangpur, Comilla",Flood,--,--,--,--,1000000,5000,--,1964-0039
+26,11/05/1965,11/05/1965.1,Bangladesh,BGD,Barisal district,Storm,Tropical cyclone,--,--,36000,15600000,57700,--,1965-0028
+27,00/06/1965,00/06/1965.1,Bangladesh,BGD,Unnamed: 4,Storm,Tropical cyclone,--,--,12047,--,--,--,1965-0034
+28,15/12/1965,15/12/1965.1,Bangladesh,BGD,Chittagong to Teknaf,Storm,Tropical cyclone,--,--,874,60000,--,--,1965-0068
+29,00/06/1966,00/06/1966.1,Bangladesh,BGD,Sylhet,Flood,--,--,--,39,500000,1000,--,1966-0047
+30,01/10/1966,01/10/1966.1,Bangladesh,BGD,"Chittagong, Sandwip",Storm,Tropical cyclone,--,--,850,1800000,22400,--,1966-0077
+31,02/05/1967,02/05/1967.1,Bangladesh,BGD,Dacca,Storm,Tropical cyclone,--,--,50,200,--,--,1967-0034
+32,00/10/1967,00/10/1967.1,Bangladesh,BGD,"South, near Cox's Bazar",Storm,Tropical cyclone,--,--,41,--,--,--,1967-0062
+33,11/04/1968,11/04/1968.1,Bangladesh,BGD,"Madaripur, Faridpur",Storm,Tropical cyclone,--,--,118,16138,1500,--,1968-0040
+34,00/07/1968,00/07/1968.1,Bangladesh,BGD,"Nationwide, 5 Northern districts",Flood,--,--,--,221,15889616,199400,--,1968-0054
+35,14/04/1969,14/04/1969.1,Bangladesh,BGD,"Dacca, Comilla",Storm,Tropical cyclone,--,--,849,199473,8329,--,1969-0065
+36,13/04/1970,13/04/1970.1,Bangladesh,BGD,Unnamed: 4,Storm,--,--,--,17,110,--,--,1970-0026
+37,00/07/1970,00/07/1970.1,Bangladesh,BGD,Unnamed: 4,Flood,--,--,--,--,10000000,25000,--,1970-0035
+38,23/10/1970,23/10/1970.1,Bangladesh,BGD,Bay of Bengal districts,Storm,--,--,--,300,--,--,--,1970-0058
+39,12/11/1970,12/11/1970.1,Bangladesh,BGD,"Khulna, Chittagong",Storm,Tropical cyclone,--,--,300000,3648000,86400,--,1970-0063
+40,08/05/1971,08/05/1971.1,Bangladesh,BGD,Coastal areas,Storm,Tropical cyclone,--,--,163,--,--,--,1971-0032
+41,02/04/1972,02/04/1972.1,Bangladesh,BGD,Mymensingh,Storm,Convective storm,--,--,200,25000,--,--,1972-0026
+42,25/06/1972,25/06/1972.1,Bangladesh,BGD,Sylhet,Flood,--,--,--,50,--,--,--,1972-0041
+43,12/04/1973,12/04/1973.1,Bangladesh,BGD,Faridpur district,Storm,--,--,--,200,50000,--,--,1973-0023
+44,09/12/1973,09/12/1973.1,Bangladesh,BGD,South coast,Storm,Tropical cyclone,--,--,1000,--,--,--,1973-0053
+45,00/03/1973,00/03/1973.1,Bangladesh,BGD,Unnamed: 4,Flood,--,--,--,427,--,--,--,1973-0123
+46,00/04/1973,00/04/1973.1,Bangladesh,BGD,Unnamed: 4,Storm,--,--,--,700,--,--,--,1973-0125
+47,00/08/1973,00/08/1973.1,Bangladesh,BGD,Unnamed: 4,Flood,--,--,--,--,--,--,--,1973-0130
+48,00/07/1974,00/07/1974.1,Bangladesh,BGD,Unnamed: 4,Flood,--,--,--,28700,38000000,579200,--,1974-0034
+49,00/08/1974,00/08/1974.1,Bangladesh,BGD,Unnamed: 4,Storm,Tropical cyclone,--,--,2500,--,--,--,1974-0042
+50,28/11/1974,28/11/1974.1,Bangladesh,BGD,"Coastal areas, off-shore Islands",Storm,Tropical cyclone,--,--,--,--,--,--,1974-0059
+51,00/03/1974,00/03/1974.1,Bangladesh,BGD,Unnamed: 4,Storm,--,--,--,300,--,--,--,1974-0147
+52,10/04/1976,10/04/1976.1,Bangladesh,BGD,Faridpur district,Storm,Convective storm,--,--,46,200,--,--,1976-0034
+53,15/06/1976,15/06/1976.1,Bangladesh,BGD,Easr,Flood,--,--,--,168,4000000,--,--,1976-0041
+54,09/05/1976,09/05/1976.1,Bangladesh,BGD,Dhamgarh (near Dacca),Storm,Convective storm,--,--,1,--,201,--,1976-0133
+55,01/04/1977,01/04/1977.1,Bangladesh,BGD,Madaripur,Storm,--,--,--,600,10000,50000,--,1977-0054
+56,24/04/1977,24/04/1977.1,Bangladesh,BGD,Mymensingh district,Storm,Tropical cyclone,--,--,13,100,--,--,1977-0060
+57,00/09/1977,00/09/1977.1,Bangladesh,BGD,Brahmaputra Valley,Flood,--,--,--,5,200000,--,--,1977-0110
+58,06/10/1977,06/10/1977.1,Bangladesh,BGD,Unnamed: 4,Storm,Convective storm,--,--,21,500,--,--,1977-0124
+59,13/10/1977,13/10/1977.1,Bangladesh,BGD,Unnamed: 4,Flood,--,--,--,8,13650,--,--,1977-0125
+60,09/04/1978,09/04/1978.1,Bangladesh,BGD,Bay of Bengal,Storm,--,--,--,1000,--,--,--,1978-0051
+61,05/05/1978,05/05/1978.1,Bangladesh,BGD,Jessore district,Storm,--,--,--,30,100,--,--,1978-0068
+62,00/08/1978,00/08/1978.1,Bangladesh,BGD,Western,Flood,Riverine flood,--,--,17,400000,--,--,1978-0097
+63,02/05/1979,02/05/1979.1,Bangladesh,BGD,Eastern,Storm,Tropical cyclone,--,--,3,150,--,--,1979-0048
+64,17/08/1979,17/08/1979.1,Bangladesh,BGD,South coast,Storm,Tropical cyclone,--,--,50,--,--,--,1979-0078
+65,00/04/1980,00/04/1980.1,Bangladesh,BGD,Unnamed: 4,Storm,Tropical cyclone,--,--,11,1050,--,--,1980-0038
+66,00/08/1980,00/08/1980.1,Bangladesh,BGD,North Western,Flood,--,--,--,655,10000000,150000,--,1980-0073
+67,15/04/1981,15/04/1981.1,Bangladesh,BGD,Noakhali district,Storm,Convective storm,--,--,70,12000,--,--,1981-0042
+68,11/12/1981,11/12/1981.1,Bangladesh,BGD,Unnamed: 4,Storm,Tropical cyclone,--,--,1000,2000000,--,--,1981-0108
+69,06/03/1981,06/03/1981.1,Bangladesh,BGD,Comilla,Storm,Tropical cyclone,--,--,15,25000,--,--,1981-0274
+70,07/09/1982,07/09/1982.1,Bangladesh,BGD,"Rajshahi, Kushtia",Flood,--,--,--,--,308000,--,--,1982-0100
+71,21/03/1983,21/03/1983.1,Bangladesh,BGD,South,Storm,Tropical cyclone,--,--,6,150,--,--,1983-0056
+72,00/04/1983,00/04/1983.1,Bangladesh,BGD,"Central, Eastern",Flood,--,--,--,78,60000,--,--,1983-0062
+73,26/04/1983,26/04/1983.1,Bangladesh,BGD,Kulna,Storm,Convective storm,--,--,12,200,--,--,1983-0072
+74,00/07/1983,00/07/1983.1,Bangladesh,BGD,Unnamed: 4,Flood,--,--,--,12,4100000,--,--,1983-0091
+75,00/09/1983,00/09/1983.1,Bangladesh,BGD,Unnamed: 4,Flood,--,--,--,114,3000000,--,--,1983-0115
+76,15/10/1983,15/10/1983.1,Bangladesh,BGD,Chittagong,Storm,Tropical cyclone,--,--,600,5000,--,--,1983-0133
+77,13/11/1983,13/11/1983.1,Bangladesh,BGD,Chittagong,Storm,Tropical cyclone,--,--,67,--,--,--,1983-0147
+78,00/08/1983,00/08/1983.1,Bangladesh,BGD,Unnamed: 4,Flood,--,--,--,41,--,--,--,1983-0505
+79,00/05/1984,00/05/1984.1,Bangladesh,BGD,Eastern,Flood,--,--,--,1200,30000000,--,--,1984-0041
+80,00/06/1985,00/06/1985.1,Bangladesh,BGD,"Maulvibazar, Sylhet district",Flood,Riverine flood,--,--,7,100000,--,--,1985-0012
+81,28/03/1985,28/03/1985.1,Bangladesh,BGD,Pabna district,Storm,Convective storm,--,--,50,20000,--,--,1985-0048
+82,24/05/1985,28/05/1985,Bangladesh,BGD,"Urir, Jabbar, Bata, Darbesh, Clark, Sudharam, Hatia, Sand Wip Islands Patuakhali, Bhola, North Chittagong, Feni, Noakhali districts",Storm,Tropical cyclone,Surge,Flood,15000,1810000,50000,--,1985-0063
+83,16/10/1985,16/10/1985.1,Bangladesh,BGD,Unnamed: 4,Storm,--,--,--,71,1300,--,--,1985-0123
+84,05/07/1985,05/07/1985.1,Bangladesh,BGD,"Rangpur, Kurigram a Nil district",Flood,--,--,--,27,400000,--,--,1985-0299
+85,04/04/1986,04/04/1986.1,Bangladesh,BGD,"Gopalganj, Piropjur districts (Mymensingh, Brahmanbaria, Netrokona)",Storm,Convective storm,--,--,100,13000,--,--,1986-0050
+86,02/08/1986,02/08/1986.1,Bangladesh,BGD,Rajshahi district,Flood,Riverine flood,--,--,4,100000,--,--,1986-0096
+87,26/09/1986,26/09/1986.1,Bangladesh,BGD,"Kuna, Bagerhat, Sathkhira, Pathuakhali, Barguna",Storm,Tropical cyclone,--,--,40,2700000,--,--,1986-0117
+88,09/11/1986,09/11/1986.1,Bangladesh,BGD,Bengal Bay (South-West),Storm,Tropical cyclone,--,--,25,100,--,--,1986-0131
+89,07/08/1986,07/08/1986.1,Bangladesh,BGD,Chapai,Flood,--,--,--,26,300000,--,--,1986-0232
+90,00/03/1986,00/03/1986.1,Bangladesh,BGD,"Dacca, Manikganj",Storm,--,--,--,19,10000,--,--,1986-0284
+91,04/06/1987,04/06/1987.1,Bangladesh,BGD,"Hatiya, Swandwip, Patuakhali, Bhola regions",Storm,Tropical cyclone,--,--,12,--,--,--,1987-0110
+92,22/07/1987,22/07/1987.1,Bangladesh,BGD,"Rangpur, Netrokona, Gaibandha, Noagaon, Kurigram, Jamlpur, Cox's Bazar, Chittagong, Noahkali districts",Flood,Riverine flood,--,--,2055,29700000,330000,--,1987-0132
+93,00/08/1987,00/08/1987.1,Bangladesh,BGD,Unnamed: 4,Flood,--,--,--,225,--,727500,--,1987-0319
+94,23/05/1988,23/05/1988.1,Bangladesh,BGD,Unnamed: 4,Storm,--,--,--,28,--,--,--,1988-0220
+95,00/06/1988,00/09/1988,Bangladesh,BGD,Unnamed: 4,Flood,--,--,--,2379,45000000,2137000,--,1988-0242
+96,13/06/1988,13/06/1988.1,Bangladesh,BGD,Kushia district,Storm,--,--,--,5,5200,--,--,1988-0264
+97,00/07/1988,00/07/1988.1,Bangladesh,BGD,"Sunamganj, Netrokona, Satkhira, Bogra, Moulavibazar, Habaganj, Rangpur",Flood,Riverine flood,--,--,61,--,--,--,1988-0294
+98,19/10/1988,19/10/1988.1,Bangladesh,BGD,"Patuakhali, Cox's Bazar",Storm,Tropical cyclone,--,--,31,--,--,--,1988-0474
+99,29/11/1988,29/11/1988.1,Bangladesh,BGD,"Bagherhat, Barguna, Bhola, Jessore, Khulna, Patuakahli, Pirozpur, Satkhira, Sundarbans",Storm,Tropical cyclone,--,--,1000,10568860,--,--,1988-0518
+100,26/04/1989,26/04/1989.1,Bangladesh,BGD,"Manikganj, Dhaka, Tangail districts",Storm,Convective storm,--,--,800,102000,16200,--,1989-0016
+101,14/08/1989,14/08/1989.1,Bangladesh,BGD,"Sylhet,Bandarban, Cox's Bazar, Chittagong district,",Flood,Riverine flood,--,--,180,200000,--,--,1989-0119
+102,26/05/1989,26/05/1989.1,Bangladesh,BGD,"Manikganj, Tangail",Storm,Tropical cyclone,--,--,15,2000,--,--,1989-0249
+103,02/05/1990,02/05/1990.1,Bangladesh,BGD,"Manikganj, Siranjganj, Chandpur districts",Storm,Convective storm,--,--,--,--,--,--,1990-0090
+104,24/03/1990,30/03/1990,Bangladesh,BGD,"Habiganj district, Noakhali District (North Eastern)",Flood,Riverine flood,--,--,166,11600,--,--,1990-0095
+105,22/04/1990,22/04/1990.1,Bangladesh,BGD,South East,Storm,Convective storm,--,--,54,40200,--,--,1990-0096
+106,21/12/1990,21/12/1990.1,Bangladesh,BGD,Golfe du Bengale,Storm,--,--,--,250,--,--,--,1990-0421
+107,08/10/1990,08/10/1990.1,Bangladesh,BGD,Chittagong,Storm,Tropical cyclone,--,--,370,13870,--,--,1990-0576
+108,14/07/1990,06/09/1990,Bangladesh,BGD,"Rajshabi division, Sirajganj, Jamalpur, Bogra, Pabna",Flood,Riverine flood,--,--,65,2000000,6000,--,1990-0609
+109,29/04/1991,10/05/1991,Bangladesh,BGD,"Cox's Bazar, Chittagong, Patuakhali, Noakhali, Bhola, Barguna",Storm,Tropical cyclone,Flood,--,138866,15438849,1780000,80000,1991-0120
+110,00/07/1991,00/07/1991.1,Bangladesh,BGD,Rajskabi division,Flood,Riverine flood,--,--,--,1590000,--,--,1991-0170
+111,02/09/1991,10/09/1991,Bangladesh,BGD,Rangpur,Flood,Riverine flood,--,--,65,200000,150000,--,1991-0224
+112,07/05/1991,07/05/1991.1,Bangladesh,BGD,"Ghorasal, Tungi, Sirajganj",Storm,Convective storm,--,--,121,300,--,--,1991-0332
+113,14/05/1991,26/05/1991,Bangladesh,BGD,Sylhet district,Flood,Riverine flood,--,--,200,1200000,--,--,1991-0764
+114,31/01/1992,01/02/1992,Bangladesh,BGD,Unnamed: 4,Storm,--,--,--,7,10200,--,--,1992-0175
+115,18/04/1992,18/04/1992.1,Bangladesh,BGD,"Kishoreganj, Brahmambaria districts",Flood,Riverine flood,--,--,15,200,--,--,1992-0190
+116,22/04/1992,22/04/1992.1,Bangladesh,BGD,North,Storm,--,--,--,16,100,--,--,1992-0192
+117,22/06/1992,26/06/1992,Bangladesh,BGD,"Maheskali, Chittagong, Cox's Bazaar districts",Flood,Riverine flood,--,--,2,45000,--,--,1992-0213
+118,11/07/1992,11/07/1992.1,Bangladesh,BGD,North-East,Flood,Riverine flood,--,--,--,30000,--,--,1992-0293
+119,12/01/1993,12/01/1993.1,Bangladesh,BGD,"Bogra, Noagaon, Sunamganj, Sylhet, Tangail, Jamalpur",Storm,Convective storm,--,--,31,752000,--,--,1993-0001
+120,04/06/1993,22/06/1993,Bangladesh,BGD,"Habiganj, Sylhet, Sunamganj, Zakiganj, Moulavibazar, Feni, Chittagong, Cox's Bazar districts",Flood,Riverine flood,--,--,28,3207056,--,--,1993-0028
+121,13/05/1993,13/05/1993.1,Bangladesh,BGD,"Begumgang, Thana Unions",Storm,Tropical cyclone,--,--,14,7500,--,--,1993-0029
+122,01/07/1993,31/08/1993,Bangladesh,BGD,"Bogra, Sirajganj, Netrokona, Pabna, Sirajganj, Sylhet, Brahmanbaria, Hobiganj, Cox's Bazar, Feni, Comilla, Khagrachari, Bandarban, Rangamati, Maulvibazar, Habiganj and Sunamganj districts (Chittagong Region)",Flood,Riverine flood,--,--,162,11469537,--,--,1993-0045
+123,19/02/1993,19/02/1993.1,Bangladesh,BGD,North-East,Storm,--,--,--,8,70500,--,--,1993-0120
+124,27/03/1993,27/03/1993.1,Bangladesh,BGD,"Bhola, Barisal districts",Storm,--,--,--,300,25200,--,--,1993-0135
+125,07/05/1993,07/05/1993.1,Bangladesh,BGD,North Dhaka,Storm,--,--,--,9,3250,--,--,1993-0154
+126,17/05/1993,17/05/1993.1,Bangladesh,BGD,Comilla area,Storm,--,--,--,25,7000,--,--,1993-0160
+127,21/08/1993,21/08/1993.1,Bangladesh,BGD,"Chittagong, Dhaka",Flood,--,--,--,4,1075020,--,--,1993-0196
+128,09/01/1993,09/01/1993.1,Bangladesh,BGD,Sylhet,Storm,Tropical cyclone,--,--,50,2500,--,--,1993-0240
+129,09/05/1993,09/05/1993.1,Bangladesh,BGD,"Naogaon, Dhaka",Storm,--,--,--,15,70,--,--,1993-0241
+130,02/05/1994,02/05/1994.1,Bangladesh,BGD,"St. Martins, Teknaf Upazila, Ukhia Upazila ( Near Cox's Bazar), Kutubdia Isl., Moheskhali Isl., Bandarban",Storm,Tropical cyclone,--,--,130,653559,125000,--,1994-0044
+131,28/03/1994,28/03/1994.1,Bangladesh,BGD,"Mymensingh, Chittagong (North-East and Southern Bangladesh)",Storm,Tropical cyclone,--,--,40,150,2500,--,1994-0087
+132,19/04/1994,19/04/1994.1,Bangladesh,BGD,"Pirojpur, Barguna, Barisal, Patuakhali districts",Storm,--,--,--,20,5200,--,--,1994-0092
+133,18/05/1994,18/05/1994.1,Bangladesh,BGD,North,Storm,--,--,--,15,100,--,--,1994-0122
+134,01/06/1994,03/06/1994,Bangladesh,BGD,Sylhet district,Flood,Riverine flood,--,--,3,25000,--,--,1994-0131
+135,19/08/1994,19/08/1994.1,Bangladesh,BGD,"Chapainawabganj, Rajshahi",Flood,--,--,--,40,370000,--,--,1994-0193
+136,19/04/1994,19/04/1994.1,Bangladesh,BGD,Barisal district and Southern Bangladesh,Flood,Riverine flood,--,--,61,--,--,--,1994-0754
+137,19/05/1994,19/05/1994.1,Bangladesh,BGD,North,Flood,Flash flood,--,--,12,100,--,--,1994-0755
+138,12/04/1995,12/04/1995.1,Bangladesh,BGD,"Chittagong, Madaripur, Munshiganj districts",Storm,Convective storm,--,--,50,51500,--,--,1995-0051
+139,12/04/1995,12/04/1995.1,Bangladesh,BGD,Chittagong,Storm,Convective storm,--,--,6,2070,--,--,1995-0067
+140,15/05/1995,15/05/1995.1,Bangladesh,BGD,"Cox's Bazar, Teknaf, Barguna, Bagerhat, Manpura, Char Nizam, Hatiya, Sadwip, Bhola, Noakhali, Patuakhali, Chittagong",Storm,--,--,--,525,2070000,800000,--,1995-0082
+141,16/06/1995,23/06/1995,Bangladesh,BGD,"Sylhet, Moulvibazar, Sunamganj, Netrokona, Sirajganj, Gaibandha, Jamalpur, Pabna, Kurigram, Rangpur, Madaripur, Feni, Panchagarh, Lalmonirhat, Tangail, Gopalganj, Satkhira, Bogra",Flood,--,"Slide (land, mud, sn",--,250,12656006,200000,--,1995-0100
+142,15/05/1995,15/05/1995.1,Bangladesh,BGD,"Chittagong, Bhola, Coxbazar, Bagerhat, Hatiya, Noakhali, Patuakhali",Flood,Coastal flood,--,--,50,461325,--,--,1995-0101
+143,29/09/1995,16/10/1995,Bangladesh,BGD,"Dinajpur, Panchagar, Rangpur, Nilpamari, Joipurhat, Gaibanda, Natore, Naogaon, Bogra districts",Flood,Riverine flood,--,--,400,1250000,175000,--,1995-0243
+144,25/11/1995,25/11/1995.1,Bangladesh,BGD,Gulf of Bengale,Storm,Tropical cyclone,--,--,172,250000,--,--,1995-0281
+145,17/05/1995,24/05/1995,Bangladesh,BGD,"Chittagong, Khulna, Dhaka, Barisal",Flood,Riverine flood,Tsunami/Tidal wave,--,41,351000,300,--,1995-0487
+146,12/05/1996,14/05/1996,Bangladesh,BGD,"Gopalpur, Basail, Kalihati, Shokipur, Mirzapur, Ghatail (Tangail district), Thanas of Madarganj, Bakhiganj, Sarishabari (Jamalpur district)",Storm,Tropical cyclone,--,--,525,118291,--,--,1996-0086
+147,19/07/1996,02/08/1996,Bangladesh,BGD,"Kurigram, Gaibandha, Bogra, Sirajganj, Tangail, Pabna, Manikanj, Munshiganj, Dhaka, Dhaka city, Narayangani, Shariatpur, Madaripur, Gopalganj, Rajbari, Faridpur, Lalmonirat, Nilhamari",Flood,Riverine flood,--,--,33,5663319,10000,--,1996-0104
+148,27/07/1996,27/07/1996.1,Bangladesh,BGD,Bay Of Bengal,Storm,--,--,--,60,--,--,--,1996-0170
+149,26/08/1996,07/09/1996,Bangladesh,BGD,"Rajshai, Padma",Flood,Riverine flood,--,--,22,165000,--,--,1996-0196
+150,23/04/1996,23/04/1996.1,Bangladesh,BGD,Gowriganga River,Storm,--,--,--,17,300,--,--,1996-0350
+151,29/10/1996,29/10/1996.1,Bangladesh,BGD,"Chittagong, Patuakhali, Pirojpur",Storm,Tropical cyclone,--,--,24,100,--,--,1996-0351
+152,18/05/1997,18/05/1997.1,Bangladesh,BGD,"Banshkali, Anowara (Chittagong district), Cox's Bazar, Teknaf, Chokoria, Moheshkali, Kutubdia (Cox's Bazar district)",Storm,Tropical cyclone,--,--,111,3052738,--,--,1997-0114
+153,13/07/1997,13/07/1997.1,Bangladesh,BGD,"North, Central North",Flood,Flash flood,--,--,79,900030,229000,--,1997-0164
+154,26/09/1997,27/09/1997,Bangladesh,BGD,"Bhola, Noakhali, Bagerhat, Khulna, Potuakhali, Sitakundu districts",Storm,Tropical cyclone,--,--,188,750063,--,--,1997-0235
+155,12/10/1997,12/10/1997.1,Bangladesh,BGD,Tongi Dis. - 1st level = Dhaka,Storm,Convective storm,--,--,15,500,--,--,1997-0258
+156,23/03/1997,23/03/1997.1,Bangladesh,BGD,Bay Of Bengal Level 1 = Chittagong,Storm,--,--,--,11,101,--,--,1997-0321
+157,27/08/1997,27/08/1997.1,Bangladesh,BGD,Cox's Bazar (level 2) Level 1 = Chittagong,Storm,--,--,--,100,--,--,--,1997-0353
+158,23/04/1998,23/04/1998.1,Bangladesh,BGD,Chittagong,Storm,--,--,--,14,200,--,--,1998-0101
+159,20/05/1998,20/05/1998.1,Bangladesh,BGD,"Chittagong, Cox's Bazar, Sitakundu",Storm,Tropical cyclone,--,--,19,108944,--,--,1998-0164
+160,05/07/1998,22/09/1998,Bangladesh,BGD,"Mymensingh, Jamalpur, Sherpur, Hobiganj, Rangpur, Sirajangj, Manikganj, Pabna, Rajbari, Rajshahi, Kurigram, Faridpur, Nilphamari, Gaibandha, Lalmonirhat, Khagrachari, Chitagong, Feni, Comilla, Cox's Bazar, Tangail, Natore districts",Flood,Riverine flood,--,--,1050,15000050,4300000,--,1998-0203
+161,25/11/1998,25/11/1998.1,Bangladesh,BGD,"Sathkhira, Khulna district",Storm,Tropical cyclone,--,--,200,121000,--,--,1998-0373
+162,23/03/1998,23/03/1998.1,Bangladesh,BGD,N.A. on the source,Storm,--,--,--,28,100,--,--,1998-0438
+163,03/07/1998,03/07/1998.1,Bangladesh,BGD,Barisal,Storm,--,--,--,60,--,--,--,1998-0447
+164,07/04/1999,08/04/1999,Bangladesh,BGD,Parbatipur,Storm,--,Flood,--,7,200,--,--,1999-0105
+165,26/03/1999,26/03/1999.1,Bangladesh,BGD,"Panchagarh district, Level 1 = Rajshahi Div",Storm,Convective storm,--,--,2,100060,--,--,1999-0115
+166,30/04/1999,30/04/1999.1,Bangladesh,BGD,Kurigram (Rangpur),Storm,Convective storm,--,--,3,1150,--,--,1999-0189
+167,11/07/1999,03/08/1999,Bangladesh,BGD,"Comilla, Lalmonirhat, Habiganj Jamalpur, Munshiganj, Manikganj, Kustia, Rajshahi, Bogra, Kurigram, Gaibandha, Nilphamari, Lalmonirhat, Sunamganj and Chittagong",Flood,Riverine flood,--,--,31,441270,--,--,1999-0225
+168,11/08/1999,15/08/1999,Bangladesh,BGD,"Chittagong port city, Aziznagar, Chittagong Hill Tracts, Island of Maheshkhali (Cox's Bazar, Chittagong and Bandarban districts)",Flood,Riverine flood,"Slide (land, mud, sn",--,17,50050,--,--,1999-0277
+169,25/10/1999,25/10/1999.1,Bangladesh,BGD,"Satkhira, Khulna, Bagerhat, Pirojpur, Borguna districts",Storm,Tropical cyclone,--,--,--,--,--,--,1999-0532
+170,10/04/1999,10/04/1999.1,Bangladesh,BGD,"Bhola, Barisal & Patuakhil districts, Level 1 = Barisal Div",Storm,--,--,--,66,100,--,--,1999-0576
+171,30/06/1999,20/07/1999,Bangladesh,BGD,Unnamed: 4,Flood,--,--,--,82,--,--,--,1999-0730
+172,28/07/1999,05/08/1999,Bangladesh,BGD,Jamuna,Flood,--,--,--,--,4000,--,--,1999-0734
+173,10/04/1999,11/04/1999,Bangladesh,BGD,"Bhola, Barisal, Patuakhil",Flood,--,Rain,--,66,100,--,--,1999-0736
+174,01/07/1999,05/07/1999,Bangladesh,BGD,Bengal Gulf,Storm,--,--,--,50,--,--,--,1999-0738
+175,05/03/2000,05/03/2000.1,Bangladesh,BGD,Natore district (Rajshahi province),Storm,Convective storm,--,--,--,3050,--,--,2000-0146
+176,21/04/2000,21/04/2000.1,Bangladesh,BGD,"Alpara, Netrokona Sadar, Kendua, Purbadhala areas (Netrakona district, Dhaka province), Rangpur district (Rangpur province)",Storm,Tropical cyclone,--,--,20,62800,--,--,2000-0211
+177,11/04/2000,11/04/2000.1,Bangladesh,BGD,"Maulvibazar district (Sylhet province), Netrakona district (Dhaka province)",Storm,Tropical cyclone,--,--,--,7012,--,--,2000-0229
+178,27/05/2000,19/06/2000,Bangladesh,BGD,"Dhaka, Mymensingh, Tangail, Kishoreganj districts (Dhaka province), Chittagong, Cox's Bazar, Comilla, Chandpur districts (Chittagong province)",Storm,--,Flood,--,36,71000,--,--,2000-0283
+179,23/05/2000,23/05/2000.1,Bangladesh,BGD,Chittagong province,Storm,--,--,--,28,--,--,--,2000-0294
+180,24/06/2000,24/06/2000.1,Bangladesh,BGD,"Bakalia, Kotwali, Chandgaon, Pahartali, Hathazari, Halishahar, Patiya, Satkania areas (Chittagong district, Chittagong province), Cox's Bazar district (Chittagong province)",Flood,Flash flood,"Slide (land, mud, sn",--,11,200050,--,--,2000-0373
+181,30/08/2000,30/08/2000.1,Bangladesh,BGD,"Hutiya, Companiganj areas (Noakhali district, Chittagong province), Maheskhali area (Cox's Bazar district, Chittagong province), Sandwip area (Chittagong district, Chittagong province)",Flood,Coastal flood,--,--,1,12010,--,--,2000-0555
+182,00/09/2000,00/10/2000,Bangladesh,BGD,"Gangni, Meherpur Sadar areas (Meherpur district, Khulna province), Daulatpur, Kushtia Sadar, Bheramara areas (Kushtia district, Khulna province), Jibannagar, Alamdanga, Cuadanda Sadar, Damurhuda areas (Chuadanga district, Khulna province), Maheshpur, Kotchandpur areas (Jhenaidah district, Khulna province), Paba, Godagari, Tanor, Mohanpur areas (Rajshahi district, Rajshahi province)",Flood,Flash flood,--,--,31,2467138,500000,--,2000-0617
+183,25/06/2000,25/06/2000.1,Bangladesh,BGD,"Ullahpara area (Sirajganj district, Rajshahi province), Gaurnadi area (Barisal district, Barisal province)",Storm,Convective storm,--,--,--,2537,--,--,2000-0631
+184,28/10/2000,28/10/2000.1,Bangladesh,BGD,"Barisal, Barguna, Jhalokati, Bhola, Pirojpur districts (Barisal province), Khulna district (Khulna province), Noakhali, Lakshmipur, Cox's Bazar, Chandpur districts (Chittagong province), Dhaka, Mymensingh, Shariatpur districts (Dhaka province)",Storm,Tropical cyclone,--,--,15,200,--,--,2000-0713
+185,11/05/2001,11/05/2001.1,Bangladesh,BGD,"Mymensingh, Netrakona, Tangail, Gopalganj districts (Dhaka province), Naogaon district (Rajshahi province), Maulvibazar district (Sylhet province), Chuadanga, Jhenaidah, Meherpur districts (Khulna province), Gaibandha district (Rangpur province), Patuakhali district (Barisal province), Noakhali district (Chittagong province)",Storm,Tropical cyclone,--,--,12,200,--,--,2001-0198
+186,01/04/2001,01/04/2001.1,Bangladesh,BGD,"Patuakhali district (Barisal province), Satkhira district (Khulna province)",Storm,Tropical cyclone,--,--,193,2500,--,--,2001-0202
+187,28/04/2001,28/04/2001.1,Bangladesh,BGD,"Sirajganj, Pabna districts (Rajshahi province), Sylhet district (Sylhet province)",Storm,--,--,--,21,600,--,--,2001-0273
+188,05/06/2001,05/06/2001.1,Bangladesh,BGD,"Nilphamari district (Rangpur province), Brahamanbaria district (Chittagong province), Sylhet province",Flood,Riverine flood,--,--,9,500000,--,--,2001-0393
+189,31/08/2001,31/08/2001.1,Bangladesh,BGD,"Sunamganj, Sylhet districts (Sylhet province), Nawabganj, Rajshahi districts (Rajshahi province), Kushtia district (Khulna province)",Flood,--,--,--,--,200000,--,--,2001-0459
+190,05/10/2001,05/10/2001.1,Bangladesh,BGD,"Lalmonirhat, Nilphamari, Gaibandha, Rangpur districts (Rangpur province)",Storm,Convective storm,--,--,12,25450,--,--,2001-0563
+191,25/03/2002,25/03/2002.1,Bangladesh,BGD,Cox's Bazar district (Chittagong province),Storm,--,--,--,32,1000,--,--,2002-0211
+192,22/04/2002,22/04/2002.1,Bangladesh,BGD,"Gaibandha, Lalmonirhat, Nilphamari, Rangpur, Kurigram districts (Rangpur province), Bogra, Sirajganj districts (Rajshahi province), Netrakona, Kishoreganj districts (Dhaka province)",Storm,Tropical cyclone,--,--,31,100400,--,--,2002-0233
+193,00/07/2002,00/08/2002,Bangladesh,BGD,"Mymensingh, Netrakona, Sherpur districts (Dhaka province), Sunamganj district (Sylhet province), Rangpur, Nilphamari, Kurigram, Gaibandha districts (Rangpur province), Noakhali, Lakshmipur, Cox's Bazar districts (Chittagong province), Jessore, Satkhira districts (Khulna province), Barguna, Bhola, Barisal, Patuakhali districts (Barisal province), Rajshahi province",Flood,Flash flood,--,--,10,1500000,--,--,2002-0402
+194,14/07/2002,14/07/2002.1,Bangladesh,BGD,Rajshahi district (Rajshahi province),Storm,--,--,--,10,--,--,--,2002-0425
+195,14/11/2002,14/11/2002.1,Bangladesh,BGD,Barguna district (Barisal province),Storm,Tropical cyclone,--,--,49,--,--,--,2002-0705
+196,16/04/2003,16/04/2003.1,Bangladesh,BGD,Dhaka province,Storm,--,--,--,9,20,--,--,2003-0190
+197,04/05/2003,04/05/2003.1,Bangladesh,BGD,"Noabadi, Nayabadi, Merashani villages (Brahamanbaria district, Chittagong)",Storm,Tropical cyclone,Hail,"Slide (land, mud, sn",23,400,--,--,2003-0211
+198,11/06/2003,10/10/2003,Bangladesh,BGD,"Maulvibazar, Habiganj, Sylhet districts (Sylhet province), Lalmonirhat, Kurigram, Rangpur, Nilphamari, Gaibandha districts (Rangpur province), Comilla, Feni districts (Chittagong province), Sirajganj, Bogra, Pabna, Rajshahi, Nawabganj districts (Rajshahi province), Jamalpur, Tangail, Manikganj, Munshiganj, Narsingdi, Narayanganj, Kishoreganj, Rajbari, Madaripur, Chandpur, Faridpur, Dhaka districts (Dhaka province)",Flood,Riverine flood,--,--,187,50000,--,--,2003-0283
+199,19/06/2003,03/07/2003,Bangladesh,BGD,"Khagrachhari, Chittagong, Feni, Cox's Bazar, Lakshmipur, Comilla districts (Chittagong province), Bhola district (Barisal province), Netrakona, Jamalpur districts (Dhaka province), Sylhet province",Flood,Flash flood,"Slide (land, mud, sn",--,65,500000,--,--,2003-0303
+200,20/12/2003,20/12/2003.1,Bangladesh,BGD,Barguna district (Barisal province),Storm,Tropical cyclone,--,--,28,--,--,--,2003-0779
+201,14/04/2004,15/04/2004,Bangladesh,BGD,"Mymensingh, Netrakona districts (Dhaka province)",Storm,Convective storm,--,--,76,13000,--,--,2004-0166
+202,12/06/2004,13/06/2004,Bangladesh,BGD,"Cox's Bazar, Tekhnaf areas (Cox's Bazar district, Chittagong province)",Storm,--,Surge,--,153,50,--,--,2004-0286
+203,20/06/2004,03/08/2004,Bangladesh,BGD,"Brahamanbaria, Comilla, Chandpur districts (Chittagong province), Kurigram, Rangpur, Gaibandha districts (Rangpur province), Bogra, Naogaon, Pabna, Serajganj districts (Rajshahi province), Sylhet, Dhaka provinces",Flood,Riverine flood,"Slide (land, mud, sn",Broken Dam/Burst ban,730,36000000,2200000,--,2004-0298
+204,11/09/2004,18/09/2004,Bangladesh,BGD,"Debidwar, Burichang, Cahndina, Chauddagram, Muradnagar areas (Comilla district, Chittagong province)",Flood,Riverine flood,Broken Dam/Burst ban,--,20,600000,--,--,2004-0470
+205,07/10/2004,18/10/2004,Bangladesh,BGD,"Dhaka, Faridpur, Gopalganj districts (Dhaka province), Lakshmipur district (Chittagong province), Bogra, Rajshahi, Naogaon, Joypurhat, Sirajganj districts (Rajshahi province), Gaibandha, Kurigram districts (Rangpur province)",Flood,Flash flood,Rain,--,11,271700,--,--,2004-0509
+206,13/05/2004,13/05/2004.1,Bangladesh,BGD,Sylhet province,Storm,Convective storm,--,--,10,4050,--,--,2004-0678
+207,17/07/2004,17/07/2004.1,Bangladesh,BGD,Sunamganj district (Sylhet province),Storm,--,--,--,--,1100,--,--,2004-0679
+208,20/03/2005,23/03/2005,Bangladesh,BGD,"Gaibandha, Rangpur districts (Rangpur province), Chandpur district (Chittagong province), Habiganj district (Sylhet province), Faridpur, Kishoreganj, Manikganj, Munshiganj districts (Dhaka province)",Storm,Convective storm,Rain,Rain.1,79,11500,--,--,2005-0130
+209,31/03/2005,31/03/2005.1,Bangladesh,BGD,"Manikganj district (Dhaka province), Natore, Sirajganj, Pabna districts (Rajshahi province)",Storm,Tropical cyclone,--,--,24,10500,--,--,2005-0190
+210,21/05/2005,22/05/2005,Bangladesh,BGD,"Lakshmipur, Cox's Bazar districts (Chittagong province), Rajbari district (Dhaka province)",Storm,--,--,--,10,6,--,--,2005-0259
+211,25/05/2005,28/05/2005,Bangladesh,BGD,"Maulvibazar, Habiganj districts (Sylhet province)",Flood,Flash flood,Broken Dam/Burst ban,--,13,50000,--,--,2005-0261
+212,14/05/2005,14/05/2005.1,Bangladesh,BGD,Pabna district (Rajshahi province),Storm,--,--,--,2,100,--,--,2005-0273
+213,06/05/2005,06/05/2005.1,Bangladesh,BGD,"Rangpur, Dinadjpur districts (Rangpur province)",Storm,--,--,--,11,1500,--,--,2005-0282
+214,07/07/2005,27/07/2005,Bangladesh,BGD,"Kurigram, Gaibandha, Lalmonirhat, Rangpur, Nilphamari districts (Rangpur province), Sherpur, Jamalpur, Dhaka, Narayanganj, Munshiganj, Madaripur, districts (Dhaka province), Sirajganj, Bogra districts (Rajshahi province)",Flood,Riverine flood,--,--,23,1000000,--,--,2005-0375
+215,30/06/2005,30/06/2005.1,Bangladesh,BGD,Cox's Bazar district (Chittagong province),Storm,--,--,--,35,--,--,--,2005-0391
+216,20/09/2005,20/09/2005.1,Bangladesh,BGD,"Barisal, Chittagong, Khulna provinces",Storm,--,--,--,16,12000,--,--,2005-0537
+217,03/10/2005,20/10/2005,Bangladesh,BGD,"Naogaon, Joypurhat district (Rajshahi province), Gaibandha, Rangpur, Nilphamari, Dinajpur districts (Rangpur province)",Flood,Flash flood,--,--,19,100000,--,--,2005-0590
+218,04/03/2006,04/03/2006.1,Bangladesh,BGD,"Bagerhat, Khulna districts (Khulna province)",Storm,Convective storm,--,--,4,5899,--,--,2006-0146
+219,31/05/2006,24/07/2006,Bangladesh,BGD,"Khagrachhari district (Chittagong province), Sylhet province",Flood,Riverine flood,--,--,--,76000,--,--,2006-0262
+220,24/08/2006,20/09/2006,Bangladesh,BGD,"Jessore, Khulna, Satkhira districts (Khulna province)",Flood,Riverine flood,--,--,--,135775,--,--,2006-0502
+221,18/09/2006,05/10/2006,Bangladesh,BGD,"Hatiya area (Noakhali district, Chittagong province), Bagerhat district (Khulna province), Patuakhali, Barguna districts (Barisal province)",Storm,Tropical cyclone,Flood,--,115,9135,--,--,2006-0510
+222,05/04/2006,06/04/2006,Bangladesh,BGD,Dhaka province,Storm,Tropical cyclone,--,--,9,1465,--,--,2006-0737
+223,08/04/2006,08/04/2006.1,Bangladesh,BGD,"Tangail district (Dhaka province), Sirajganj district (Rajshahi province)",Storm,Tropical cyclone,Flood,--,22,1500,--,--,2006-0738
+224,22/04/2006,24/04/2006,Bangladesh,BGD,"Rajshahi, Khulna provinces",Storm,--,Hail,--,4,150,--,--,2006-0739
+225,11/06/2007,12/06/2007,Bangladesh,BGD,Chittagong district (Chittagong province),Flood,Riverine flood,"Slide (land, mud, sn",--,120,80060,14000,--,2007-0161
+226,15/05/2007,15/05/2007.1,Bangladesh,BGD,"Cox's Bazar, Chittagong districts (Chittagong province)",Storm,Tropical cyclone,--,--,41,225,--,--,2007-0227
+227,21/07/2007,03/08/2007,Bangladesh,BGD,"Goalanda village (Goalandaghat area, Rajbari district, Dhaka province), Aricha port (Shibalaya area, Manikganj district, Dhaka province), Bhagyakul village (Sreenagar area, Munshiganj district, Dhaka province), Bandarban, Feni, Comilla districts (Chittagong province), Sirajganj district (Rajshahi province), Rangpur province",Flood,Riverine flood,"Slide (land, mud, sn",--,1110,13771380,100000,--,2007-0311
+228,15/11/2007,19/11/2007,Bangladesh,BGD,"Bagerhat, Khulna, Satkhira districts (Khulna province), Patuakhali, Barguna, Pirojpur, Barisal, Jhalokati, Bhola districts (Barisal province), Madaripur, Gopalganj, Shariatpur districts (Dhaka province)",Storm,Tropical cyclone,Flood,--,4234,8978541,2300000,--,2007-0556
+229,26/06/2008,13/07/2008,Bangladesh,BGD,"Cox's Bazar, Chittagong districts (Chittagong province)",Flood,Riverine flood,"Slide (land, mud, sn",--,16,20002,--,--,2008-0285
+230,30/08/2008,08/09/2008,Bangladesh,BGD,"Bogra, Sirajganj districts (Rajshahi province)",Flood,Riverine flood,--,--,12,615638,--,--,2008-0385
+231,16/08/2008,16/08/2008.1,Bangladesh,BGD,"Chittagong city (Chittagong district, Chittagong province)",Landslide,Landslide.1,--,--,13,50,--,--,2008-0568
+232,22/03/2008,22/03/2008.1,Bangladesh,BGD,"Jamalpur, Mymensingh, Netrakona, Sherpur districts (Dhaka province), Bogra district (Rajshahi province), Gaibandha, Kurigram districts (Rangpur province), Sunamganj, Sylhet provinces (Sylhet province)",Storm,Tropical cyclone,--,--,12,200,--,--,2008-0644
+233,27/10/2008,27/10/2008.1,Bangladesh,BGD,"Barisal, Patuakhali districts (Barisal province)",Storm,Tropical cyclone,Flood,--,15,200,--,--,2008-0648
+234,19/04/2009,20/04/2009,Bangladesh,BGD,"Banshkhali, Anowara, Sitakunda, Mirsaharai, Sandwip, Patiya, Boalkhali, Satkania, Chandanaish, City Corportaion of Chittagong (CCC) areas (Chittagong district, Chittagong province), Sadar, Ramu, Chakaria, Pekua, Maheshkhali, Kutubdia areas (Cox's Bazar district, Chittagong province), Hatiya area (Noakhali district, Chittagong province), Charfashion area (Bhola district, Barisal province), Pirganj area (Thakurgao district, Rangpur province)",Storm,Tropical cyclone,--,--,7,19209,--,--,2009-0157
+235,25/05/2009,26/05/2009,Bangladesh,BGD,"Khulna, Satkhira, Jessore, Bagerhat districts (Khulna province), Patuakhali, Bhola, Barisal, Barguna, Pirojpur, Jhalokati districts (Barisal province), Lakshmipur, Chittagong, Noakhali, Cox's Bazar, Feni, Chandpur districts (Chittagong province)",Storm,Tropical cyclone,Broken Dam/Burst ban,Tsunami/Tidal wave,190,3935341,270000,--,2009-0204
+236,03/07/2009,06/07/2009,Bangladesh,BGD,Habiganj district (Sylhet province),Flood,Riverine flood,"Slide (land, mud, sn",--,6,500000,--,--,2009-0294
+237,29/07/2009,29/07/2009.1,Bangladesh,BGD,"Comilla, Chittagong districts (Chittagong province), Dhaka, Rajshahi, Barisal, Khulna, Sylhet provinces",Flood,Riverine flood,--,--,10,--,--,--,2009-0304
+238,13/04/2010,14/04/2010,Bangladesh,BGD,"Rangpur, Dinajpur, Nilphamari, Lalmonirhat, Kurigram, Gaibandha districts (Rangpur province), Sirajganj, Bogra districts (Rajshahi province)",Storm,Tropical cyclone,--,--,8,247110,--,--,2010-0171
+239,17/04/2010,17/04/2010.1,Bangladesh,BGD,Lalmonirhat district (Rangpur province),Storm,Tropical cyclone,--,--,3,10000,--,--,2010-0205
+240,14/06/2010,15/06/2010,Bangladesh,BGD,"Cox's Bazar, Bandarban districts (Chittagong province)",Landslide,Landslide.1,--,--,66,55230,--,--,2010-0231
+241,24/06/2010,24/06/2010.1,Bangladesh,BGD,"Netrakona district (Dhaka province), Kurigram, Gaibandha, Lalmonirhat districts (Rangpur province), Sylhet province",Flood,Flash flood,--,--,--,75000,--,--,2010-0269
+242,01/10/2010,12/10/2010,Bangladesh,BGD,"Chittagong, Cox's Bazar, Feni, Lakshmipur, Noakhali districts (Chittagong province), Bagerhat, Khulna, Satkhira districts (Khulna province), Barisal province",Flood,Riverine flood,--,--,15,500000,--,--,2010-0676
+243,01/05/2010,02/05/2010,Bangladesh,BGD,Mymensingh district (Dhaka province),Storm,Convective storm,Hail,--,15,50,--,--,2010-0686
+244,21/07/2011,29/07/2011,Bangladesh,BGD,"Cox's Bazar, Chittagong, Bandarban districts (Chittagong province), Satkhira, Jessore, Narail, Bagerhat, Chuadanga, Kushtia districts (Khulna province), Bogra, Sirajganj, Pabna, Naogaon districts (Rajshahi province), Lalmonirhat, Thakurgaon, Kurigram, Gaibandha districts (Rangpur province), Sherpur, Netrakona, Rajbari, Manikganj districts (Dhaka province)",Flood,Flash flood,--,--,10,1570559,--,--,2011-0262
+245,04/07/2011,04/07/2011.1,Bangladesh,BGD,"Chittagong city (Chittagong district, Chittagong province)",Landslide,Landslide.1,--,--,17,--,--,--,2011-0586
+246,04/04/2011,04/04/2011.1,Bangladesh,BGD,"Sherpur, Jamalpur, Netrakona, Mymensingh districts (Dhaka province), Rangpur, Thakurgaon, Gaibandha districts (Rangpur province), Pabna district (Rajshahi province)",Storm,Convective storm,Hail,--,13,121,--,--,2011-0591
+247,06/04/2012,06/04/2012.1,Bangladesh,BGD,"Panchagarh, Rangpur, Nilphamari districts (Rangpur province), Noakhali, Comilla districts (Chittagong province), Narsingdi, Jamalpur, Faridpur, Shariatpur districts (Dhaka province), Jessore, Satkhira, Khulna, Chuadanga districts (Khulna province), Rajshahi district (Rajshahi province), Sylhet district (Sylhet province), Bhola district (Barisal province)",Storm,Convective storm,Hail,--,25,55121,--,--,2012-0082
+248,24/06/2012,02/07/2012,Bangladesh,BGD,"Chittagong, Bandarban, Cox's Bazar districts (Chittagong province), Sylhet district (Sylhet province)",Flood,Riverine flood,"Slide (land, mud, sn",--,139,5148475,--,--,2012-0175
+249,21/09/2012,28/09/2012,Bangladesh,BGD,"Barisal, Bhola, Patuakhali districts (Barisal province), Dhaka, Faridpur, Jamalpur, Madaripur, Manikganj, Rajbari, Shariatpur, Tangail districts (Dhaka province), Bogra, Pabna, Sirajganj districts (Rajshahi province), Gaibandha, Kurigram districts (Rangpur province)",Flood,Riverine flood,--,--,--,250000,--,--,2012-0382
+250,10/10/2012,10/10/2012.1,Bangladesh,BGD,"Hatiya, Companiganj, Subarnarchar areas (Noakhali district, Chittagong province), Monpura, Charfasson areas (Bhola district, Barisal province), Sandwip, Mirsharai areas (Chittagong district, Chittagong province)",Storm,Convective storm,--,--,108,129558,--,--,2012-0385
+251,22/03/2013,22/03/2013.1,Bangladesh,BGD,"Sadar, Akhaura, Bijoynagar areas (Brahamanbaria district, Chittagong province)",Storm,Convective storm,--,--,31,8543,20000,--,2013-0085
+252,29/03/2013,30/03/2013,Bangladesh,BGD,"Natore, Naogaon districts (Rajshahi province)",Storm,Convective storm,--,--,2,25020,--,--,2013-0090
+253,16/05/2013,16/05/2013.1,Bangladesh,BGD,"Patuakhali, Bhola, Barguna districts (Barisal province)",Storm,Tropical cyclone,--,--,17,1498644,--,--,2013-0138
+254,27/04/2014,28/04/2014,Bangladesh,BGD,"Sunamganj district (Sylhet province), Tangail, Netrakona districts (Dhaka province), Naogaon district (Rajshahi province)",Storm,Convective storm,--,--,16,4012,--,--,2014-0135
+255,11/06/2014,11/06/2014.1,Bangladesh,BGD,Faridpur district (Dhaka province),Storm,Convective storm,--,--,4,1250,--,--,2014-0244
+256,11/08/2014,10/09/2014,Bangladesh,BGD,"Lalmonirhat, Kurigram, Nilphamari, Rangpur, Gaibandha districts (Rangpur province), Bogra, Sirajganj districts (Rajshahi province), Sunamganj, Sylhet districts (Sylhet province), Sherpur, Netrakona, Munshiganj, Jamalpur, Tangail, Faridpur, Manikganj, Rajbari districts (Dhaka province), Bhola, Patuakhali, Barguna districts (Barisal province), Feni, Chittagong districts (Chittagong province)",Flood,Riverine flood,Broken Dam/Burst ban,--,59,2800447,160000,--,2014-0290
+257,00/09/2014,00/09/2014.1,Bangladesh,BGD,"Bogra, Naogaon districts (Rajshahi province), Jamalpur, Mymensing, Netrokona districts (Dhaka province), Kurigram Lalmonirhat, Gaibandha districts (Rangpur province), Brahmanbaria district (Chittagong province)",Flood,--,--,--,--,400000,--,--,2014-0581
+258,01/04/2015,07/04/2015,Bangladesh,BGD,"Bogra, Rajshahi, Naogaon, Sirajganj, Pabna districts (Rajshahi province), Brahamanbaria district (Chittagong province), Dhaka districts (Dhaka province)",Storm,Convective storm,Hail,Rain,53,20200,4000,--,2015-0118
+259,02/05/2015,03/05/2015,Bangladesh,BGD,"Sunamganj district (Sylhet province), Jamalpur, Sherpur, Mymensingh districts (Dhaka province), Gaibandha, Dinajpur districts (Rangpur province), Bagerhat district (Khulna province)",Storm,Convective storm,--,--,13,--,--,--,2015-0213
+260,23/06/2015,30/06/2015,Bangladesh,BGD,"Bandarban, Chittagong, Cox's Bazar districts (Chittagong province)",Flood,Riverine flood,"Slide (land, mud, sn",--,20,1401901,40000,--,2015-0253
+261,25/07/2015,27/07/2015,Bangladesh,BGD,"Barisal district (Barisal province), Chittagong district (Chittagong province), Khulna district (Khulna province)",Flood,Riverine flood,"Slide (land, mud, sn",--,11,10000,--,--,2015-0293
+262,29/07/2015,30/07/2015,Bangladesh,BGD,"Cox's Bazar, Chittagong, Noakhali, Feni, Bandarban districts (Chittagong province), Patuakhali, Bhola, Barguna districts (Barisla province)",Storm,Tropical cyclone,Flood,--,45,2600000,40000,--,2015-0309
+263,18/07/2015,18/07/2015.1,Bangladesh,BGD,"Lalkhan Bazar area (Chittagong district, Chittagong province)",Landslide,Landslide.1,--,--,7,1003,--,--,2015-0411
+264,23/05/2015,23/05/2015.1,Bangladesh,BGD,Dinajpur,Storm,Convective storm,--,--,6,40050,--,--,2015-0601
+265,13/05/2016,15/05/2016,Bangladesh,BGD,Unnamed: 4,Storm,Convective storm,--,--,59,--,--,--,2016-0154
+266,21/05/2016,21/05/2016.1,Bangladesh,BGD,"Barisal; Noakhali, Lakshmipur, Chandpur (Chittagong); Cox?s Bazar, Bhola, Barguna, Patuakhali",Storm,Tropical cyclone,Flood,"Slide (land, mud, sn",27,1300000,--,--,2016-0175
+267,19/07/2016,02/08/2016,Bangladesh,BGD,"Kurigram, Bogra, Sirajganj, Gaibandha, Tangail, Jamalpur, Nilphamari, Lalmonirhat, Sunamganj, Faridpur, Kustia,Madaripur, Manikganj, Rajbari, Rangpur, Sariatpur districts",Flood,Riverine flood,--,--,106,1900000,--,--,2016-0288
