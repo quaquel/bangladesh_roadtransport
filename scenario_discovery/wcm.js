@@ -55,7 +55,6 @@ processData(data)
 function processData(data) {
     // http://stackoverflow.com/questions/16265123/resize-svg-when-window-is-resized-in-d3-js
     // http://blog.webkid.io/responsive-chart-usability-d3/
-    console.log(data)
     const uncertainties = Object.keys(data[0].experiment);
     const outcomes = Object.keys(data[0].outcomes);
 
