@@ -20,9 +20,10 @@
 
     <sonar.scm.disabled>true</sonar.scm.disabled>
 
-    <ots.version>0.15.00-SNAPSHOT</ots.version>
-    <djunits.version>2.01.02</djunits.version>
-    <dsol.version>3.01.04</dsol.version>
+    <ots.version>0.15.00</ots.version>
+    <djunits.version>3.00.01</djunits.version>
+    <dsol.version>3.01.06</dsol.version>
+    <sim0mq.version>0.02.00</sim0mq.version>
     <junit.version>4.11</junit.version>
     <java3d.version>1.5.1</java3d.version>
     <geotools.version>12.0</geotools.version>
@@ -621,12 +622,12 @@
 
   <dependencies>
 
-  <dependency>
-     <groupId>com.opencsv</groupId>
-     <artifactId>opencsv</artifactId>
-     <version>3.9</version>
-  </dependency>
-  
+    <dependency>
+      <groupId>com.opencsv</groupId>
+      <artifactId>opencsv</artifactId>
+      <version>3.9</version>
+    </dependency>
+
     <dependency>
       <groupId>xml-apis</groupId>
       <artifactId>xml-apis</artifactId>
@@ -657,6 +658,12 @@
       <groupId>dsol</groupId>
       <artifactId>dsol-web</artifactId>
       <version>${dsol.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.sim0mq</groupId>
+      <artifactId>sim0mq</artifactId>
+      <version>${sim0mq.version}</version>
     </dependency>
 
     <dependency>
@@ -821,6 +828,12 @@
     </repository>
 
     <repository>
+      <name>sim0mq Public Repository</name>
+      <id>sim0mq</id>
+      <url>http://sim0mq.org/maven</url>
+    </repository>
+
+    <repository>
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
@@ -980,11 +993,5 @@
     </site>
   </distributionManagement>
 
-  <version>0.1</version>
-  <parent>
-    <version>0.15.00-SNAPSHOT</version>
-    <groupId>opentrafficsim</groupId>
-    <artifactId>ots</artifactId>
-    <relativePath>../ots/pom.xml</relativePath>
-  </parent>
+  <version>0.2</version>
 </project>
