@@ -10,6 +10,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.naming.NamingException;
@@ -19,7 +21,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.djunits.unit.DurationUnit;
-import org.djunits.unit.TimeUnit;
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.geotools.data.FileDataStore;
@@ -29,10 +30,12 @@ import org.geotools.data.simple.SimpleFeatureIterator;
 import org.geotools.data.simple.SimpleFeatureSource;
 import org.opengis.feature.Feature;
 import org.opengis.feature.Property;
+import org.opengis.feature.simple.SimpleFeature;
 import org.opentrafficsim.base.modelproperties.PropertyException;
 import org.opentrafficsim.core.dsol.OTSDEVSSimulatorInterface;
 import org.opentrafficsim.core.dsol.OTSModelInterface;
 import org.opentrafficsim.core.dsol.OTSSimTimeDouble;
+import org.opentrafficsim.core.dsol.OTSSimulatorInterface;
 import org.opentrafficsim.core.geometry.OTSGeometryException;
 import org.opentrafficsim.core.geometry.OTSLine3D;
 import org.opentrafficsim.core.geometry.OTSPoint3D;
@@ -50,10 +53,17 @@ import org.opentrafficsim.simulationengine.SimpleSimulatorInterface;
 import com.opencsv.CSVReader;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.MultiPolygon;
 
 import nl.tudelft.pa.wbtransport.bridge.BridgeBGD;
 import nl.tudelft.pa.wbtransport.bridge.animation.BridgeAnimation;
 import nl.tudelft.pa.wbtransport.bridge.animation.BridgeTextAnimation;
+import nl.tudelft.pa.wbtransport.district.District;
+import nl.tudelft.pa.wbtransport.district.DistrictReader;
+import nl.tudelft.pa.wbtransport.district.animation.DistrictTextAnimation;
+import nl.tudelft.pa.wbtransport.gis.BackgroundLayer;
+import nl.tudelft.pa.wbtransport.gis.GISLayer;
+import nl.tudelft.pa.wbtransport.gis.ShapeFileLayer;
 import nl.tudelft.pa.wbtransport.road.Gap;
 import nl.tudelft.pa.wbtransport.road.GapPoint;
 import nl.tudelft.pa.wbtransport.road.LRP;
@@ -76,7 +86,6 @@ import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.animation.D2.GisRenderable2D;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
-import nl.tudelft.simulation.language.io.URLResource;
 
 /**
  * <p>
@@ -87,13 +96,13 @@ import nl.tudelft.simulation.language.io.URLResource;
  * initial version Jan 5, 2017 <br>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class TestBmmsWwRmmsModelParser extends AbstractWrappableAnimation
+public class CentroidRoutes extends AbstractWrappableAnimation
 {
     /** */
     private static final long serialVersionUID = 1L;
 
     /** */
-    private GisWaterwayImport gisWaterwayImport;
+    private CentroidRoutesModel centroidRoutesModel;
 
     /**
      * Main program.
@@ -109,8 +118,8 @@ public class TestBmmsWwRmmsModelParser extends AbstractWrappableAnimation
             {
                 try
                 {
-                    TestBmmsWwRmmsModelParser waterwayModel = new TestBmmsWwRmmsModelParser();
-                    // 1 hour simulation run for testing 
+                    CentroidRoutes waterwayModel = new CentroidRoutes();
+                    // 1 hour simulation run for testing
                     waterwayModel.buildAnimator(Time.ZERO, Duration.ZERO, new Duration(60.0, DurationUnit.MINUTE),
                             new ArrayList<org.opentrafficsim.base.modelproperties.Property<?>>(), null, true);
                 }
@@ -154,8 +163,8 @@ public class TestBmmsWwRmmsModelParser extends AbstractWrappableAnimation
     @Override
     protected final OTSModelInterface makeModel(final GTUColorer colorer)
     {
-        this.gisWaterwayImport = new GisWaterwayImport();
-        return this.gisWaterwayImport;
+        this.centroidRoutesModel = new CentroidRoutesModel();
+        return this.centroidRoutesModel;
     }
 
     /** {@inheritDoc} */
@@ -169,6 +178,8 @@ public class TestBmmsWwRmmsModelParser extends AbstractWrappableAnimation
     @Override
     protected void addAnimationToggles()
     {
+        this.addToggleAnimationButtonText("Districts", District.class, "Show/hide Districts", true);
+        this.addToggleAnimationButtonText("DistrictId", DistrictTextAnimation.class, "Show/hide District Ids", false);
         this.addToggleAnimationButtonText("LRPs", LRP.class, "Show/hide LRPs", false);
         this.addToggleAnimationButtonText("LRPId", LRPTextAnimation.class, "Show/hide LRP Ids", false);
         this.addToggleAnimationButtonText("Waterways", Waterway.class, "Show/hide waterways", true);
@@ -179,24 +190,22 @@ public class TestBmmsWwRmmsModelParser extends AbstractWrappableAnimation
         this.addToggleAnimationButtonText("R-RoadId", RoadRTextAnimation.class, "Show/hide R-road Ids", false);
         this.addToggleAnimationButtonText("Z-Roads", RoadZ.class, "Show/hide Z-roads", true);
         this.addToggleAnimationButtonText("Z-RoadId", RoadZTextAnimation.class, "Show/hide Z-road Ids", false);
-        // this.addToggleAnimationButtonText("Loads", GTU.class, "Show/hide ships", true);
-        // this.addToggleAnimationButtonText("LoadId", DefaultCarAnimation.Text.class, "Show/hide ship Ids", false);
+        // this.addToggleAnimationButtonText("Loads", GTU.class, "Show/hide loads", true);
+        // this.addToggleAnimationButtonText("LoadId", DefaultCarAnimation.Text.class, "Show/hide load Ids", false);
         this.addToggleAnimationButtonText("Bridge", BridgeBGD.class, "Show/hide bridges", true);
         this.addToggleAnimationButtonText("BridgeId", BridgeTextAnimation.class, "Show/hide bridge Ids", false);
 
         this.panel.addToggleText(" ");
         this.panel.addToggleText(" GIS Layers");
-        this.panel.addToggleGISButtonText("roads", "Roads", this.gisWaterwayImport.getGisMap(),
-                "Turn GIS road map layer on or off");
-        this.panel.addToggleGISButtonText("buildings", "Buildings", this.gisWaterwayImport.getGisMap(),
-                "Turn GIS building map layer on or off");
-        this.panel.addToggleGISButtonText("railways", "Railways", this.gisWaterwayImport.getGisMap(),
-                "Turn GIS rail map layer on or off");
-        this.panel.addToggleGISButtonText("waterways", "Waterways", this.gisWaterwayImport.getGisMap(),
-                "Turn GIS waterway map layer on or off");
-        this.panel.addToggleGISButtonText("wfp-river", "Rivers", this.gisWaterwayImport.getGisMap(),
-                "Turn GIS waterway map layer of the WFP on or off");
-        this.panel.hideGISLayer("buildings");
+        this.panel.addToggleAnimationButtonText("Roads", RoadGISLayer.class, "Show/hide GIS road layer", true);
+        this.panel.addToggleAnimationButtonText("Railways", RailGISLayer.class, "Show/hide GIS rail layer", true);
+        this.panel.addToggleAnimationButtonText("Rivers", WaterGISLayer.class, "Show/hide GIS waterway layer", true);
+        this.panel.addToggleGISButtonText("WFP-water", "WFP-water", this.centroidRoutesModel.getWfpLayer().getGisRenderable2D(),
+                "Show/hide WFP waterway layer");
+
+        // this.panel.addToggleGISButtonText("buildings", "Buildings", this.gisWaterwayImport.getGisMap(),
+        // "Turn GIS building map layer on or off");
+        // this.panel.hideGISLayer("buildings");
     }
 
     /** {@inheritDoc} */
@@ -217,7 +226,7 @@ public class TestBmmsWwRmmsModelParser extends AbstractWrappableAnimation
      * initial version un 27, 2015 <br>
      * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
      */
-    protected static class GisWaterwayImport implements OTSModelInterface
+    protected static class CentroidRoutesModel implements OTSModelInterface
     {
         /** */
         private static final long serialVersionUID = 20141121L;
@@ -231,6 +240,18 @@ public class TestBmmsWwRmmsModelParser extends AbstractWrappableAnimation
         /** the GIS map. */
         protected GisRenderable2D gisMap;
 
+        /** the districts by code. */
+        private Map<String, District> districtCodeMap = new HashMap<>();
+
+        /** the districts by name. */
+        private Map<String, District> districtNameMap = new HashMap<>();
+
+        /** the districts by 2-letter code. */
+        private Map<String, District> districtCode2Map = new HashMap<>();
+
+        /** the wfp-river map. */
+        private ShapeFileLayer wfpLayer;
+
         /** {@inheritDoc} */
         @Override
         public final void constructModel(final SimulatorInterface<Time, Duration, OTSSimTimeDouble> pSimulator)
@@ -241,11 +262,18 @@ public class TestBmmsWwRmmsModelParser extends AbstractWrappableAnimation
 
             try
             {
+                readDistricts("/gis/gadm/BGD_adm2.shp");
+
                 getWaterways("infrastructure/water/WaterwaysSailable/", "waterways_53routes_routable_final_processed");
 
                 // readBridgesWorldBank("/infrastructure/Bridges.xlsx");
                 readBMMS("/infrastructure/BMMS_overview.xlsx");
-                if (new File("/infrastructure/_roads3.csv").canRead())
+
+                if (new File("/infrastructure/_roads4.csv").canRead())
+                {
+                    readRoadsCsv3("/infrastructure/_roads4.csv");
+                }
+                else if (new File("/infrastructure/_roads3.csv").canRead())
                 {
                     readRoadsCsv3("/infrastructure/_roads3.csv");
                 }
@@ -259,18 +287,38 @@ public class TestBmmsWwRmmsModelParser extends AbstractWrappableAnimation
                 }
                 else
                 {
-                    readRoadsCsv3("/infrastructure/_roads3.csv"); // try resource stream
+                    readRoadsCsv3("/infrastructure/_roads4.csv"); // try resource stream
                 }
+
+                // background
+                Color darkBlue = new Color(0, 0, 127);
+                new BackgroundLayer(this.simulator, -10.0, new Color(0, 0, 127));
+                new RoadGISLayer("/gis/osm/roads.shp", this.simulator, -0.5, Color.GRAY, 0f);
+                new RailGISLayer("/gis/osm/railways.shp", this.simulator, -0.5, Color.BLACK, 0f);
+                new WaterGISLayer("/gis/osm/waterways.shp", this.simulator, -0.5, Color.BLUE, 0.00005f);
+                this.wfpLayer =
+                        new ShapeFileLayer("WFP-water", "/gis/wfp/BGD_WFP3.shp", this.simulator, -0.5, darkBlue, darkBlue);
+
+                Color countryColor = new Color(220, 220, 220);
+                new GISLayer("/gis/gadm/BGD_adm2.shp", this.simulator, -1.0, countryColor, 0, countryColor);
+                new ShapeFileLayer("india", "/gis/osm-countries/india/INDIA.shp", this.simulator, -1.0, Color.DARK_GRAY,
+                        countryColor);
+                new GISLayer("/gis/osm-countries/china/adminareas.shp", this.simulator, -1.0, Color.DARK_GRAY, 0, countryColor);
+                new GISLayer("/gis/osm-countries/nepal/NPL_adm1.shp", this.simulator, -1.0, Color.DARK_GRAY, 0, countryColor);
+                new GISLayer("/gis/osm-countries/srilanka/adminareas_lvl02.shp", this.simulator, -1.0, Color.DARK_GRAY, 0,
+                        countryColor);
+                new GISLayer("/gis/osm-countries/bhutan/BTN_adm1.shp", this.simulator, -1.0, Color.DARK_GRAY, 0, countryColor);
+                new GISLayer("/gis/osm-countries/myanmar/mmr_polbnda_adm2_250k_mimu.shp", this.simulator, -1.0, Color.DARK_GRAY,
+                        0, countryColor);
             }
             catch (Exception nwe)
             {
                 nwe.printStackTrace();
             }
 
-            // background
-            URL gisURL = URLResource.getResource("/gis/map.xml");
-            System.out.println("GIS-map file: " + gisURL.toString());
-            this.gisMap = new GisRenderable2D(this.simulator, gisURL);
+            // URL gisURL = URLResource.getResource("/gis/map.xml");
+            // System.out.println("GIS-map file: " + gisURL.toString());
+            // this.gisMap = new WBGisRenderable2D(this.simulator, gisURL);
         }
 
         /**
@@ -329,7 +377,7 @@ public class TestBmmsWwRmmsModelParser extends AbstractWrappableAnimation
         {
             try
             {
-                URL url = TestBmmsWwRmmsModelParser.class.getResource("/");
+                URL url = CentroidRoutes.class.getResource("/");
                 File file = new File(url.getFile() + initialDir);
                 String fn = file.getCanonicalPath();
                 fn = fn.replace('\\', '/');
@@ -491,7 +539,7 @@ public class TestBmmsWwRmmsModelParser extends AbstractWrappableAnimation
             if (new File(filename).canRead())
                 fis = new FileInputStream(filename);
             else
-                fis = new FileInputStream(TestBmmsWwRmmsModelParser.class.getResource(filename).getFile());
+                fis = new FileInputStream(CentroidRoutes.class.getResource(filename).getFile());
             XSSFWorkbook wbNuts = new XSSFWorkbook(fis);
 
             XSSFSheet sheet1 = wbNuts.getSheet("Bridge types and attributes");
@@ -563,7 +611,7 @@ public class TestBmmsWwRmmsModelParser extends AbstractWrappableAnimation
             if (new File(filename).canRead())
                 fis = new FileInputStream(filename);
             else
-                fis = new FileInputStream(TestBmmsWwRmmsModelParser.class.getResource(filename).getFile());
+                fis = new FileInputStream(CentroidRoutes.class.getResource(filename).getFile());
             XSSFWorkbook wbNuts = new XSSFWorkbook(fis);
 
             XSSFSheet sheet1 = wbNuts.getSheet("BMMS_overview");
@@ -627,6 +675,57 @@ public class TestBmmsWwRmmsModelParser extends AbstractWrappableAnimation
         }
 
         /**
+         * Read the Districts
+         * @param filename filename
+         * @throws Exception on I/O error
+         */
+        private void readDistricts(final String filename) throws Exception
+        {
+            URL url;
+            if (new File(filename).canRead())
+                url = new File(filename).toURI().toURL();
+            else
+                url = DistrictReader.class.getResource(filename);
+            FileDataStore storeNuts3 = FileDataStoreFinder.getDataStore(url);
+
+            // CoordinateReferenceSystem worldCRS = CRS.decode("EPSG:4326");
+
+            // iterate over the features
+            SimpleFeatureSource featureSourceAdm2 = storeNuts3.getFeatureSource();
+            SimpleFeatureCollection featureCollectionAdm2 = featureSourceAdm2.getFeatures();
+            SimpleFeatureIterator iterator = featureCollectionAdm2.features();
+            try
+            {
+                while (iterator.hasNext())
+                {
+                    SimpleFeature feature = iterator.next();
+                    MultiPolygon polygon = (MultiPolygon) feature.getAttribute("the_geom");
+                    String code = feature.getAttribute("ID_2").toString();
+                    String name = feature.getAttribute("NAME_2").toString();
+                    String code2 = feature.getAttribute("HASC_2").toString().substring(6, 8);
+                    District district = new District(this.simulator, code, name, code2, polygon);
+                    this.districtCodeMap.put(code, district);
+                    this.districtNameMap.put(name, district);
+                    this.districtCode2Map.put(code2, district);
+                    System.out.println(code + "," + name + ", " + code2);
+
+                    if (code2.equals("DH"))
+                    {
+                        district.setFlooded(true);
+                    }
+                }
+            }
+            catch (Exception problem)
+            {
+                problem.printStackTrace();
+            }
+            finally
+            {
+                iterator.close();
+            }
+        }
+
+        /**
          * Read the roads with LRP coordinates
          * @param filename filename
          * @throws Exception on I/O error
@@ -637,7 +736,7 @@ public class TestBmmsWwRmmsModelParser extends AbstractWrappableAnimation
             if (new File(filename).canRead())
                 fis = new FileInputStream(filename);
             else
-                fis = new FileInputStream(TestBmmsWwRmmsModelParser.class.getResource(filename).getFile());
+                fis = new FileInputStream(CentroidRoutes.class.getResource(filename).getFile());
             String line = "";
             try (BufferedReader buf = new BufferedReader(new InputStreamReader(fis)))
             {
@@ -710,7 +809,7 @@ public class TestBmmsWwRmmsModelParser extends AbstractWrappableAnimation
             if (new File(filename).canRead())
                 fis = new FileInputStream(filename);
             else
-                fis = new FileInputStream(TestBmmsWwRmmsModelParser.class.getResource(filename).getFile());
+                fis = new FileInputStream(CentroidRoutes.class.getResource(filename).getFile());
             try (CSVReader reader = new CSVReader(new InputStreamReader(fis), ',', '"', 1))
             {
                 String[] parts;
@@ -785,7 +884,7 @@ public class TestBmmsWwRmmsModelParser extends AbstractWrappableAnimation
             if (new File(filename).canRead())
                 fis = new FileInputStream(filename);
             else
-                fis = new FileInputStream(TestBmmsWwRmmsModelParser.class.getResource(filename).getFile());
+                fis = new FileInputStream(CentroidRoutes.class.getResource(filename).getFile());
             try (CSVReader reader = new CSVReader(new InputStreamReader(fis), ',', '"', 1))
             {
                 String[] parts;
@@ -916,6 +1015,47 @@ public class TestBmmsWwRmmsModelParser extends AbstractWrappableAnimation
             return "GisWaterwayImport [simulator=" + this.simulator + "]";
         }
 
+        /**
+         * @return wfpLayer
+         */
+        public final ShapeFileLayer getWfpLayer()
+        {
+            return this.wfpLayer;
+        }
+
+    }
+
+    /** */
+    static class RoadGISLayer extends GISLayer
+    {
+        @SuppressWarnings("javadoc")
+        public RoadGISLayer(String filename, OTSSimulatorInterface simulator, double z, Color outlineColor, float lineWidth)
+                throws IOException
+        {
+            super(filename, simulator, z, outlineColor, lineWidth);
+        }
+    }
+
+    /** */
+    static class RailGISLayer extends GISLayer
+    {
+        @SuppressWarnings("javadoc")
+        public RailGISLayer(String filename, OTSSimulatorInterface simulator, double z, Color outlineColor, float lineWidth)
+                throws IOException
+        {
+            super(filename, simulator, z, outlineColor, lineWidth);
+        }
+    }
+
+    /** */
+    static class WaterGISLayer extends GISLayer
+    {
+        @SuppressWarnings("javadoc")
+        public WaterGISLayer(String filename, OTSSimulatorInterface simulator, double z, Color outlineColor, float lineWidth)
+                throws IOException
+        {
+            super(filename, simulator, z, outlineColor, lineWidth);
+        }
     }
 
 }

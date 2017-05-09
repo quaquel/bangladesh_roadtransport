@@ -36,6 +36,8 @@ import org.opentrafficsim.simulationengine.OTSSimulationException;
 import org.opentrafficsim.simulationengine.SimpleSimulatorInterface;
 import org.opentrafficsim.water.network.Waterway;
 
+import nl.tudelft.pa.wbtransport.bridge.BridgeBGD;
+import nl.tudelft.pa.wbtransport.bridge.animation.BridgeTextAnimation;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.animation.D2.GisRenderable2D;
 import nl.tudelft.simulation.dsol.gui.swing.HTMLPanel;
@@ -46,8 +48,8 @@ import nl.tudelft.simulation.language.io.URLResource;
 /**
  * First Java model for sailing barges in Bangladesh.
  * <p>
- * Copyright (c) 2013-2016 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
- * BSD-style license. See <a href="http://opentrafficsim.org/docs/license.html">OpenTrafficSim License</a>.
+ * Copyright (c) 2013-2017 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
+ * BSD-style license. See <a href="https://opensource.org/licenses/BSD-3-Clause">BSD 3-Clause License</a>.
  * <p>
  * $LastChangedDate: 2016-12-13 02:02:22 +0100 (Tue, 13 Dec 2016) $, @version $Revision: 2930 $, by $Author: wjschakel $,
  * initial version 12 nov. 2014 <br>
@@ -63,7 +65,7 @@ public class BangladeshBargeApplication extends AbstractWrappableAnimation imple
 
     /**
      * Create a ContourPlots simulation.
-     * @throws PropertyException when the provided properties could not be handled 
+     * @throws PropertyException when the provided properties could not be handled
      */
     public BangladeshBargeApplication() throws PropertyException
     {
@@ -95,9 +97,9 @@ public class BangladeshBargeApplication extends AbstractWrappableAnimation imple
                 {
                     BangladeshBargeApplication bangladeshBargeApplication = new BangladeshBargeApplication();
                     List<Property<?>> localProperties = bangladeshBargeApplication.getProperties();
-                    
-                    bangladeshBargeApplication.buildAnimator(Time.ZERO, Duration.ZERO, new Duration(30, DAY),
-                            localProperties, null, true);
+
+                    bangladeshBargeApplication.buildAnimator(Time.ZERO, Duration.ZERO, new Duration(30, DAY), localProperties,
+                            null, true);
                     bangladeshBargeApplication.panel.getTabbedPane().addTab("info", bangladeshBargeApplication.makeInfoPane());
                 }
                 catch (SimRuntimeException | NamingException | OTSSimulationException | PropertyException exception)
@@ -196,8 +198,8 @@ public class BangladeshBargeApplication extends AbstractWrappableAnimation imple
 /**
  * Barge model for Bangladesh.
  * <p>
- * Copyright (c) 2013-2016 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
- * BSD-style license. See <a href="http://opentrafficsim.org/docs/license.html">OpenTrafficSim License</a>.
+ * Copyright (c) 2013-2017 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
+ * BSD-style license. See <a href="https://opensource.org/licenses/BSD-3-Clause">BSD 3-Clause License</a>.
  * <p>
  * $LastChangedDate: 2016-12-13 02:02:22 +0100 (Tue, 13 Dec 2016) $, @version $Revision: 2930 $, by $Author: wjschakel $,
  * initial version ug 1, 2014 <br>
@@ -230,6 +232,7 @@ class BangladeshBargeModel implements OTSModelInterface, UNITS
     {
         this.properties = properties;
     }
+
     /** {@inheritDoc} */
     @Override
     public final void constructModel(final SimulatorInterface<Time, Duration, OTSSimTimeDouble> theSimulator)
@@ -241,9 +244,10 @@ class BangladeshBargeModel implements OTSModelInterface, UNITS
             // create the model
             URL wwtURL = URLResource.getResource("/infrastructure/water/WaterwayTypes.xlsx");
             WaterwayTypeReader.read(wwtURL);
-            URL routeURL = URLResource.getResource("/infrastructure/water/WaterwaysSailable/waterways_53routes_routable_v02.shp");
+            URL routeURL =
+                    URLResource.getResource("/infrastructure/water/WaterwaysSailable/waterways_53routes_routable_v02.shp");
             RouteReader.read(routeURL);
-            
+
             // background
             URL gisURL = URLResource.getResource("/gis/map.xml");
             System.out.println("GIS-map file: " + gisURL.toString());
