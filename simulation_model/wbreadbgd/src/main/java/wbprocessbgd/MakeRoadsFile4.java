@@ -22,8 +22,11 @@ import java.util.List;
  * initial version Jan 29, 2017 <br>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class MakeRoadsFile3
+public class MakeRoadsFile4
 {
+    /** Padma bridge or ferry? */
+    private static boolean padmaBridge = false;
+
     /**
      * Read the data from road files.
      * @param args arguments
@@ -40,6 +43,10 @@ public class MakeRoadsFile3
      */
     private static void readData() throws IOException
     {
+        if (new File("E:/RMMS/_roads4.csv").exists())
+        {
+            new File("E:/RMMS/_roads4.csv").delete();
+        }
         // loop through the data files in resources
         File[] files = new File("E:/RMMS").listFiles();
         for (File file : files)
@@ -59,17 +66,17 @@ public class MakeRoadsFile3
     private static void process(final File file) throws IOException
     {
         new File("E:/RMMS").mkdirs();
-        if (!new File("E:/RMMS/_roads3.csv").exists())
+        if (!new File("E:/RMMS/_roads4.csv").exists())
         {
             try (PrintWriter overview = new PrintWriter(new OutputStreamWriter(
-                    new BufferedOutputStream(new FileOutputStream(new File("E:/RMMS/_roads3.csv"), false)), "UTF-8")))
+                    new BufferedOutputStream(new FileOutputStream(new File("E:/RMMS/_roads4.csv"), false)), "UTF-8")))
             {
                 overview.println("\"road\",\"chainage\",\"lrp\",\"lat\",\"lon\",\"gap\",\"type\",\"name\"");
             }
         }
 
         try (PrintWriter overview = new PrintWriter(new OutputStreamWriter(
-                new BufferedOutputStream(new FileOutputStream(new File("E:/RMMS/_roads3.csv"), true)), "UTF-8")))
+                new BufferedOutputStream(new FileOutputStream(new File("E:/RMMS/_roads4.csv"), true)), "UTF-8")))
         {
             String roadName = file.getName().split("\\.")[0];
             System.out.println(roadName);
@@ -312,92 +319,194 @@ public class MakeRoadsFile3
             }
 
             // get the bridges and the ferries
-            ii = 0;
-            while (ii < rrList.size() - 1)
+            int[] iiarr = { 0 };
+            while (iiarr[0] < rrList.size() - 1)
             {
-                RoadRecord rr1 = rrList.get(ii);
-                RoadRecord rr2 = rrList.get(ii + 1);
-                String n1 = rr1.name.toLowerCase();
-                String n2 = rr2.name.toLowerCase();
-                String t1 = rr1.type.toLowerCase();
-                String t2 = rr2.type.toLowerCase();
-                if ((n1.contains("river start") && n2.contains("river end"))
-                        || (n2.contains("river start") && n1.contains("river end")))
+                /************************* FERRIES ***************************/
+
+                EvaluateLRPs checkFerries = new EvaluateLRPs()
                 {
-                    rr1.bf = "GS";
-                    rr2.bf = "GE";
-                    ii += 2;
-                    continue;
-                }
-                if ((n1.contains("road start") && n2.contains("road end"))
-                        || (n2.contains("road start") && n1.contains("road end")))
-                {
-                    rr1.bf = "GS";
-                    rr2.bf = "GE";
-                    ii += 2;
-                    continue;
-                }
-                if ((n1.contains("road stops") && (n2.contains("road starts") || n2.contains("road restarts")))
-                        || (n2.contains("road stops") && n1.contains("road starts") || n1.contains("road restarts")))
-                {
-                    rr1.bf = "GS";
-                    rr2.bf = "GE";
-                    ii += 2;
-                    continue;
-                }
-                if ((n1.contains("discontinu") && n2.contains("start")) || (n2.contains("start") && n1.contains("discontinu")))
-                {
-                    rr1.bf = "GS";
-                    rr2.bf = "GE";
-                    ii += 2;
-                    continue;
-                }
-                if (n1.contains("road discontinued"))
-                {
-                    rr1.bf = "GS";
-                    rr2.bf = "GE";
-                    ii += 2;
-                    continue;
-                }
-                if ((n1.contains("ferry") && n2.contains("ferry")) || (n1.contains("ghat") && n2.contains("ghat")))
-                {
-                    if ((t1.contains("other") && t2.contains("other")) || (t1.contains("ferry") && t2.contains("ferry")))
+                    @Override
+                    boolean eval(RoadRecord rr1, RoadRecord rr2)
                     {
-                        rr1.bf = "FS";
-                        rr2.bf = "FE";
-                        ii += 2;
-                        continue;
+                        if ((rr1.name.toLowerCase().contains("ferry") && rr2.name.toLowerCase().contains("ferry"))
+                                || (rr1.name.toLowerCase().contains("ghat") && rr2.name.toLowerCase().contains("ghat")))
+                        {
+                            if ((rr1.type.toLowerCase().contains("other") && rr2.type.toLowerCase().contains("other"))
+                                    || (rr1.type.toLowerCase().contains("ferry") && rr2.type.toLowerCase().contains("ferry")))
+                            {
+                                return true;
+                            }
+                            return false;
+                        }
+                        return false;
                     }
-                }
-                if (t1.contains("ferry") && t2.contains("ferry"))
+                };
+                if (checkFerries.checkConditions(rrList, iiarr, "FS", "FE"))
                 {
-                    rr1.bf = "FS";
-                    rr2.bf = "FE";
-                    ii += 2;
                     continue;
                 }
-                if ((n1.contains("bridge") && n1.contains("start") && n2.contains("bridge") && n2.contains("end")))
+
+                EvaluateLRPs checkFerries2 = new EvaluateLRPs()
                 {
-                    rr1.bf = "BS";
-                    rr2.bf = "BE";
-                    ii += 2;
+                    @Override
+                    boolean eval(RoadRecord rr1, RoadRecord rr2)
+                    {
+                        return (rr1.type.toLowerCase().contains("ferry") && rr2.type.toLowerCase().contains("ferry"));
+                    }
+                };
+                if (checkFerries2.checkConditions(rrList, iiarr, "FS", "FE"))
+                {
                     continue;
                 }
-                if ((n1.contains("brije") && n1.contains("start") && n2.contains("brije") && n2.contains("end")))
+
+                EvaluateLRPs checkGhat = new EvaluateLRPs()
                 {
-                    rr1.bf = "BS";
-                    rr2.bf = "BE";
-                    ii += 2;
+                    @Override
+                    boolean eval(RoadRecord rr1, RoadRecord rr2)
+                    {
+                        return (rr1.type.toLowerCase().contains("ghat") && rr2.type.toLowerCase().contains("ghat"));
+                    }
+                };
+                if (checkGhat.checkConditions(rrList, iiarr, "FS", "FE"))
+                {
                     continue;
                 }
-                if (t1.contains("bridge") && t2.contains("bridge"))
+
+                /**************************** BRIDGES ******************************/
+
+                EvaluateLRPs checkBridges1 = new EvaluateLRPs()
                 {
-                    rr1.bf = "BS";
-                    rr2.bf = "BE";
-                    ii += 2;
+                    @Override
+                    boolean eval(RoadRecord rr1, RoadRecord rr2)
+                    {
+                        return (rr1.name.toLowerCase().contains("bridge") && rr1.name.toLowerCase().contains("start")
+                                && rr2.name.toLowerCase().contains("bridge") && rr2.name.toLowerCase().contains("end"));
+                    }
+                };
+                if (checkBridges1.checkConditions(rrList, iiarr, "BS", "BE"))
+                {
                     continue;
                 }
-                ii++;
+
+                EvaluateLRPs checkBridges2 = new EvaluateLRPs()
+                {
+                    @Override
+                    boolean eval(RoadRecord rr1, RoadRecord rr2)
+                    {
+                        return (rr1.name.toLowerCase().contains("brije") && rr1.name.toLowerCase().contains("start")
+                                && rr2.name.toLowerCase().contains("brije") && rr2.name.toLowerCase().contains("end"));
+                    }
+                };
+                if (checkBridges2.checkConditions(rrList, iiarr, "BS", "BE"))
+                {
+                    continue;
+                }
+
+                EvaluateLRPs checkBridges3 = new EvaluateLRPs()
+                {
+                    @Override
+                    boolean eval(RoadRecord rr1, RoadRecord rr2)
+                    {
+                        return (rr1.type.toLowerCase().contains("bridge") && rr2.type.toLowerCase().contains("bridge"));
+                    }
+                };
+                if (checkBridges3.checkConditions(rrList, iiarr, "BS", "BE"))
+                {
+                    continue;
+                }
+
+                /**************************** The new PADMA bridge or ferry *****************************/
+
+                if (roadName.equals("N8") && rrList.get(iiarr[0]).lrp.contains("034a")
+                        && rrList.get(iiarr[0] + 1).lrp.contains("044a"))
+                {
+                    if (padmaBridge)
+                    {
+                        rrList.get(iiarr[0]).bf = "BS";
+                        rrList.get(iiarr[0] + 1).bf = "BE";
+                    }
+                    else
+                    {
+                        rrList.get(iiarr[0]).bf = "FS";
+                        rrList.get(iiarr[0] + 1).bf = "FE";
+                    }
+                    iiarr[0] += 2;
+                    continue;
+                }
+
+                /*********************************** GAPS AS LAST ***************************************/
+
+                EvaluateLRPs checkRiverGap = new EvaluateLRPs()
+                {
+                    @Override
+                    boolean eval(RoadRecord rr1, RoadRecord rr2)
+                    {
+                        return (rr1.name.toLowerCase().contains("river start") && rr2.name.toLowerCase().contains("river end"))
+                                || (rr2.name.toLowerCase().contains("river start")
+                                        && rr1.name.toLowerCase().contains("river end"));
+                    }
+                };
+                if (checkRiverGap.checkConditions(rrList, iiarr, "GS", "GE"))
+                {
+                    continue;
+                }
+
+                EvaluateLRPs checkRoadGap = new EvaluateLRPs()
+                {
+                    @Override
+                    boolean eval(RoadRecord rr1, RoadRecord rr2)
+                    {
+                        return (rr1.name.toLowerCase().contains("road start") && rr2.name.toLowerCase().contains("road end"))
+                                || (rr2.name.toLowerCase().contains("road start")
+                                        && rr1.name.toLowerCase().contains("road end"));
+                    }
+                };
+                if (checkRoadGap.checkConditions(rrList, iiarr, "GS", "GE"))
+                {
+                    continue;
+                }
+
+                EvaluateLRPs checkRoadStartStopGap = new EvaluateLRPs()
+                {
+                    @Override
+                    boolean eval(RoadRecord rr1, RoadRecord rr2)
+                    {
+                        return (rr1.name.toLowerCase().contains("road stops") && (rr2.name.toLowerCase().contains("road starts")
+                                || rr2.name.toLowerCase().contains("road restarts")))
+                                || (rr2.name.toLowerCase().contains("road stops")
+                                        && rr1.name.toLowerCase().contains("road starts")
+                                        || rr1.name.toLowerCase().contains("road restarts"));
+                    }
+                };
+                if (checkRoadStartStopGap.checkConditions(rrList, iiarr, "GS", "GE"))
+                {
+                    continue;
+                }
+
+                EvaluateLRPs checkRoadDiscontinuesGap = new EvaluateLRPs()
+                {
+                    @Override
+                    boolean eval(RoadRecord rr1, RoadRecord rr2)
+                    {
+                        return (rr1.name.toLowerCase().contains("discontinu") && rr2.name.toLowerCase().contains("start"))
+                                || (rr2.name.toLowerCase().contains("start") && rr1.name.toLowerCase().contains("discontinu"));
+                    }
+                };
+                if (checkRoadDiscontinuesGap.checkConditions(rrList, iiarr, "GS", "GE"))
+                {
+                    continue;
+                }
+
+                if (rrList.get(iiarr[0]).name.toLowerCase().contains("road discontinued"))
+                {
+                    rrList.get(iiarr[0]).bf = "GS";
+                    rrList.get(iiarr[0] + 1).bf = "GE";
+                    iiarr[0] += 2;
+                    continue;
+                }
+
+                iiarr[0]++;
             }
 
             // write if still proper road...
@@ -452,4 +561,54 @@ public class MakeRoadsFile3
         return 12742.0 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
     }
 
+    /** Evaluate conditions on two LRPs. */
+    abstract static class EvaluateLRPs
+    {
+        /**
+         * Evaluate bridge / ferry / gap
+         * @param rr1 road record 1
+         * @param rr2 road record 2
+         * @return true/false based on the evaluation function
+         */
+        abstract boolean eval(RoadRecord rr1, RoadRecord rr2);
+
+        /**
+         * Apply the evaluation on the road records and delete intermediate LRPs if necessary.
+         * @param rrList list of road records
+         * @param iiarr int[] containing the pointer to the first road record
+         * @param startString GS/BS/FS to indicate gap/bridge/ferry
+         * @param endString GE/BE/FE to indicate gap/bridge/ferry
+         * @return true when gap/ferry/bridge found
+         */
+        boolean checkConditions(List<RoadRecord> rrList, int[] iiarr, String startString, String endString)
+        {
+
+            if (eval(rrList.get(iiarr[0]), rrList.get(iiarr[0] + 1)))
+            {
+                rrList.get(iiarr[0]).bf = startString;
+                rrList.get(iiarr[0] + 1).bf = endString;
+                iiarr[0] += 2;
+                return true;
+            }
+            if (iiarr[0] < rrList.size() - 2 && eval(rrList.get(iiarr[0]), rrList.get(iiarr[0] + 2)))
+            {
+                rrList.get(iiarr[0]).bf = startString;
+                rrList.get(iiarr[0] + 2).bf = endString;
+                rrList.remove(iiarr[0] + 1);
+                iiarr[0] += 2;
+                return true;
+            }
+            if (iiarr[0] < rrList.size() - 3 && eval(rrList.get(iiarr[0]), rrList.get(iiarr[0] + 3)))
+            {
+                rrList.get(iiarr[0]).bf = startString;
+                rrList.get(iiarr[0] + 3).bf = endString;
+                rrList.remove(iiarr[0] + 1);
+                rrList.remove(iiarr[0] + 1);
+                iiarr[0] += 2;
+                return true;
+            }
+            return false;
+        }
+
+    }
 }
