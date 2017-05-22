@@ -1,33 +1,11 @@
 package nl.tudelft.pa.wbtransport.util;
 
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.net.URL;
-import java.rmi.RemoteException;
-
-import javax.media.j3d.Bounds;
-import javax.naming.Context;
-import javax.naming.NamingException;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import nl.javel.gisbeans.io.esri.CoordinateTransform;
-import nl.javel.gisbeans.map.MapInterface;
-import nl.javel.gisbeans.map.mapfile.MapFileXMLParser;
-import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.GisRenderable2D;
-import nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface;
-import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.language.d3.BoundingBox;
-import nl.tudelft.simulation.language.d3.CartesianPoint;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
-import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
  * This renderable draws CAD/GIS objects.
