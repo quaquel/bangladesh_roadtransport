@@ -19,6 +19,7 @@ import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.MultiPolygon;
 
 import nl.tudelft.pa.wbtransport.district.animation.DistrictAnimation;
+import nl.tudelft.pa.wbtransport.road.LRP;
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.language.d3.BoundingBox;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
@@ -32,7 +33,7 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
  * initial version May 4, 2017 <br>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class District implements Locatable
+public class District implements Locatable, Comparable<District>
 {
     /** geography. */
     private final MultiPolygon polygon;
@@ -51,6 +52,9 @@ public class District implements Locatable
 
     /** centroid. */
     private final OTSPoint3D centroid;
+    
+    /** centroidLRP. */
+    private LRP centroidLRP;
 
     /** the simulator. */
     private final OTSDEVSSimulatorInterface simulator;
@@ -204,6 +208,29 @@ public class District implements Locatable
     public void setFlooded(boolean flooded)
     {
         this.flooded = flooded;
+    }
+
+    /**
+     * @return centroidLRP
+     */
+    public LRP getCentroidLRP()
+    {
+        return this.centroidLRP;
+    }
+
+    /**
+     * @param centroidLRP set centroidLRP
+     */
+    public void setCentroidLRP(LRP centroidLRP)
+    {
+        this.centroidLRP = centroidLRP;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public int compareTo(final District d)
+    {
+        return this.getCode2().compareTo(d.getCode2());
     }
 
 }
