@@ -39,7 +39,6 @@ import org.opentrafficsim.core.network.LinkType;
 import org.opentrafficsim.core.network.LongitudinalDirectionality;
 import org.opentrafficsim.core.network.NetworkException;
 import org.opentrafficsim.core.network.Node;
-import org.opentrafficsim.core.network.OTSLink;
 import org.opentrafficsim.core.network.OTSNetwork;
 import org.opentrafficsim.core.network.OTSNode;
 import org.opentrafficsim.core.network.animation.LinkAnimation;
@@ -53,6 +52,7 @@ import org.opentrafficsim.water.network.Waterway;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Geometry;
 
+import nl.tudelft.pa.wbtransport.ComparableLink;
 import nl.tudelft.pa.wbtransport.bridge.BridgeBGD;
 import nl.tudelft.pa.wbtransport.bridge.animation.BridgeAnimation;
 import nl.tudelft.pa.wbtransport.bridge.animation.BridgeTextAnimation;
@@ -156,7 +156,7 @@ public class TestWaterwayModelParser extends AbstractWrappableAnimation
     {
         this.addToggleAnimationButtonText("Node", OTSNode.class, "Show/hide nodes", false);
         this.addToggleAnimationButtonText("NodeId", NodeAnimation.Text.class, "Show/hide node Ids", false);
-        this.addToggleAnimationButtonText("Link", OTSLink.class, "Show/hide links", false);
+        this.addToggleAnimationButtonText("Link", ComparableLink.class, "Show/hide links", false);
         this.addToggleAnimationButtonText("LinkId", LinkAnimation.Text.class, "Show/hide link Ids", false);
         this.addToggleAnimationButtonText("GTU", GTU.class, "Show/hide ships", true);
         this.addToggleAnimationButtonText("GTUId", DefaultCarAnimation.Text.class, "Show/hide ship Ids", false);
