@@ -1,5 +1,8 @@
 package nl.tudelft.pa.wbtransport.road;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.media.j3d.Bounds;
 import javax.vecmath.Point3d;
 
@@ -10,6 +13,8 @@ import org.opentrafficsim.core.network.Network;
 import org.opentrafficsim.core.network.NetworkException;
 import org.opentrafficsim.core.network.OTSNode;
 
+import nl.tudelft.pa.wbtransport.district.District;
+import nl.tudelft.simulation.language.Throw;
 import nl.tudelft.simulation.language.d3.BoundingBox;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
 
@@ -36,8 +41,14 @@ public class LRP extends OTSNode
     /** the name. */
     private final String name;
 
+    /** the road name. */
+    private final Set<Road> roads = new HashSet<>();
+
     /** bridge start, bridge end, road start, road end, gap start, gap end. */
     private final GapPoint gapPoint;
+    
+    /** district the LRP belongs to. */
+    private final District district;
 
     /**
      * Construction of a Node.
@@ -46,20 +57,32 @@ public class LRP extends OTSNode
      * @param point the point with usually an x and y setting.
      * @param direction the 3D direction. "East" is 0 degrees. "North" is 90 degrees (1/2 pi radians).
      * @param slope the slope as an angle. Horizontal is 0 degrees.
+     * @param road the (initial) road
      * @param chainage chainage
      * @param type type
      * @param name name
-     * @param gapPoint gap
+     * @param gapPoint bridge start, bridge end, road start, road end, gap start, gap end
+     * @param district district the LRP belongs to
      * @throws NetworkException if node already exists in the network, or if name of the node is not unique.
      */
-    public LRP(Network network, String id, OTSPoint3D point, Direction direction, Angle slope, final double chainage,
-            final String type, final String name, final GapPoint gapPoint) throws NetworkException
+    public LRP(Network network, String id, OTSPoint3D point, Direction direction, Angle slope, final Road road, final double chainage,
+            final String type, final String name, final GapPoint gapPoint, final District district) throws NetworkException
     {
         super(network, id, point, direction, slope);
+        Throw.whenNull(type, "type cannot be null");
+        Throw.whenNull(name, "name cannot be null");
+        Throw.whenNull(gapPoint, "gapPoint cannot be null");
+        Throw.whenNull(district, "district cannot be null");
+        
         this.chainage = chainage;
         this.type = type;
         this.name = name;
         this.gapPoint = gapPoint;
+        this.district = district;
+        if (road != null)
+        {
+            this.roads.add(road);
+        }
     }
 
     /**
@@ -67,46 +90,18 @@ public class LRP extends OTSNode
      * @param network the network.
      * @param id the id of the Node.
      * @param point the point with usually an x and y setting.
-     * @param direction the 3D direction. "East" is 0 degrees. "North" is 90 degrees (1/2 pi radians).
-     * @param slope the slope as an angle. Horizontal is 0 degrees.
-     * @throws NetworkException if node already exists in the network, or if name of the node is not unique.
-     */
-    public LRP(Network network, String id, OTSPoint3D point, Direction direction, Angle slope) throws NetworkException
-    {
-        this(network, id, point, direction, slope, Double.NaN, "", "", GapPoint.ROAD);
-    }
-
-    /**
-     * Construction of a Node.
-     * @param network the network.
-     * @param id the id of the Node.
-     * @param point the point with usually an x and y setting.
+     * @param road the (initial) road
      * @param chainage chainage
      * @param type type
      * @param name name
      * @param gapPoint gap
+     * @param district district the LRP belongs to
      * @throws NetworkException if node already exists in the network, or if name of the node is not unique.
      */
-    public LRP(Network network, String id, OTSPoint3D point, final double chainage, final String type, final String name,
-            final GapPoint gapPoint) throws NetworkException
+    public LRP(Network network, String id, OTSPoint3D point, final Road road, final double chainage, final String type, final String name,
+            final GapPoint gapPoint, final District district) throws NetworkException
     {
-        super(network, id, point);
-        this.chainage = chainage;
-        this.type = type;
-        this.name = name;
-        this.gapPoint = gapPoint;
-    }
-
-    /**
-     * Construction of a Node.
-     * @param network the network.
-     * @param id the id of the Node.
-     * @param point the point with usually an x and y setting.
-     * @throws NetworkException if node already exists in the network, or if name of the node is not unique.
-     */
-    public LRP(Network network, String id, OTSPoint3D point) throws NetworkException
-    {
-        this(network, id, point, Double.NaN, "", "", GapPoint.ROAD);
+        this(network, id, point, Direction.ZERO, Angle.ZERO, road, chainage, type, name, gapPoint, district);
     }
 
     /**
@@ -139,6 +134,30 @@ public class LRP extends OTSNode
     public final GapPoint getGapPoint()
     {
         return this.gapPoint;
+    }
+
+    /**
+     * @return district
+     */
+    public final District getDistrict()
+    {
+        return this.district;
+    }
+
+    /**
+     * @param road the road to add (connect) to this LRP
+     */
+    public final void addRoad(final Road road)
+    {
+        this.roads.add(road);
+    }
+    
+    /**
+     * @return road
+     */
+    public final Set<Road> getRoads()
+    {
+        return this.roads;
     }
 
     /** {@inheritDoc} */

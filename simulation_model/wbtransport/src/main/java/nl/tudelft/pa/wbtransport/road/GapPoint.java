@@ -88,4 +88,73 @@ public enum GapPoint
         return this.equals(ROAD);
     }
 
+    /**
+     * @return the 2-letter code for the gap type
+     */
+    public String getCode2()
+    {
+        String gap;
+        switch (this)
+        {
+            case BRIDGE_START:
+                gap = "BS";
+                break;
+
+            case BRIDGE_END:
+                gap = "BE";
+                break;
+
+            case FERRY_START:
+                gap = "FS";
+                break;
+
+            case FERRY_END:
+                gap = "FS";
+                break;
+
+            case GAP_START:
+                gap = "GS";
+                break;
+
+            case GAP_END:
+                gap = "GE";
+                break;
+
+            default:
+                gap = "";
+                break;
+        }
+        return gap;
+    }
+    
+    /**
+     * @param code2 the 2-letter code to interpret
+     * @return the corresponding enum
+     */
+    public static GapPoint getInstance(final String code2)
+    {
+        switch (code2)
+        {
+            case "GS":
+                return GapPoint.GAP_START;
+
+            case "GE":
+                return GapPoint.GAP_END;
+
+            case "BS":
+                return GapPoint.BRIDGE_START;
+
+            case "BE":
+                return GapPoint.BRIDGE_END;
+
+            case "FS":
+                return GapPoint.FERRY_START;
+
+            case "FE":
+                return GapPoint.FERRY_END;
+
+            default:
+                return GapPoint.ROAD;
+        }
+    }
 }
