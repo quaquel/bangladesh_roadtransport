@@ -25,7 +25,6 @@ import org.opentrafficsim.core.dsol.OTSModelInterface;
 import org.opentrafficsim.core.dsol.OTSSimTimeDouble;
 import org.opentrafficsim.core.gtu.GTU;
 import org.opentrafficsim.core.gtu.animation.GTUColorer;
-import org.opentrafficsim.core.network.OTSLink;
 import org.opentrafficsim.core.network.OTSNetwork;
 import org.opentrafficsim.core.network.OTSNode;
 import org.opentrafficsim.core.network.animation.LinkAnimation;
@@ -116,7 +115,7 @@ public class BangladeshBargeApplication extends AbstractWrappableAnimation imple
     {
         addToggleAnimationButtonText("Node", OTSNode.class, "Show/hide nodes", false);
         addToggleAnimationButtonText("NodeId", NodeAnimation.Text.class, "Show/hide node Ids", false);
-        addToggleAnimationButtonText("Link", OTSLink.class, "Show/hide links", false);
+        addToggleAnimationButtonText("Link", ComparableLink.class, "Show/hide links", false);
         addToggleAnimationButtonText("LinkId", LinkAnimation.Text.class, "Show/hide link Ids", false);
         addToggleAnimationButtonText("Waterway", Waterway.class, "Show/hide waterways", true);
         // addToggleAnimationButtonText("WaterwayId", WaterwayAnimation.Text.class, "Show/hide lane Ids", false);
