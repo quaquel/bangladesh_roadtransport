@@ -24,8 +24,8 @@
       <b>127</b>
     </backgroundColor>
     <size>
-      <height>2000</height>
-      <width>2000</width>
+      <height>1</height>
+      <width>1</width>
     </size>
   </gisbeans:image>
 
@@ -116,7 +116,7 @@
     <transform>true</transform>
   </gisbeans:layer>
 
-  <gisbeans:layer>
+  <!-- gisbeans:layer>
     <name>adm2</name>
     <data cache="true">
       <shapeFile>/gis/gadm/BGD_adm2.shp</shapeFile>
@@ -133,7 +133,7 @@
     </outlineColor>
     <status>true</status>
     <transform>true</transform>
-  </gisbeans:layer>
+  </gisbeans:layer -->
 
   <gisbeans:layer>
     <name>wfp-river</name>
