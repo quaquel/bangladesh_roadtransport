@@ -16,7 +16,6 @@ import javax.naming.NamingException;
 
 import org.opentrafficsim.core.animation.TextAlignment;
 import org.opentrafficsim.core.dsol.OTSSimulatorInterface;
-import org.opentrafficsim.core.network.animation.PaintLine;
 import org.opentrafficsim.core.network.animation.PaintPolygons;
 
 import nl.tudelft.pa.wbtransport.district.District;
