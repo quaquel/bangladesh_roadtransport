@@ -2,10 +2,6 @@ package nl.tudelft.pa.wbtransport.water;
 
 import java.util.Map;
 
-import javax.media.j3d.BoundingSphere;
-import javax.media.j3d.Bounds;
-import javax.vecmath.Point3d;
-
 import org.opentrafficsim.core.dsol.OTSDEVSSimulatorInterface;
 import org.opentrafficsim.core.geometry.OTSLine3D;
 import org.opentrafficsim.core.gtu.GTUType;

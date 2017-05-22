@@ -10,7 +10,8 @@ import org.opentrafficsim.core.network.LongitudinalDirectionality;
 import org.opentrafficsim.core.network.Network;
 import org.opentrafficsim.core.network.NetworkException;
 import org.opentrafficsim.core.network.Node;
-import org.opentrafficsim.core.network.OTSLink;
+
+import nl.tudelft.pa.wbtransport.ComparableLink;
 
 /**
  * <p>
@@ -21,7 +22,7 @@ import org.opentrafficsim.core.network.OTSLink;
  * initial version Feb 19, 2017 <br>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class Waterway extends OTSLink
+public class Waterway extends ComparableLink
 {
     /** */
     private static final long serialVersionUID = 20170219L;
@@ -73,7 +74,7 @@ public class Waterway extends OTSLink
      * @throws NetworkException if link already exists in the network, if name of the link is not unique, or if the start node
      *             or the end node of the link are not registered in the network.
      */
-    protected Waterway(Network newNetwork, OTSSimulatorInterface newSimulator, boolean animation, OTSLink link)
+    protected Waterway(Network newNetwork, OTSSimulatorInterface newSimulator, boolean animation, ComparableLink link)
             throws NetworkException
     {
         super(newNetwork, newSimulator, animation, link);
