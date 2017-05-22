@@ -53,6 +53,10 @@ public class MakeRoadsFile4
         {
             if (!file.isDirectory() && file.toString().endsWith(".lrps.htm"))
             {
+                if (file.toString().contains("N405"))
+                {
+                    System.out.println();
+                }
                 process(file);
             }
         }
@@ -89,8 +93,11 @@ public class MakeRoadsFile4
                 {
                     if (line.contains("<a href=\"lrpmaps.asp?Latitude="))
                     {
-                        String[] parts = line.split("\\&amp\\;");
-                        if (parts.length > 2 && !line.contains("Latitude=&amp;"))
+                        line = line.replaceAll("\\&amp\\;", "&");
+                        line = line.replaceAll("\\&nbsp\\;", "");
+
+                        String[] parts = line.split("&");
+                        if (parts.length > 2 && !line.contains("Latitude=&"))
                         {
                             String lats = parts[0].substring(parts[0].indexOf("Latitude")).split("=")[1];
                             double lat = Double.parseDouble(lats);
@@ -510,9 +517,9 @@ public class MakeRoadsFile4
             }
 
             // write if still proper road...
-            if (rrList.size() < 4)
+            if (rrList.size() <= 1)
             {
-                System.out.println(roadName + " NOT INCLUDED -- #POINTS < 4");
+                System.out.println(roadName + " NOT INCLUDED -- #POINTS <= 1");
             }
             else
             {
