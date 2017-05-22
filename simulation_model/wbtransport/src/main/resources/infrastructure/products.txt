@@ -1,0 +1,6 @@
+PRODUCT
+Textile
+Garment
+Steel
+Brick
+Food
