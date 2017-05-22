@@ -17,7 +17,7 @@ import org.opentrafficsim.core.dsol.OTSSimulatorInterface;
 import org.opentrafficsim.core.geometry.OTSLine3D;
 import org.opentrafficsim.core.geometry.OTSPoint3D;
 
-import nl.tudelft.pa.wbtransport.road.RoadN;
+import nl.tudelft.pa.wbtransport.road.SegmentN;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2D;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
 
@@ -31,7 +31,7 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
  * initial version Sep 13, 2014 <br>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class RoadNAnimation extends Renderable2D<RoadN> implements ClonableRenderable2DInterface<RoadN>, Serializable
+public class RoadNAnimation extends Renderable2D<SegmentN> implements ClonableRenderable2DInterface<SegmentN>, Serializable
 {
     /** */
     private static final long serialVersionUID = 20140000L;
@@ -42,20 +42,25 @@ public class RoadNAnimation extends Renderable2D<RoadN> implements ClonableRende
     /** */
     final String printName;
 
+    /** */
+    private final Color color;
+
     /**
      * @param roadN RoadN
      * @param printName name to print for the road
      * @param simulator simulator
      * @param width width
+     * @param color color
      * @throws NamingException for problems with registering in context
      * @throws RemoteException on communication failure
      */
-    public RoadNAnimation(final RoadN roadN, final String printName, final OTSSimulatorInterface simulator, final float width)
-            throws NamingException, RemoteException
+    public RoadNAnimation(final SegmentN roadN, final String printName, final OTSSimulatorInterface simulator, final float width,
+            final Color color) throws NamingException, RemoteException
     {
         super(roadN, simulator);
         this.width = width;
         this.printName = printName;
+        this.color = color;
 
         RoadNTextAnimation wta =
                 new RoadNTextAnimation(roadN, printName, 0.0f, 25.0f, TextAlignment.CENTER, Color.BLACK, 10.0f, simulator);
@@ -67,38 +72,38 @@ public class RoadNAnimation extends Renderable2D<RoadN> implements ClonableRende
     @Override
     public final void paint(final Graphics2D graphics, final ImageObserver observer) throws RemoteException
     {
-        Color color;
+        Color roadColor;
         float w = this.width;
         switch (getSource().getGap())
         {
             case ROAD:
-                color = Color.BLACK;
+                roadColor = this.color;
                 break;
 
             case FERRY:
-                color = Color.YELLOW;
+                roadColor = Color.YELLOW;
                 break;
 
             case BRIDGE:
-                color = Color.MAGENTA;
+                roadColor = Color.MAGENTA;
                 break;
 
             case GAP:
-                color = Color.WHITE;
+                roadColor = Color.WHITE;
                 break;
 
             default:
-                color = Color.BLACK;
+                roadColor = this.color;
                 break;
         }
         if (getSource().getGap().isRoad())
         {
-            RoadNAnimation.paintLine(graphics, color, w, getSource().getLocation(), getSource().getDesignLine(),
+            RoadNAnimation.paintLine(graphics, roadColor, w, getSource().getLocation(), getSource().getDesignLine(),
                     BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
         }
         else
         {
-            RoadNAnimation.paintLine(graphics, color, w, getSource().getLocation(), getSource().getDesignLine(),
+            RoadNAnimation.paintLine(graphics, roadColor, w, getSource().getLocation(), getSource().getDesignLine(),
                     BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL);
         }
     }
@@ -106,11 +111,11 @@ public class RoadNAnimation extends Renderable2D<RoadN> implements ClonableRende
     /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
-    public ClonableRenderable2DInterface<RoadN> clone(final RoadN newSource, final OTSSimulatorInterface newSimulator)
+    public ClonableRenderable2DInterface<SegmentN> clone(final SegmentN newSource, final OTSSimulatorInterface newSimulator)
             throws NamingException, RemoteException
     {
         // the constructor also constructs the corresponding Text object
-        return new RoadNAnimation(newSource, this.printName, newSimulator, this.width);
+        return new RoadNAnimation(newSource, this.printName, newSimulator, this.width, this.color);
     }
 
     /** {@inheritDoc} */
