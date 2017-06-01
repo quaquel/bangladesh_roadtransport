@@ -163,7 +163,7 @@ def is_simplified(G):
     return len(edges_with_geometry) > 0
 
 
-def simplify_graph(G_, strict=True):
+def simplify_graph(G_, strict=True, sums=['length']):
     """
     Simplify a graph's topology by removing all nodes that are not intersections or dead-ends.
     Create an edge directly between the end points that encapsulate them,
@@ -215,17 +215,18 @@ def simplify_graph(G_, strict=True):
 
         for key in edge_attributes:
             # don't touch the length attribute, we'll sum it at the end
-            if len(set(edge_attributes[key])) == 1 and not key == 'length':
+            if len(set(edge_attributes[key])) == 1 and not key in sums:
                 # if there's only 1 unique value in this attribute list, consolidate it to the single value (the zero-th)
                 edge_attributes[key] = edge_attributes[key][0]
-            elif not key == 'length':
+            elif not key in sums:
                 # otherwise, if there are multiple values, keep one of each value
                 edge_attributes[key] = list(set(edge_attributes[key]))
 
         # construct the geometry and sum the lengths of the segments
         edge_attributes['geometry'] = LineString([Point((G.node[node]['x'],
                                                          G.node[node]['y'])) for node in path])
-        edge_attributes['length'] = sum(edge_attributes['length'])
+        for attr in sums:
+            edge_attributes[attr] = sum(edge_attributes[attr])
 
         # add the nodes and edges to their lists for processing at the end
         all_nodes_to_remove.extend(path[1:-1])

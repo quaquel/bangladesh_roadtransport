@@ -8,7 +8,7 @@ from osmnx.utils import make_str
 
 from shapely.geometry import LineString, Point
 
-from osmnx_simplify_overwrite import simplify_graph as simp_g
+from osmnx_simplify_overwrite import simplify_graph
 
 from weighted_betweenness import probit_assignment
 
@@ -122,7 +122,7 @@ def prepare_gdf_network(network):
     if 'length' not in gdf.columns:
         raise Exception('Shapefile is invalid: length not in attributes:\n{}'.format(gdf.columns))
 
-    if  not gdf.geometry.map(lambda x: type(x) ==  LineString).all():
+    if not gdf.geometry.map(lambda x: type(x) ==  LineString).all():
         s_invalid_geo = gdf.geometry[gdf.geometry.map(lambda x: type(x) ==  LineString)]
         raise Exception('Shapefile is invalid: geometry not all linestring \n{}'.format(s_invalid_geo))
 
@@ -220,7 +220,7 @@ def prepare_centroids_network(centroid, network):
 
     return gdf_points, gdf_node_pos, gdf
 
-def gdf_to_simplified_multidigraph(gdf_node_pos, gdf, undirected = True):
+def gdf_to_simplified_multidigraph(gdf_node_pos, gdf, undirected = True, simplify=True, sums=['length']):
     '''
     Simplifying transport network (in GeoDataFrame format) by removing all nodes which are
     neither intersections, end/start nodes, nor centroids. This reduces the computation time
@@ -269,7 +269,8 @@ def gdf_to_simplified_multidigraph(gdf_node_pos, gdf, undirected = True):
         G2.add_edge(u=dict_row['FNODE_'], v=dict_row['TNODE_'], **dict_row)
 
     #simplify the MultiDiGraph using OSMNX's overwritten function
-    G2 = simp_g(G2)
+    if simplify:
+        G2 = simplify_graph(G_=G2, sums=sums)
 
     #make a name
     G2.graph['name'] = 'graph'
