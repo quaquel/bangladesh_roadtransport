@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Created by Alexander Verbraeck on Dec 15, 2016 -->
+<gisbeans:map xmlns:gisbeans="http://www.javel.nl/gisbeans">
+
+	<!-- We start with the global map attributes -->
+  <name>BG</name>
+  <units>dd</units>
+	<!-- extent>
+		<minX>87.8</minX>
+		<minY>20.2</minY>
+		<maxX>92.8</maxX>
+		<maxY>26.8</maxY>
+	</extent -->
+  <extent>
+    <minX>0</minX>
+    <minY>0</minY>
+    <maxX>150000</maxX>
+    <maxY>500000</maxY>
+  </extent>
+  <gisbeans:image>
+    <backgroundColor>
+      <r>0</r>
+      <g>0</g>
+      <b>127</b>
+    </backgroundColor>
+    <size>
+      <height>1</height>
+      <width>1</width>
+    </size>
+  </gisbeans:image>
+
+<!-- Now we get the layers -->
+
+  <gisbeans:layer>
+    <name>india</name>
+    <data cache="true">
+      <shapeFile>/gis/osm-countries/india/INDIA.shp</shapeFile>
+    </data>
+    <outlineColor>
+      <r>220</r>
+      <g>220</g>
+      <b>220</b>
+    </outlineColor>
+    <status>true</status>
+    <transform>true</transform>
+  </gisbeans:layer>
+
+  <gisbeans:layer>
+    <name>srilanka</name>
+    <data cache="true">
+      <shapeFile>/gis/osm-countries/srilanka/adminareas_lvl02.shp</shapeFile>
+    </data>
+    <outlineColor>
+      <r>220</r>
+      <g>220</g>
+      <b>220</b>
+    </outlineColor>
+    <status>true</status>
+    <transform>true</transform>
+  </gisbeans:layer>
+
+  <gisbeans:layer>
+    <name>china</name>
+    <data cache="true">
+      <shapeFile>/gis/osm-countries/china/adminareas.shp</shapeFile>
+    </data>
+    <outlineColor>
+      <r>220</r>
+      <g>220</g>
+      <b>220</b>
+    </outlineColor>
+    <status>true</status>
+    <transform>true</transform>
+  </gisbeans:layer>
+
+  <gisbeans:layer>
+    <name>myanmar</name>
+    <data cache="true">
+      <shapeFile>/gis/osm-countries/myanmar/mmr_polbnda_adm2_250k_mimu.shp</shapeFile>
+    </data>
+    <outlineColor>
+      <r>220</r>
+      <g>220</g>
+      <b>220</b>
+    </outlineColor>
+    <status>true</status>
+    <transform>true</transform>
+  </gisbeans:layer>
+
+  <gisbeans:layer>
+    <name>nepal</name>
+    <data cache="true">
+      <shapeFile>/gis/osm-countries/nepal/NPL_adm0.shp</shapeFile>
+    </data>
+    <outlineColor>
+      <r>220</r>
+      <g>220</g>
+      <b>220</b>
+    </outlineColor>
+    <status>true</status>
+    
+    <transform>true</transform>
+  </gisbeans:layer>
+
+  <gisbeans:layer>
+    <name>bhutan</name>
+    <data cache="true">
+      <shapeFile>/gis/osm-countries/bhutan/BTN_adm0.shp</shapeFile>
+    </data>
+    <outlineColor>
+      <r>220</r>
+      <g>220</g>
+      <b>220</b>
+    </outlineColor>
+    <status>true</status>
+    <transform>true</transform>
+  </gisbeans:layer>
+
+  <!-- gisbeans:layer>
+    <name>adm2</name>
+    <data cache="true">
+      <shapeFile>/gis/gadm/BGD_adm2.shp</shapeFile>
+    </data>
+    <color>
+      <r>220</r>
+      <g>205</g>
+      <b>205</b>
+    </color>
+    <outlineColor>
+      <r>0</r>
+      <g>150</g>
+      <b>0</b>
+    </outlineColor>
+    <status>true</status>
+    <transform>true</transform>
+  </gisbeans:layer -->
+
+  <gisbeans:layer>
+    <name>wfp-river</name>
+    <data cache="true">
+      <shapeFile>/gis/wfp/BGD_waterways_WFP.shp</shapeFile>
+    </data>
+    <color>
+      <r>0</r>
+      <g>0</g>
+      <b>127</b>
+    </color>
+    <outlineColor>
+      <r>0</r>
+      <g>0</g>
+      <b>127</b>
+    </outlineColor>
+    <status>true</status>
+    <transform>true</transform>
+  </gisbeans:layer>
+
+  <gisbeans:layer>
+    <name>roads</name>
+    <data cache="true">
+      <shapeFile>/gis/osm/roads.shp</shapeFile>
+    </data>
+    <color>
+      <r>120</r>
+      <g>120</g>
+      <b>120</b>
+    </color>
+    <outlineColor>
+      <r>120</r>
+      <g>120</g>
+      <b>120</b>
+    </outlineColor>
+    <status>true</status>
+    <transform>true</transform>
+  </gisbeans:layer>
+
+  <!-- gisbeans:layer>
+    <name>buildings</name>
+    <data cache="true">
+      <shapeFile>/gis/osm/buildings.shp</shapeFile>
+    </data>
+    <color>
+      <r>100</r>
+      <g>200</g>
+      <b>255</b>
+    </color>
+    <outlineColor>
+      <r>100</r>
+      <g>200</g>
+      <b>255</b>
+    </outlineColor>
+    <status>true</status>
+    <transform>true</transform>
+  </gisbeans:layer -->
+
+  <gisbeans:layer>
+    <name>railways</name>
+    <data cache="true">
+      <shapeFile>/gis/osm/railways.shp</shapeFile>
+    </data>
+    <color>
+      <r>0</r>
+      <g>19</g>
+      <b>127</b>
+    </color>
+    <outlineColor>
+      <r>0</r>
+      <g>19</g>
+      <b>127</b>
+    </outlineColor>
+    <status>true</status>
+    <transform>true</transform>
+  </gisbeans:layer>
+
+  <gisbeans:layer>
+    <name>waterways</name>
+    <data cache="true">
+      <shapeFile>/gis/osm/waterways.shp</shapeFile>
+    </data>
+    <color>
+      <r>175</r>
+      <g>216</g>
+      <b>255</b>
+    </color>
+    <outlineColor>
+      <r>0</r>
+      <g>148</g>
+      <b>255</b>
+    </outlineColor>
+    <status>true</status>
+    <transform>true</transform>
+  </gisbeans:layer>
+</gisbeans:map>
