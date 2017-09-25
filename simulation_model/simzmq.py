@@ -302,10 +302,17 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
     
     @method_logger
     def cleanup(self):
-        self.KillFederate()
-        self.fs_socket.close()
-        self.m_socket.close()
-        self.context.term()
+        try:
+            self.KillFederate()
+            self.fs_socket.close()
+            self.m_socket.close()
+            self.context.term()
+        except AttributeError as e:
+            # typically only happens if the number of experiments is lower
+            # than the number of cores in cases of running in parallel.
+            # TODO:: in ema_workbench number of processes should be the
+            # minimum of nr. cores and nr. of experiments
+            ema_logging.warning(str(e))
     
     @method_logger
     def send_to_fs(self, message):
