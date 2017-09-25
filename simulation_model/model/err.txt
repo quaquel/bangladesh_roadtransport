@@ -1,159 +1,56 @@
 Received: FS.1, payload = |
-Received: FM.2, payload = |2592000.0 (Double) | 0.0 (Double) | 0.0 (Double) | 1.0E9 (Double) | 1 (Long) | 0 (Long) | 
-Received: FM.3, payload = |Textile_production (String) | 1.3221677358792632 (Double) | 
-Received: FM.3, payload = |Textile_consumption (String) | 0.9593038933868514 (Double) | 
-Received: FM.3, payload = |Textile_export (String) | 0.09983549117558188 (Double) | 
-Received: FM.3, payload = |Textile_import (String) | 1.8776673614400594 (Double) | 
-Received: FM.3, payload = |Garment_production (String) | 1.0866433315584798 (Double) | 
-Received: FM.3, payload = |Garment_consumption (String) | 1.386989377431084 (Double) | 
-Received: FM.3, payload = |Garment_export (String) | 0.9471090695211173 (Double) | 
-Received: FM.3, payload = |Garment_import (String) | 0.1019381609359582 (Double) | 
-Received: FM.3, payload = |Steel_production (String) | 1.3137126138908022 (Double) | 
-Received: FM.3, payload = |Steel_consumption (String) | 1.3372953472427562 (Double) | 
-Received: FM.3, payload = |Steel_export (String) | 1.6741121876226683 (Double) | 
-Received: FM.3, payload = |Steel_import (String) | 1.4111708039159805 (Double) | 
-Received: FM.3, payload = |Brick_production (String) | 1.0213670748951 (Double) | 
-Received: FM.3, payload = |Brick_consumption (String) | 0.3872347919169683 (Double) | 
-Received: FM.3, payload = |Brick_export (String) | 1.485881201003228 (Double) | 
-Received: FM.3, payload = |Brick_import (String) | 1.8646887972937676 (Double) | 
-Received: FM.3, payload = |Food_production (String) | 1.0064281620959215 (Double) | 
-Received: FM.3, payload = |Food_consumption (String) | 1.8151847866397688 (Double) | 
-Received: FM.3, payload = |Food_export (String) | 1.6117052732511377 (Double) | 
-Received: FM.3, payload = |Food_import (String) | 0.4018230504673802 (Double) | 
-Received: FM.3, payload = |Textile_road (String) | 0.27947380567184693 (Double) | 
-Received: FM.3, payload = |Textile_rail (String) | 0.9171596082461958 (Double) | 
-Received: FM.3, payload = |Textile_waterway (String) | 0.33401599728000225 (Double) | 
-Received: FM.3, payload = |Garment_road (String) | 0.9259696119366161 (Double) | 
-Received: FM.3, payload = |Garment_rail (String) | 0.7912413294732041 (Double) | 
-Received: FM.3, payload = |Garment_waterway (String) | 0.34902703427333087 (Double) | 
-Received: FM.3, payload = |Steel_road (String) | 0.8456551510323977 (Double) | 
-Received: FM.3, payload = |Steel_rail (String) | 0.23263909641621905 (Double) | 
-Received: FM.3, payload = |Steel_waterway (String) | 0.07723997313973974 (Double) | 
-Received: FM.3, payload = |Brick_road (String) | 0.10585374298807099 (Double) | 
-Received: FM.3, payload = |Brick_rail (String) | 0.5428305159791517 (Double) | 
-Received: FM.3, payload = |Brick_waterway (String) | 0.289156522522271 (Double) | 
-Received: FM.3, payload = |Food_road (String) | 0.9783057922832428 (Double) | 
-Received: FM.3, payload = |Food_rail (String) | 0.5434545642558525 (Double) | 
-Received: FM.3, payload = |Food_waterway (String) | 0.004446818288192544 (Double) | 
-Received: FM.3, payload = |n_Wmax (String) | 0.5357376945912462 (Double) | 
-Received: FM.3, payload = |n_Tm (String) | 4.25096849219384 (Double) | 
-Received: FM.3, payload = |r_Wmax (String) | 0.8061312875256561 (Double) | 
-Received: FM.3, payload = |r_Tm (String) | 2.288437673847531 (Double) | 
-Received: FM.3, payload = |z_Wmax (String) | 0.8492165927429501 (Double) | 
-Received: FM.3, payload = |z_Tm (String) | -8.593434769847732 (Double) | 
-Received: FM.3, payload = |a_Wmax (String) | 0.6565289214330803 (Double) | 
-Received: FM.3, payload = |a_Tm (String) | 4.291078969467827 (Double) | 
-Received: FM.3, payload = |b_Wmax (String) | 0.7739218181749955 (Double) | 
-Received: FM.3, payload = |b_Tm (String) | 2.084528124095458 (Double) | 
-Received: FM.3, payload = |c_Wmax (String) | 0.9607538311865759 (Double) | 
-Received: FM.3, payload = |c_Tm (String) | 1.6205284266391442 (Double) | 
-Received: FM.3, payload = |d_Wmax (String) | 0.8116296160969871 (Double) | 
-Received: FM.3, payload = |d_Tm (String) | -7.351260347234103 (Double) | 
-Received: FM.3, payload = |1_Wmax (String) | 0.9545229095662475 (Double) | 
-Received: FM.3, payload = |1_Tm (String) | 2.3955509917494826 (Double) | 
-Received: FM.3, payload = |2_Wmax (String) | 0.6104610622746657 (Double) | 
-Received: FM.3, payload = |2_Tm (String) | 1.480030364281123 (Double) | 
-Received: FM.3, payload = |3_Wmax (String) | 0.999481782034082 (Double) | 
-Received: FM.3, payload = |3_Tm (String) | 3.34966570127275 (Double) | 
-Received: FM.3, payload = |4_Wmax (String) | 0.9970249481715272 (Double) | 
-Received: FM.3, payload = |4_Tm (String) | 2.8671423106557294 (Double) | 
-Received: FM.3, payload = |ferry_Wmax (String) | 0.6738658295819101 (Double) | 
-Received: FM.3, payload = |ferry_Tm (String) | 2.424854531580676 (Double) | 
-Received: FM.3, payload = |ports_Wmax (String) | 0.9986916567698545 (Double) | 
-Received: FM.3, payload = |ports_Tm (String) | 2.0571557165312537 (Double) | 
-Received: FM.3, payload = |terminals_Wmax (String) | 0.6942400783812746 (Double) | 
-Received: FM.3, payload = |terminals_Tm (String) | 1.8083294914947992 (Double) | 
-Received: FM.3, payload = |railways_Wmax (String) | 0.7198701308417268 (Double) | 
-Received: FM.3, payload = |railways_Tm (String) | 3.104561366449393 (Double) | 
-Received: FM.3, payload = |railstations_Wmax (String) | 0.6109051484564829 (Double) | 
-Received: FM.3, payload = |railstations_Tm (String) | 2.771622235949048 (Double) | 
-Received: FM.3, payload = |Flood_area (String) | 2011-0262 (String) | 
-Received: FM.3, payload = |Flood_duration (String) | 20.967880834608813 (Double) | 
-Received: FM.3, payload = |Flood_depth (String) | 0.7540627289592852 (Double) | 
-Received: FM.3, payload = |runTime (String) | 2592000.0 (Double) | 
-Received: FM.3, payload = |warmupTime (String) | 0.0 (Double) | 
-Received: FM.3, payload = |offsetTime (String) | 0.0 (Double) | 
-Received: FM.3, payload = |speed (String) | 1.0E9 (Double) | 
+Received: FM.2, payload = |1440.0 (Double) | 0.0 (Double) | 0.0 (Double) | 1.0E9 (Double) | 1 (Long) | 0 (Long) | 
+Received: FM.3, payload = |Textile_production (String) | 0.9582892103645949 (Double) | 
+Received: FM.3, payload = |Textile_consumption (String) | 0.8271894406493319 (Double) | 
+Received: FM.3, payload = |Textile_export (String) | 0.3191679328791204 (Double) | 
+Received: FM.3, payload = |Textile_import (String) | 0.8816076857391155 (Double) | 
+Received: FM.3, payload = |Garment_production (String) | 1.8833605231286195 (Double) | 
+Received: FM.3, payload = |Garment_consumption (String) | 0.16492218946632523 (Double) | 
+Received: FM.3, payload = |Garment_export (String) | 1.8082691433121871 (Double) | 
+Received: FM.3, payload = |Garment_import (String) | 0.09505957955608342 (Double) | 
+Received: FM.3, payload = |Steel_production (String) | 1.510448840071263 (Double) | 
+Received: FM.3, payload = |Steel_consumption (String) | 0.5705278766621578 (Double) | 
+Received: FM.3, payload = |Steel_export (String) | 0.07648002158813427 (Double) | 
+Received: FM.3, payload = |Steel_import (String) | 0.007745952449483025 (Double) | 
+Received: FM.3, payload = |Brick_production (String) | 0.7858653697559949 (Double) | 
+Received: FM.3, payload = |Brick_consumption (String) | 0.5705827758324448 (Double) | 
+Received: FM.3, payload = |Brick_export (String) | 1.1635919728728545 (Double) | 
+Received: FM.3, payload = |Brick_import (String) | 1.442320361486407 (Double) | 
+Received: FM.3, payload = |Food_production (String) | 0.17269782461469935 (Double) | 
+Received: FM.3, payload = |Food_consumption (String) | 0.5195330871289221 (Double) | 
+Received: FM.3, payload = |Food_export (String) | 1.493807514812218 (Double) | 
+Received: FM.3, payload = |Food_import (String) | 1.3295286026204751 (Double) | 
+Received: FM.3, payload = |Textile_road (String) | 0.9356174851800889 (Double) | 
+Received: FM.3, payload = |Textile_rail (String) | 0.1310512500849276 (Double) | 
+Received: FM.3, payload = |Textile_waterway (String) | 0.9846513761649454 (Double) | 
+Received: FM.3, payload = |Garment_road (String) | 0.1919132757966015 (Double) | 
+Received: FM.3, payload = |Garment_rail (String) | 0.7150486078959912 (Double) | 
+Received: FM.3, payload = |Garment_waterway (String) | 0.5049105066394854 (Double) | 
+Received: FM.3, payload = |Steel_road (String) | 0.02980863843222451 (Double) | 
+Received: FM.3, payload = |Steel_rail (String) | 0.8705749838583221 (Double) | 
+Received: FM.3, payload = |Steel_waterway (String) | 0.6115456479786239 (Double) | 
+Received: FM.3, payload = |Brick_road (String) | 0.20959544882146608 (Double) | 
+Received: FM.3, payload = |Brick_rail (String) | 0.20756046420133134 (Double) | 
+Received: FM.3, payload = |Brick_waterway (String) | 0.6437452245897802 (Double) | 
+Received: FM.3, payload = |Food_road (String) | 0.13549727345232757 (Double) | 
+Received: FM.3, payload = |Food_rail (String) | 0.016130255477415423 (Double) | 
+Received: FM.3, payload = |Food_waterway (String) | 0.6105018813546079 (Double) | 
+Received: FM.3, payload = |Flood_area (String) | 1993-0045 (String) | 
+Received: FM.3, payload = |Flood_duration (String) | 3.0928279382955575 (Double) | 
+Received: FM.3, payload = |Damage_road_n (String) | 9.787313507413705E-7 (Double) | 
+Received: FM.3, payload = |Damage_road_r (String) | 0.0018124205455330997 (Double) | 
+Received: FM.3, payload = |Damage_road_z (String) | 0.16046042945886652 (Double) | 
+Received: FM.3, payload = |Damage_bridge_a (String) | 4.1611116323751E-4 (Double) | 
+Received: FM.3, payload = |Damage_bridge_b (String) | 0.006509432566159893 (Double) | 
+Received: FM.3, payload = |Damage_bridge_c (String) | 0.0585499981925101 (Double) | 
+Received: FM.3, payload = |Damage_bridge_d (String) | 0.211104305198894 (Double) | 
+Received: FM.3, payload = |Damage_waterway_1 (String) | 0.018201031291933626 (Double) | 
+Received: FM.3, payload = |Damage_waterway_2 (String) | 4.269367417233069E-4 (Double) | 
+Received: FM.3, payload = |Damage_waterway_3 (String) | 0.02186336672790416 (Double) | 
+Received: FM.3, payload = |Damage_waterway_4 (String) | 0.0015069462588182465 (Double) | 
+Received: FM.3, payload = |Damage_ferry (String) | 0.02753779974709163 (Double) | 
+Received: FM.3, payload = |Damage_ports (String) | 0.0222760417438383 (Double) | 
+Received: FM.3, payload = |Damage_terminals (String) | 0.00488090475115094 (Double) | 
+Received: FM.3, payload = |Damage_railways (String) | 0.0028905593446749566 (Double) | 
+Received: FM.3, payload = |Damage_railstations (String) | 0.027886428006991267 (Double) | 
 Received: FM.4, payload = |
-Error parsing Excel double value NULL in cell X134
-Error parsing Excel integer value NULL in cell G174
-Error parsing Excel integer value NULL in cell H210
-Error parsing Excel double value NULL in cell E229
-Error parsing Excel integer value NULL in cell H321
-Error parsing Excel integer value NULL in cell H391
-Error parsing Excel double value NULL in cell U520
-Error parsing Excel double value NULL in cell X522
-Error parsing Excel double value NULL in cell X533
-Error parsing Excel double value NULL in cell X553
-Error parsing Excel double value NULL in cell X589
-Error parsing Excel double value NULL in cell U599
-Error parsing Excel double value NULL in cell U605
-Error parsing Excel double value NULL in cell X634
-Error parsing Excel double value NULL in cell X638
-Error parsing Excel double value NULL in cell X661
-Error parsing Excel double value NULL in cell U666
-Error parsing Excel double value NULL in cell U679
-Error parsing Excel double value NULL in cell E789
-Error parsing Excel double value NULL in cell E821
-Error parsing Excel double value NULL in cell X914
-Error parsing Excel double value NULL in cell X973
-Error parsing Excel integer value NULL in cell G994
-Error parsing Excel double value NULL in cell X1002
-Error parsing Excel double value NULL in cell X1032
-Error parsing Excel double value  in cell E1104
-Error parsing Excel double value NULL in cell S1140
-Error parsing Excel double value NULL in cell U1154
-Error parsing Excel integer value NULL in cell G1161
-Error parsing Excel double value NULL in cell U1245
-Error parsing Excel integer value NULL in cell H1305
-Error parsing Excel double value NULL in cell E1342
-Error parsing Excel double value NULL in cell E1363
-Error parsing Excel double value NULL in cell E1434
-Error parsing Excel integer value NULL in cell G1475
-Error parsing Excel integer value NULL in cell H1476
-Error parsing Excel double value NULL in cell X1949
-Error parsing Excel integer value NULL in cell H2010
-Error parsing Excel integer value NULL in cell H2068
-Error parsing Excel double value NULL in cell E2124
-Error parsing Excel double value NULL in cell U2131
-Error parsing Excel double value NULL in cell U2245
-Error parsing Excel double value NULL in cell U2272
-Error parsing Excel integer value NULL in cell G2279
-Error parsing Excel double value NULL in cell U2290
-Error parsing Excel double value  in cell E2308
-Error parsing Excel integer value NULL in cell H2398
-Error parsing Excel integer value NULL in cell G2399
-Error parsing Excel double value NULL in cell U2410
-Error parsing Excel double value  in cell E2570
-Error parsing Excel double value NULL in cell U2673
-Error parsing Excel double value NULL in cell X2679
-Error parsing Excel double value NULL in cell X2682
-Error parsing Excel integer value NULL in cell G2788
-Error parsing Excel double value NULL in cell X2883
-Error parsing Excel double value NULL in cell X2890
-Error parsing Excel integer value NULL in cell G2900
-Error parsing Excel double value NULL in cell S2905
-Error parsing Excel integer value NULL in cell G2907
-Error parsing Excel double value NULL in cell X2927
-Error parsing Excel double value NULL in cell X2979
-Error parsing Excel double value NULL in cell X2985
-Error parsing Excel double value NULL in cell X2989
-Error parsing Excel double value NULL in cell U3099
-Error parsing Excel integer value NULL in cell G3115
-Error parsing Excel double value NULL in cell U3139
-Received: FM.5, payload = |
-Received: FM.6, payload = |Textile_TransportCost (String) | 
-Received: FM.6, payload = |Garment_TransportCost (String) | 
-Received: FM.6, payload = |Steel_TransportCost (String) | 
-Received: FM.6, payload = |Brick_TransportCost (String) | 
-Received: FM.6, payload = |Food_TransportCost (String) | 
-Received: FM.6, payload = |Textile_TravelTime (String) | 
-Received: FM.6, payload = |Garment_TravelTime (String) | 
-Received: FM.6, payload = |Steel_TravelTime (String) | 
-Received: FM.6, payload = |Brick_TravelTime (String) | 
-Received: FM.6, payload = |Food_TravelTime (String) | 
-Received: FM.6, payload = |Textile_UnsatisfiedDemand (String) | 
-Received: FM.6, payload = |Garment_UnsatisfiedDemand (String) | 
-Received: FM.6, payload = |Steel_UnsatisfiedDemand (String) | 
-Received: FM.6, payload = |Brick_UnsatisfiedDemand (String) | 
-Received: FM.6, payload = |Food_UnsatisfiedDemand (String) | 

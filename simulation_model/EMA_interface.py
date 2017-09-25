@@ -3,7 +3,7 @@ Created on 3 mei 2017
 
 @author: sibeleker
 '''
-from zero_mq_v4 import ZeroMQModel
+from zero_mq_v4 import SimZMQModel
 from FederateStarter_router import FederateStarter
 
 from ema_workbench.em_framework.outcomes import ScalarOutcome
@@ -45,7 +45,7 @@ def beta_growth_function(t, w_max=1, t_e=5, t_m=0.5):
     return y
 
 
-class BGD_TransportModel(ZeroMQModel):
+class BGD_TransportModel(SimZMQModel):
     def __init__(self, name, softwareCode,
                  argsBefore, fullPathModelFile, argsAfter,
                  fs_workingDirectory, redirectStdin, redirectStdout, redirectStderr,
@@ -94,11 +94,11 @@ class BGD_TransportModel(ZeroMQModel):
         for key, value in experiment.items():
             # send the parameters that are not included above
             payload = [key, value]
-            self.SetValue(run_id, payload) 
+            self.set_value(run_id, payload) 
             
         for key, value in damage_ratios.items():
             payload = [key, value]
-            self.SetValue(run_id, payload)
+            self.set_value(run_id, payload)
         
         #2) === RUN THE SIMULATION ===
         self.StartSimulation(run_id)

@@ -1,0 +1,122 @@
+Received: FS.1, payload = |
+Received: FM.2, payload = |1440.0 (Double) | 0.0 (Double) | 0.0 (Double) | 1.0E9 (Double) | 1 (Long) | 0 (Long) | 
+Received: FM.3, payload = |Textile_production (String) | 1.713453645039711 (Double) | 
+Received: FM.3, payload = |Textile_consumption (String) | 0.7075798038141701 (Double) | 
+Received: FM.3, payload = |Textile_export (String) | 1.563062777351179 (Double) | 
+Received: FM.3, payload = |Textile_import (String) | 0.7776949934544289 (Double) | 
+Received: FM.3, payload = |Garment_production (String) | 0.8096416476785135 (Double) | 
+Received: FM.3, payload = |Garment_consumption (String) | 0.43409671126121907 (Double) | 
+Received: FM.3, payload = |Garment_export (String) | 0.9180275437254007 (Double) | 
+Received: FM.3, payload = |Garment_import (String) | 0.9653759991767454 (Double) | 
+Received: FM.3, payload = |Steel_production (String) | 1.426091723663668 (Double) | 
+Received: FM.3, payload = |Steel_consumption (String) | 1.069998650941765 (Double) | 
+Received: FM.3, payload = |Steel_export (String) | 0.14473203602900098 (Double) | 
+Received: FM.3, payload = |Steel_import (String) | 0.6856467279241946 (Double) | 
+Received: FM.3, payload = |Brick_production (String) | 1.9010415708006179 (Double) | 
+Received: FM.3, payload = |Brick_consumption (String) | 1.0160372569823408 (Double) | 
+Received: FM.3, payload = |Brick_export (String) | 0.2258190239253442 (Double) | 
+Received: FM.3, payload = |Brick_import (String) | 0.3614767013268054 (Double) | 
+Received: FM.3, payload = |Food_production (String) | 0.8533056751539296 (Double) | 
+Received: FM.3, payload = |Food_consumption (String) | 1.7459799484529885 (Double) | 
+Received: FM.3, payload = |Food_export (String) | 0.49768547513676126 (Double) | 
+Received: FM.3, payload = |Food_import (String) | 1.7773168540811048 (Double) | 
+Received: FM.3, payload = |Textile_road (String) | 0.8666294865640094 (Double) | 
+Received: FM.3, payload = |Textile_rail (String) | 0.847953689341091 (Double) | 
+Received: FM.3, payload = |Textile_waterway (String) | 0.8658022097948139 (Double) | 
+Received: FM.3, payload = |Garment_road (String) | 0.3849374801754657 (Double) | 
+Received: FM.3, payload = |Garment_rail (String) | 0.14635534588848553 (Double) | 
+Received: FM.3, payload = |Garment_waterway (String) | 0.25050026594424324 (Double) | 
+Received: FM.3, payload = |Steel_road (String) | 0.16254730311133841 (Double) | 
+Received: FM.3, payload = |Steel_rail (String) | 0.7381082870264205 (Double) | 
+Received: FM.3, payload = |Steel_waterway (String) | 0.9512846846709491 (Double) | 
+Received: FM.3, payload = |Brick_road (String) | 0.25566172578772123 (Double) | 
+Received: FM.3, payload = |Brick_rail (String) | 0.8137796514975328 (Double) | 
+Received: FM.3, payload = |Brick_waterway (String) | 0.7736413024382792 (Double) | 
+Received: FM.3, payload = |Food_road (String) | 0.9150290178345317 (Double) | 
+Received: FM.3, payload = |Food_rail (String) | 0.8874643411614512 (Double) | 
+Received: FM.3, payload = |Food_waterway (String) | 0.8337236100396289 (Double) | 
+Received: FM.3, payload = |Flood_area (String) | 1991-0764 (String) | 
+Received: FM.3, payload = |Flood_duration (String) | 46.100810583631755 (Double) | 
+Received: FM.3, payload = |Damage_road_n (String) | 0.7296415072677982 (Double) | 
+Received: FM.3, payload = |Damage_road_r (String) | 0.724187690738909 (Double) | 
+Received: FM.3, payload = |Damage_road_z (String) | 0.8051165732143324 (Double) | 
+Received: FM.3, payload = |Damage_bridge_a (String) | 0.4162587268400287 (Double) | 
+Received: FM.3, payload = |Damage_bridge_b (String) | 0.6094761871793901 (Double) | 
+Received: FM.3, payload = |Damage_bridge_c (String) | 0.7200202016392122 (Double) | 
+Received: FM.3, payload = |Damage_bridge_d (String) | 0.78958440869842 (Double) | 
+Received: FM.3, payload = |Damage_waterway_1 (String) | 0.7358539447035687 (Double) | 
+Received: FM.3, payload = |Damage_waterway_2 (String) | 0.7989957829961086 (Double) | 
+Received: FM.3, payload = |Damage_waterway_3 (String) | 0.7103078708386185 (Double) | 
+Received: FM.3, payload = |Damage_waterway_4 (String) | 0.8615240899238225 (Double) | 
+Received: FM.3, payload = |Damage_ferry (String) | 0.7053902506480145 (Double) | 
+Received: FM.3, payload = |Damage_ports (String) | 0.6972620526127608 (Double) | 
+Received: FM.3, payload = |Damage_terminals (String) | 0.8609213824976953 (Double) | 
+Received: FM.3, payload = |Damage_railways (String) | 0.7773145261689215 (Double) | 
+Received: FM.3, payload = |Damage_railstations (String) | 0.46994557705037976 (Double) | 
+Received: FM.4, payload = |
+Error parsing Excel double value NULL in cell X134
+Error parsing Excel integer value NULL in cell G174
+Error parsing Excel integer value NULL in cell H210
+Error parsing Excel double value NULL in cell E229
+Error parsing Excel integer value NULL in cell H321
+Error parsing Excel integer value NULL in cell H391
+Error parsing Excel double value NULL in cell U520
+Error parsing Excel double value NULL in cell X522
+Error parsing Excel double value NULL in cell X533
+Error parsing Excel double value NULL in cell X553
+Error parsing Excel double value NULL in cell X589
+Error parsing Excel double value NULL in cell U599
+Error parsing Excel double value NULL in cell U605
+Error parsing Excel double value NULL in cell X634
+Error parsing Excel double value NULL in cell X638
+Error parsing Excel double value NULL in cell X661
+Error parsing Excel double value NULL in cell U666
+Error parsing Excel double value NULL in cell U679
+Error parsing Excel double value NULL in cell E789
+Error parsing Excel double value NULL in cell E821
+Error parsing Excel double value NULL in cell X914
+Error parsing Excel double value NULL in cell X973
+Error parsing Excel integer value NULL in cell G994
+Error parsing Excel double value NULL in cell X1002
+Error parsing Excel double value NULL in cell X1032
+Error parsing Excel double value  in cell E1104
+Error parsing Excel double value NULL in cell S1140
+Error parsing Excel double value NULL in cell U1154
+Error parsing Excel integer value NULL in cell G1161
+Error parsing Excel double value NULL in cell U1245
+Error parsing Excel integer value NULL in cell H1305
+Error parsing Excel double value NULL in cell E1342
+Error parsing Excel double value NULL in cell E1363
+Error parsing Excel double value NULL in cell E1434
+Error parsing Excel integer value NULL in cell G1475
+Error parsing Excel integer value NULL in cell H1476
+Error parsing Excel double value NULL in cell X1949
+Error parsing Excel integer value NULL in cell H2010
+Error parsing Excel integer value NULL in cell H2068
+Error parsing Excel double value NULL in cell E2124
+Error parsing Excel double value NULL in cell U2131
+Error parsing Excel double value NULL in cell U2245
+Error parsing Excel double value NULL in cell U2272
+Error parsing Excel integer value NULL in cell G2279
+Error parsing Excel double value NULL in cell U2290
+Error parsing Excel double value  in cell E2308
+Error parsing Excel integer value NULL in cell H2398
+Error parsing Excel integer value NULL in cell G2399
+Error parsing Excel double value NULL in cell U2410
+Error parsing Excel double value  in cell E2570
+Error parsing Excel double value NULL in cell U2673
+Error parsing Excel double value NULL in cell X2679
+Error parsing Excel double value NULL in cell X2682
+Error parsing Excel integer value NULL in cell G2788
+Error parsing Excel double value NULL in cell X2883
+Error parsing Excel double value NULL in cell X2890
+Error parsing Excel integer value NULL in cell G2900
+Error parsing Excel double value NULL in cell S2905
+Error parsing Excel integer value NULL in cell G2907
+Error parsing Excel double value NULL in cell X2927
+Error parsing Excel double value NULL in cell X2979
+Error parsing Excel double value NULL in cell X2985
+Error parsing Excel double value NULL in cell X2989
+Error parsing Excel double value NULL in cell U3099
+Error parsing Excel integer value NULL in cell G3115
+Error parsing Excel double value NULL in cell U3139

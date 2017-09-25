@@ -2,7 +2,10 @@
 Created on 3 mei 2017
 
 @author: sibeleker
+@author: jhkwakkel
 '''
+from __future__ import (unicode_literals, absolute_import, division,
+                        print_function)
 import itertools
 import numpy as np
 import os
@@ -11,17 +14,13 @@ import time
 
 from  multiprocessing import Process
 
-from ema_workbench.em_framework.outcomes import ScalarOutcome
 from ema_workbench.em_framework import (RealParameter, CategoricalParameter, 
-                                        perform_experiments)
-import ema_workbench.em_framework.util as util
+                                    ScalarOutcome, MultiprocessingEvaluator)
 from ema_workbench.util import ema_logging
 from ema_workbench.util.ema_logging import method_logger
 
-from zero_mq_v4 import ZeroMQModel
-from FederateStarter_router import FederateStarter
-from numpy.core.defchararray import upper
-from ema_workbench.em_framework.parameters import Constant
+from simzmq import SimZMQModel
+from federatestarter import FederateStarter
 
 
 infrastructure = ['road', 'bridge', 'waterway', 'ferry', 'ports', 'terminals', 
@@ -55,24 +54,22 @@ def beta_growth_function(t, w_max=1, t_e=5, t_m=0.5):
     return y
 
 
-class BGD_TransportModel(ZeroMQModel):
-    def __init__(self, name, softwareCode, argsBefore, fullPathModelFile, 
-                 argsAfter, fs_workingDirectory, redirectStdin, redirectStdout, 
-                 redirectStderr, deleteWorkingDirectory, deleteStdin, 
-                 deleteStdout, deleteStderr, ip, fs_port, fs_receiver, 
-                 m_receiver, magic_no, sim_run_id, sender_id, local_directory):
-        
-        super(BGD_TransportModel, self).__init__(name, softwareCode,
-                 argsBefore, fullPathModelFile, argsAfter,
-                 fs_workingDirectory, redirectStdin, redirectStdout, redirectStderr,
-                 deleteWorkingDirectory, deleteStdin, deleteStdout, deleteStderr,
-                 ip, fs_port, fs_receiver, m_receiver, 
-                 magic_no, sim_run_id, sender_id, local_directory)
+class BGD_TransportModel(SimZMQModel):
+    
+    @property
+    def run_setup(self):
+        return [self._runtime, self._warmuptime, self._offsettime, self._speed]
+
+    @run_setup.setter
+    def run_setup(self, params):
+        self._runtime = params[0]
+        self._warmuptime = params[1]
+        self._offsettime = params[2]
+        self._speed = params[3]
     
     @method_logger
     def run_experiment(self, experiment):
-        super(BGD_TransportModel, self).run_experiment(experiment)
-        run_id = experiment.name + 1 #to avoid 0
+        run_id = experiment.id + 1 #to avoid 0
         
         #1) === SETTING THE PARAMETER VALUES ONE BY ONE ===
         water_depth = experiment['Flood_depth']
@@ -84,8 +81,6 @@ class BGD_TransportModel(ZeroMQModel):
                     tm = experiment[category+'_Tm']
                     damage = beta_growth_function(water_depth, w_max=wm, t_m=tm)
                     damage_ratios['Damage_'+key+'_'+category] = damage
-                    #del experiment[category+'_Wmax']
-                    #del experiment[category+'_Tm']
                     experiment.pop(category+'_Wmax', None)
                     experiment.pop(category+'_Tm', None)
             else:
@@ -93,21 +88,18 @@ class BGD_TransportModel(ZeroMQModel):
                 tm = experiment[key+'_Tm']
                 damage = beta_growth_function(water_depth, w_max=wm, t_m=tm)
                 damage_ratios['Damage_'+key] = damage
-                #del experiment[key+'_Wmax']
-                #del experiment[key+'_Tm']
                 experiment.pop(key+'_Wmax', None)
                 experiment.pop(key+'_Tm', None)
-        #del experiment['Flood_depth']
         experiment.pop('Flood_depth', None)
         
         for key, value in experiment.items():
             # send the parameters that are not included above
             payload = [key, value]
-            self.SetValue(run_id, payload) 
+            self.set_value(run_id, payload) 
             
         for key, value in damage_ratios.items():
             payload = [key, value]
-            self.SetValue(run_id, payload)
+            self.set_value(run_id, payload)
         
         #2) === RUN THE SIMULATION ===
         self.StartSimulation(run_id)
@@ -121,54 +113,51 @@ class BGD_TransportModel(ZeroMQModel):
         #4) === COLLECT THE SIMULATION RESULTS ===
         results = {}
         for outcome in self.outcomes:
-            variable = outcome.variable_name[0]
             v_type = type(outcome).__name__.split("O")[0]
-            
-            results[variable] = self.RequestStatistics(run_id, variable, v_type)
+            for var in outcome.variable_name:
+                results[var] = self.RequestStatistics(run_id, var, v_type)
         
         ema_logging.debug('setting results to output')
-        self.output = results
+        return results
         
 
 if __name__ == "__main__":       
-    ema_logging.log_to_stderr(ema_logging.DEBUG)
+    ema_logging.log_to_stderr(ema_logging.INFO)
     
     ip = 'localhost'
-    fs_port = '5555'
-    Process(target=FederateStarter, args=('federation_name', "SIM01", 
-                                          fs_port, 'FS', 5000, 6000)).start()
+    federatestarter_port = '5555'
+    federatestarter_name = "FS"
+    magic_nr = "SIM01"
+    Process(target=FederateStarter, args=('federation_name', 
+                                          magic_nr, 
+                                          federatestarter_port, 
+                                          federatestarter_name, 
+                                          5000, 6000)).start()
 
-    
+    # TODO::
     directory = os.path.abspath('./model')
-    model = BGD_TransportModel(name="mm1q", 
-                        softwareCode='java',
-                        argsBefore='-jar', 
+    wd = os.path.abspath('./wd')
+    model = BGD_TransportModel(name="BGD", 
+                        wd=wd,
+                        software_code='java',
+                        args_before='-jar', 
+                        args_after=directory, # TODO:: directory where the jar resides
                         fullPathModelFile='./model/bgd.jar', 
-                        argsAfter='BGD.1 5556 {}'.format(directory), #TODO redundant with m_receiver
-                        fs_workingDirectory=directory, 
                         redirectStdin='', 
-                        redirectStdout= os.path.join(directory, "out.txt"),
-                        redirectStderr= os.path.join(directory, "err.txt"),
-                        deleteWorkingDirectory=False, deleteStdin=False, 
-                        deleteStdout=False, deleteStderr=False, ip=ip, 
-                        fs_port=fs_port, 
-                        fs_receiver="FS", 
+                        redirectStdout="out.txt",
+                        redirectStderr="err.txt",
+                        ip=ip, 
+                        federatestarter_port=federatestarter_port, 
+                        federatestarter_name=federatestarter_name, 
                         m_receiver="BGD", 
-                        magic_no="SIM01", 
+                        magic_nr=magic_nr, 
                         sim_run_id="FM", 
-                        sender_id="EMA",
-                        local_directory=directory)
+                        sender_id="EMA",)
+    model.run_setup = [60*24.0, 0.0, 0.0, 1000000000.0]
     
     #TODO FM.2 message klopt nog niet
     # replications moeten correct er in komen
-    # constants op deze wijze hiervoor is niet handig
-    # ipv daarvan een run_setup attribute toevoegen
-    model.constants = [Constant("runTime", 30*60*60*24.0),
-                       Constant("warmupTime", 0.0),
-                       Constant("offsetTime", 0.0),
-                       Constant("speed", 1000000000.0),
-                       ]
-    model.replications = 1
+    model.n_replications = 2
 
     socioeconomic_parameters = [pair[0]+'_'+pair[1] for pair in 
                                 itertools.product(goods, activity)]
@@ -205,7 +194,7 @@ if __name__ == "__main__":
     # define outcomes
     outcomes = [ScalarOutcome("{}_TransportCost".format(good)) for good 
                       in goods]
-    outcomes.extend([ScalarOutcome("{}_TravelTime".format(good)) for good 
+    outcomes.extend([ScalarOutcome("{}_TravelTime".format(good),) for good 
                            in goods])
     outcomes.extend([ScalarOutcome("{}_UnsatisfiedDemand".format(good)) for 
                      good in goods])
@@ -214,11 +203,8 @@ if __name__ == "__main__":
     model.uncertainties = socioeconomic_unc + transport_unc \
                     + damage_uncertainties + other_unc
     model.outcomes = outcomes
-    
-    print([out.name for out in model.outcomes])
-    print([unc.name for unc in model.uncertainties])
  
-    
-    results = perform_experiments(model, 2)
+    with MultiprocessingEvaluator(model) as evaluator:
+        results = evaluator.perform_experiments(3, reporting_interval=1)    
     experiments, outcomes = results
     print(outcomes)
