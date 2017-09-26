@@ -205,6 +205,6 @@ if __name__ == "__main__":
     model.outcomes = outcomes
  
     with MultiprocessingEvaluator(model) as evaluator:
-        results = evaluator.perform_experiments(3, reporting_interval=1)    
+        results = evaluator.perform_experiments(25, reporting_interval=1)    
     experiments, outcomes = results
     print(outcomes)

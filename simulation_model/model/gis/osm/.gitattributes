@@ -1,0 +1,2 @@
+buildings.dbf filter=lfs diff=lfs merge=lfs -text
+buildings.shp filter=lfs diff=lfs merge=lfs -text
