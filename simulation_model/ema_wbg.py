@@ -74,25 +74,20 @@ class BGD_TransportModel(SimZMQModel):
         run_id = experiment.id
         
         #1) === SETTING THE PARAMETER VALUES ONE BY ONE ===
-        water_depth = experiment['Flood_depth']
+        water_depth = experiment.pop('Flood_depth')
         damage_ratios = {}
         for key in infrastructure:
             if key in ['road', 'bridge', 'waterway']:
                 for category in categories[key]:
-                    wm = experiment[category+'_Wmax']
-                    tm = experiment[category+'_Tm']
+                    wm = experiment.pop('{}_{}_Wmax'.format(key, category))
+                    tm = experiment.pop('{}_{}_Tm'.format(key, category))
                     damage = beta_growth_function(water_depth, w_max=wm, t_m=tm)
                     damage_ratios['Damage_'+key+'_'+category] = damage
-                    experiment.pop(category+'_Wmax', None)
-                    experiment.pop(category+'_Tm', None)
             else:
-                wm = experiment[key+'_Wmax']
-                tm = experiment[key+'_Tm']
+                wm = experiment.pop(key+'_Wmax')
+                tm = experiment.pop(key+'_Tm')
                 damage = beta_growth_function(water_depth, w_max=wm, t_m=tm)
                 damage_ratios['Damage_'+key] = damage
-                experiment.pop(key+'_Wmax', None)
-                experiment.pop(key+'_Tm', None)
-        experiment.pop('Flood_depth', None)
         
         for key, value in experiment.items():
             # send the parameters that are not included above
@@ -113,13 +108,17 @@ class BGD_TransportModel(SimZMQModel):
             time.sleep(2)
         
         #4) === COLLECT THE SIMULATION RESULTS ===
-        results = {}
+        results = damage_ratios.copy() # TODO:: add beta function results
         for outcome in self.outcomes:
+            if outcome.name.startswith('Damage_'):
+                continue 
+            
             v_type = type(outcome).__name__.split("O")[0]
             for var in outcome.variable_name:
                 results[var] = self.RequestStatistics(run_id, var, v_type)
         
         ema_logging.debug('setting results to output')
+        
         return results
         
 
@@ -130,13 +129,13 @@ if __name__ == "__main__":
     federatestarter_port = '5555'
     federatestarter_name = "FS"
     magic_nr = "SIM01"
-    Process(target=FederateStarter, args=('federation_name', 
+    fs = Process(target=FederateStarter, args=('federation_name', 
                                           magic_nr, 
                                           federatestarter_port, 
                                           federatestarter_name, 
                                           5000, 6000)).start()
 
-    # TODO::
+
     directory = os.path.abspath('./model')
     wd = os.path.abspath('./wd')
     model = BGD_TransportModel(name="BGD", 
@@ -174,15 +173,17 @@ if __name__ == "__main__":
     transport_unc = [RealParameter(prm, 0, 1) for prm in transport_parameters] 
     
     damage_parameters = {}
+    names = []
     for infra in infrastructure:
         if infra in ['road', 'bridge', 'waterway']:
-            dmg_parameters = [pair[0]+'_'+pair[1] for pair in 
+            dmg_parameters = ['{}_{}_{}'.format(infra, *pair) for pair in 
                               itertools.product(categories[infra], 
                                                 fnc_parameters)]   
         else:
             dmg_parameters = [infra+'_'+prm for prm in fnc_parameters]
         damage_parameters[infra] = dmg_parameters
-
+        names.extend(dmg_parameters)
+    
     damage_uncertainties = []
     for infra in infrastructure:
         parameters = damage_parameters[infra]
@@ -205,14 +206,23 @@ if __name__ == "__main__":
                            in goods])
     outcomes.extend([ScalarOutcome("{}_UnsatisfiedDemand".format(good)) for 
                      good in goods])
+    outcomes.extend([ScalarOutcome(name) for name in ['Damage_road_n', 
+                    'Damage_road_r', 'Damage_road_z', 
+                    'Damage_bridge_a', 'Damage_bridge_b', 'Damage_bridge_c', 
+                    'Damage_bridge_d', 'Damage_waterway_1', 'Damage_waterway_2', 
+                    'Damage_waterway_3', 'Damage_waterway_4', 'Damage_ferry', 
+                    'Damage_ports', 'Damage_terminals', 'Damage_railways', 
+                    'Damage_railstations']])
     
     # set uncertainties and outcomes on model
     model.uncertainties = socioeconomic_unc + transport_unc \
                     + damage_uncertainties + other_unc
     model.outcomes = outcomes
  
-    n_experiments = 28
-    with MultiprocessingEvaluator(model) as evaluator:
+    n_experiments = 100
+    with MultiprocessingEvaluator(model, n_processes=50) as evaluator:
         results = evaluator.perform_experiments(n_experiments, reporting_interval=1)
-
+#     results = perform_experiments(model, 2, reporting_interval=1)
+    
     save_results(results, './results/test {}.tar.gz'.format(n_experiments))
+    print(results[1])
