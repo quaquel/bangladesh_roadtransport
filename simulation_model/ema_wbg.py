@@ -16,7 +16,7 @@ from  multiprocessing import Process
 
 from ema_workbench.em_framework import (RealParameter, CategoricalParameter, 
                                     ScalarOutcome, MultiprocessingEvaluator)
-from ema_workbench.util import ema_logging
+from ema_workbench.util import ema_logging, save_results
 from ema_workbench.util.ema_logging import method_logger
 
 from simzmq import SimZMQModel
@@ -71,7 +71,7 @@ class BGD_TransportModel(SimZMQModel):
     @method_logger
     def run_experiment(self, experiment):
         self.start_new_model()
-        run_id = experiment.id + 1 #to avoid 0
+        run_id = experiment.id
         
         #1) === SETTING THE PARAMETER VALUES ONE BY ONE ===
         water_depth = experiment['Flood_depth']
@@ -156,7 +156,7 @@ if __name__ == "__main__":
                         sim_run_id="FM", 
                         sender_id="EMA",)
     secsperday = 60*60*24.0
-    n_days = 2
+    n_days = 10
     model.run_setup = [n_days*secsperday, 0.0, 0.0, 1000000000.0]
     
     #TODO FM.2 message klopt nog niet
@@ -211,9 +211,8 @@ if __name__ == "__main__":
                     + damage_uncertainties + other_unc
     model.outcomes = outcomes
  
+    n_experiments = 28
     with MultiprocessingEvaluator(model) as evaluator:
-        results = evaluator.perform_experiments(3, reporting_interval=1)
+        results = evaluator.perform_experiments(n_experiments, reporting_interval=1)
 
-#     results = perform_experiments(model, 3, reporting_interval=1)    
-    experiments, outcomes = results
-    print(outcomes)
+    save_results(results, './results/test {}.tar.gz'.format(n_experiments))

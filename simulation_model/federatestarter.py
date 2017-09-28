@@ -220,6 +220,7 @@ class FederateStarter():
              
     def kill_federate(self, model_id, sim_run_id, fm_id, address):
         # TODO:: replace with try except
+        logger.info("received kill federate {}".format(model_id))
         
         try:
             process, socket, port = self.model_processes.pop(model_id)
@@ -238,9 +239,9 @@ class FederateStarter():
             try:
                 socket.send(message)
                 model_killed = True
-                #logger.info("federate killed with message")
+                logger.info("federate killed with message")
             except ZMQError as e:
-                pass
+                raise
             socket.close()
             self.no_messages += 1
             

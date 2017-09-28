@@ -322,9 +322,7 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
     @method_logger
     def cleanup(self):
         try:
-            self.KillFederate()
             self.fs_socket.close()
-            self.m_socket.close()
             self.context.term()
         except AttributeError as e:
             # typically only happens if the number of experiments is lower
@@ -376,7 +374,7 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
         try:
             r_msg = self.fs_socket.recv()
             r_message = message_decode(r_msg)
-            debug("FederateStarted : ", r_message)
+            debug("FederateStarted : " + str(r_message))
             expected_type = "FS.2"
             error, fields = self.check_received_message(r_message, run_id, expected_type)
             if error:
