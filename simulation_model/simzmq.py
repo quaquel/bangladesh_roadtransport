@@ -146,7 +146,7 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
                  fullPathModelFile, 
                  redirectStdin, redirectStdout, redirectStderr, 
                  ip, federatestarter_port, federatestarter_name, 
-                 m_receiver, magic_nr, sim_run_id, sender_id, 
+                 receiver_tag, magic_nr, sim_run_id, sender_id, 
                  deleteWorkingDirectory=False, deleteStdin=False, 
                  deleteStdout=False, deleteStderr=False,):
         '''
@@ -168,9 +168,7 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
         federatestarter_port : int,
                   port number of the federate starter
         federatestarter_name : str,
-        m_receiver : int, list of int
-                     port number of the model (that can be a list for multiple 
-                     model instances)
+        receiver_tag : base name for identifying receiver
         magic_nr : str
                    the magic nr that will be used in the simulations, 
                    e.g "SIM01"
@@ -193,7 +191,7 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
         self.fs_port = federatestarter_port   
         self.fs_receiver = federatestarter_name
         
-        self.m_receiver = m_receiver
+        self.receiver_tag = receiver_tag
         
         # ===unique message fields===
         self.magic_no = magic_nr
@@ -233,14 +231,16 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
         except ZMQError as e:
             raise e
         
-        self.m_socket = self.context.socket(zmq.REQ) # @UndefinedVariable
-        
-        # TODO:: should this not be a UUID (using uuid library)?
-        identity = u"%04x-%04x" % (randint(0, 0x10000), randint(0, 0x10000))
-        self.m_socket.setsockopt_string(zmq.IDENTITY, identity) # @UndefinedVariable
-        
-        self.instance_id = os.getpid()
-        self.m_receiver = self.m_receiver + '.' + str(self.instance_id)  
+    
+    @method_logger
+    def start_new_model(self):        
+        # TODO:: bit of a hack due to lack of reset on dsol
+        ema_logging.info("starting new model")
+
+        #TODO:: hack, m_reiver and base should be two seperate attributes
+        self.instance_id = u"%04x-%04x" % (randint(0, 0x10000), randint(0, 0x10000))
+        self.m_receiver = self.receiver_tag + '.' + str(self.instance_id)  
+
         self.sender_id = self.sender_id + '.' + str(self.instance_id) 
         
         #TODO:: why is the port number even in here
@@ -254,12 +254,19 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
                    self.redirectStdin, self.redirectStdout, self.redirectStderr, 
                    self.del_wd, self.del_stdout, self.del_stdin]
         
-        self.start_federate(payload)
+        m_port = self.start_federate(payload)
+        
+        self.m_socket = self.context.socket(zmq.REQ) # @UndefinedVariable
+        
+        # TODO:: should this not be a UUID (using uuid library)?
+        identity = u"%04x-%04x" % (randint(0, 0x10000), randint(0, 0x10000))
+        self.m_socket.setsockopt_string(zmq.IDENTITY, identity) # @UndefinedVariable
         self.m_socket.connect("tcp://{}:{}".format(self.ip_toconnect, 
-                                                   self.m_port))
+                                                   m_port))
         
         # ===send the Simulation Run Control message===
         self.sim_run_control()
+        ema_logging.info("new model started")
               
     @method_logger
     def run_experiment(self, experiment):
@@ -300,6 +307,18 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
          
         return results
     
+    
+    @method_logger
+    def reset_model(self):
+        """ Method for reseting the model to its initial state. The default
+        implementation only sets the outputs to an empty dict. 
+
+        """
+        super(SimZMQModel, self).reset_model()
+        self.KillFederate()
+        self.m_socket.close()
+        
+    
     @method_logger
     def cleanup(self):
         try:
@@ -308,6 +327,12 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
             self.m_socket.close()
             self.context.term()
         except AttributeError as e:
+            # typically only happens if the number of experiments is lower
+            # than the number of cores in cases of running in parallel.
+            # TODO:: in ema_workbench number of processes should be the
+            # minimum of nr. cores and nr. of experiments
+            ema_logging.warning(str(e))
+        except EMAError as e:
             # typically only happens if the number of experiments is lower
             # than the number of cores in cases of running in parallel.
             # TODO:: in ema_workbench number of processes should be the
@@ -363,16 +388,17 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
                         debug("Federate {} has been started successfully.".format(payload[0]))
                     else:
                         EMAError("Error in starting federate {} : ".format(payload[0]), payload[2])
-                self.m_port = payload[2] 
+                m_port = payload[2] 
         except ZMQError as e:
             debug("model initialization message could not be received.")
             raise EMAError(str(e))
+        return m_port
     
     @method_logger            
     def sim_run_control(self):
         run_id = 0
         
-        payload= self.run_setup
+        payload = self.run_setup
         payload.append(self.n_replications) # TODO:: correctly implement FM.2
         payload.append(0)
         
@@ -498,10 +524,10 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
     @method_logger
     def RequestStatistics(self, run_id, variable, v_type):
         content = self.prepare_message(run_id=run_id,
-                                           receiver=self.m_receiver, 
-                                           message_type="FM.6",
-                                           status=1,
-                                           payload=[variable])
+                                       receiver=self.m_receiver, 
+                                       message_type="FM.6",
+                                       status=1,
+                                       payload=[variable])
             
         message = message_encode(content)
         self.send_to_model(message)        
@@ -547,6 +573,8 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
     @method_logger
     def SimulationReset(self):
         #TODO:: do something here
+        
+        
         pass
     
     @method_logger
