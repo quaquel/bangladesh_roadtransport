@@ -219,8 +219,8 @@ if __name__ == "__main__":
                     + damage_uncertainties + other_unc
     model.outcomes = outcomes
  
-    n_experiments = 100
-    with MultiprocessingEvaluator(model, n_processes=50) as evaluator:
+    n_experiments = 28
+    with MultiprocessingEvaluator(model) as evaluator:
         results = evaluator.perform_experiments(n_experiments, reporting_interval=1)
 #     results = perform_experiments(model, 2, reporting_interval=1)
     
