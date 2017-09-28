@@ -16,22 +16,6 @@ from zmq.error import ZMQError, ZMQBindError
 
 from message_v2 import message_encode, message_decode
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-# create a file handler
-handler = logging.StreamHandler(sys.stdout)
-handler.setLevel(logging.INFO)
-
-# # create a logging format
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-handler.setFormatter(formatter)
-
-# add the handlers to the logger
-logger.addHandler(handler)
-logger.propagate = False
-
-
 
 class FederateStarter():
     
@@ -53,6 +37,22 @@ class FederateStarter():
         self.max_port = max_port
         self.no_messages = 0
         
+        logging.basicConfig(level=logging.INFO)
+        logger = logging.getLogger(__name__)
+        
+        # create a file handler
+        handler = logging.StreamHandler(sys.stdout)
+        handler.setLevel(logging.INFO)
+        
+        # # create a logging format
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        handler.setFormatter(formatter)
+        
+        # add the handlers to the logger
+        logger.addHandler(handler)
+        logger.propagate = False
+        self.log = logger
+        
         self.context = zmq.Context()   
         #the socket to which EMA workbench (federate manager) connects
         self.fm_socket = self.context.socket(zmq.ROUTER)    
@@ -60,7 +60,7 @@ class FederateStarter():
         try:
             self.fm_socket.bind("tcp://*:{}".format(fm_port))
         except ZMQBindError as e:
-            logger.info(e)
+            self.log.info(e)
             
         # dictionary in the {model_id : (process, socket, port_no)} format       
         self.model_processes = {}  
@@ -68,7 +68,7 @@ class FederateStarter():
         # so that they can be accessed easily when necessary, e.g. for 
         # termination                                  
         
-        logger.info("Running the Federate Starter on port: %s" % fm_port)
+        self.log.info("Running the Federate Starter on port: %s" % fm_port)
         
         loop = True
         
@@ -133,7 +133,7 @@ class FederateStarter():
                 in_use = False
                 dummy_socket.close()
             except ZMQError as e:
-                logger.info("Trying to assign port no {} but ".format(m_port), e)
+                self.log.info("Trying to assign port no {} but ".format(m_port), e)
         
         #the chosen port can be seized by another process in the meantime    
         
@@ -145,11 +145,11 @@ class FederateStarter():
             try:
                 process = subprocess.Popen([softwareCode, argsBefore, model_file, str(instanceId), str(m_port), argsAfter[-1]],
                                        stdout=f1, stderr=f2)
-                logger.info("started the java process")
+                self.log.info("started the java process")
             except (ValueError, TypeError, IOError, OSError) as e:
-                logger.info("Error in {} : ".format(instanceId), e)
+                self.log.info("Error in {} : ".format(instanceId), e)
             except:
-                logger.info("Error in {} : ".format(instanceId))
+                self.log.info("Error in {} : ".format(instanceId))
         #connect to the model port 
         #the socket to connect to the model instances
         m_socket = self.context.socket(zmq.REQ)
@@ -220,7 +220,7 @@ class FederateStarter():
              
     def kill_federate(self, model_id, sim_run_id, fm_id, address):
         # TODO:: replace with try except
-        logger.info("received kill federate {}".format(model_id))
+        self.log.info("received kill federate {}".format(model_id))
         
         try:
             process, socket, port = self.model_processes.pop(model_id)
@@ -239,7 +239,7 @@ class FederateStarter():
             try:
                 socket.send(message)
                 model_killed = True
-                logger.info("federate killed with message")
+                self.log.info("federate killed with message")
             except ZMQError as e:
                 raise
             socket.close()
