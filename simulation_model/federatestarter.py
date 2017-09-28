@@ -171,11 +171,13 @@ class FederateStarter():
                                status=1,
                                payload=[])
         message = message_encode(content)
+        
         try:
             self.model_processes[receiver_id][1].send(message)
             self.no_messages += 1
         except ZMQError as e:
             raise ValueError("ZMQ error : "+e)
+        
         #receive status
         try:
             r_msg = self.model_processes[receiver_id][1].recv()
@@ -217,8 +219,12 @@ class FederateStarter():
             raise ValueError("ZMQ error : "+e)
              
     def kill_federate(self, model_id, sim_run_id, fm_id, address):
-        if model_id not in self.model_processes.keys():
-            raise ValueError("Model {} is unknown to the FederateStarter".format(model_id))
+        # TODO:: replace with try except
+        
+        try:
+            process, socket, port = self.model_processes.pop(model_id)
+        except KeyError:
+            ValueError("Model {} is unknown to the FederateStarter".format(model_id))
         else:
             #send an fs.3 message to the model as a REQ with id
             content = self.prepare_message(sim_run_id=sim_run_id, 
@@ -228,25 +234,24 @@ class FederateStarter():
                                        payload=[])
             message = message_encode(content)
             model_killed = False
+            
             try:
-                self.model_processes[model_id][1].send(message)
+                socket.send(message)
                 model_killed = True
                 #logger.info("federate killed with message")
             except ZMQError as e:
                 pass
-            self.model_processes[model_id][1].close()
+            socket.close()
             self.no_messages += 1
             
             #check if the model is running, if so, kill forcibly
-            alive = self.model_processes[model_id][0].poll()
+            alive = process.poll()
             
             if alive is None:
-                self.model_processes[model_id][0].kill()
+                process.kill()
                 model_killed = True
             #clean the directory
             if self.deleteWorkingDirectory:
-                #for fn in os.listdir(self.workingDirectory):
-                #    os.remove(fn)
                 shutil.rmtree(self.workingDirectory)
             
             #send a message FS.4 to the federate manager

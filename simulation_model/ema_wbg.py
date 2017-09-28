@@ -21,6 +21,7 @@ from ema_workbench.util.ema_logging import method_logger
 
 from simzmq import SimZMQModel
 from federatestarter import FederateStarter
+from ema_workbench.em_framework.evaluators import perform_experiments
 
 
 infrastructure = ['road', 'bridge', 'waterway', 'ferry', 'ports', 'terminals', 
@@ -69,6 +70,7 @@ class BGD_TransportModel(SimZMQModel):
     
     @method_logger
     def run_experiment(self, experiment):
+        self.start_new_model()
         run_id = experiment.id + 1 #to avoid 0
         
         #1) === SETTING THE PARAMETER VALUES ONE BY ONE ===
@@ -149,15 +151,17 @@ if __name__ == "__main__":
                         ip=ip, 
                         federatestarter_port=federatestarter_port, 
                         federatestarter_name=federatestarter_name, 
-                        m_receiver="BGD", 
+                        receiver_tag="BGD", 
                         magic_nr=magic_nr, 
                         sim_run_id="FM", 
                         sender_id="EMA",)
-    model.run_setup = [60*24.0, 0.0, 0.0, 1000000000.0]
+    secsperday = 60*60*24.0
+    n_days = 2
+    model.run_setup = [n_days*secsperday, 0.0, 0.0, 1000000000.0]
     
     #TODO FM.2 message klopt nog niet
     # replications moeten correct er in komen
-    model.n_replications = 2
+    model.n_replications = 1
 
     socioeconomic_parameters = [pair[0]+'_'+pair[1] for pair in 
                                 itertools.product(goods, activity)]
@@ -189,7 +193,10 @@ if __name__ == "__main__":
             
     other_unc = [CategoricalParameter('Flood_area', flood_ids),
                  RealParameter('Flood_duration', 1, 90),
-                 RealParameter('Flood_depth', 0, 5)]
+                 RealParameter('Flood_depth', 0, 5),
+                 RealParameter('Water_cost', 1, 5),
+                 RealParameter('Road_cost', 3,9),
+                 RealParameter('Trs_cost', 200, 500)]
                         
     # define outcomes
     outcomes = [ScalarOutcome("{}_TransportCost".format(good)) for good 
@@ -205,6 +212,8 @@ if __name__ == "__main__":
     model.outcomes = outcomes
  
     with MultiprocessingEvaluator(model) as evaluator:
-        results = evaluator.perform_experiments(25, reporting_interval=1)    
+        results = evaluator.perform_experiments(3, reporting_interval=1)
+
+#     results = perform_experiments(model, 3, reporting_interval=1)    
     experiments, outcomes = results
     print(outcomes)
