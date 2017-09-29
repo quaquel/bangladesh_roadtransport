@@ -18,7 +18,6 @@ import zmq
 from zmq.error import ZMQError, ZMQBindError
 
 from message_v2 import message_encode, message_decode
-from ema_workbench.util import ema_logging
 
 
 class FederateStarter(object):
@@ -80,13 +79,15 @@ class FederateStarter(object):
             self.check_received_message(message, ["FM.1", "FM.8"]  ) 
 
             message_type = message[4][1]
+            sender = message[2][1]
+            self.log.info("{} received from {}".format(message_type, sender))
+            
             if message_type == "FM.1": #FEDERATE START MESSAGE
-                self.log.info("federate start message received")
-                
                 sim_run_id = message[1][1] 
                 fm_id = message[2][1]
                 payload = [x[1] for x in message[8:]]
-                
+            
+                self.log.info("start model {}".format(payload[4].split(' ')[0]))     
                 # === instantiate a model ===
                 model_id = self.start_federate(payload)
                 
@@ -122,6 +123,7 @@ class FederateStarter(object):
                 self.kill_federate(payload, sim_run_id, fm_id, address)
             else:
                 ValueError("unknown message type: {}".format(message_type))
+            self.log.info("{} handled for {}".format(message_type, sender))
 
 
     def initialize_logger(self):
@@ -147,7 +149,10 @@ class FederateStarter(object):
         softwareCode = payload[1]
         args_before = payload[2] # TODO:: split on space
         model_file = payload[3]
-        args_after = payload[4].split(' ') # may need to be changed depending on what the model initialization requires
+        
+        # may need to be changed depending on what the model initialization 
+        # requires
+        args_after = payload[4].split(' ') 
 
         # TODO:: should be part of the attributes of the federate
         # might be different between federates
@@ -158,7 +163,8 @@ class FederateStarter(object):
         delete_working_directory = payload[9]
         deleteStdout = payload[10]
         deleteStdin = payload[11]
-        instanceId = args_after[0]
+        
+        instance_id = args_after[0]
         
         #assign a port number
         while True:
@@ -186,21 +192,25 @@ class FederateStarter(object):
         with open(redirectStdout, 'w') as f1, open(redirectStderr, 'w') as f2:
             try:
                 args = [softwareCode, args_before, '-Xmx4G', model_file, 
-                        str(instanceId), str(m_port), args_after[-1]]
+                        str(instance_id), str(m_port), args_after[-1]]
                 process = subprocess.Popen(args, stdout=f1, stderr=f2)
             except (ValueError, TypeError, IOError, OSError) as e:
-                self.log.info("Error in {} {}: ".format(instanceId, e))
+                self.log.info("Error in {} {}: ".format(instance_id, e))
             except Exception as e:
-                self.log.info("Error in {}: {}".format(instanceId, e))
+                self.log.info("Error in {}: {}".format(instance_id, e))
+                raise e
             else:
                 self.log.info("started process pid: {}".format(process.pid))
 
-
+        # for debug in my sanity
+        if instance_id in self.model_processes:
+            raise Exception("instance id not unique")
+        
         #add the model id to the list
-        self.model_processes[instanceId] = (process, m_socket, m_port, 
+        self.model_processes[instance_id] = (process, m_socket, m_port, 
                                     working_directory,delete_working_directory)
         
-        return instanceId
+        return instance_id
 
 
     def request_status(self, sim_run_id, receiver_id):
@@ -222,7 +232,7 @@ class FederateStarter(object):
         
         #receive status
         try:
-            self.log("check receive for FS.1")
+            self.log.info("check receive for FS.1")
             r_msg = socket.recv()
             r_message = message_decode(r_msg)
             expected_type = "MC.1"
