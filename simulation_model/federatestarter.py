@@ -143,7 +143,7 @@ class FederateStarter(object):
                                       
     def start_federate(self, payload):
         softwareCode = payload[1]
-        args_before = payload[2]
+        args_before = payload[2] # TODO:: split on space
         model_file = payload[3]
         args_after = payload[4].split(' ') # may need to be changed depending on what the model initialization requires
 
@@ -179,10 +179,9 @@ class FederateStarter(object):
         #logger.info("data dir ", data_dir)
         with open(redirectStdout, 'w') as f1, open(redirectStderr, 'w') as f2:
             try:
-                process = subprocess.Popen([softwareCode, args_before, 
-                                            model_file, str(instanceId), 
-                                            str(m_port), args_after[-1]],
-                                       stdout=f1, stderr=f2)
+                args = [softwareCode, args_before, model_file, str(instanceId), 
+                        str(m_port), args_after[-1]]
+                process = subprocess.Popen(args, stdout=f1, stderr=f2)
                 self.log.info("started the java process")
             except (ValueError, TypeError, IOError, OSError) as e:
                 self.log.info("Error in {} : ".format(instanceId), e)

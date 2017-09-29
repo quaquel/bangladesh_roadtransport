@@ -181,7 +181,8 @@ if __name__ == "__main__":
     directory = os.path.abspath('./model')
     wd = os.path.abspath('./wd')
     secsperday = 60*60*24.0
-    n_days = 60
+    run_days = 60
+    startup_days = 10
 
     fs = Process(target=FederateStarter, args=('federation_name', 
                                           magic_nr, 
@@ -207,17 +208,18 @@ if __name__ == "__main__":
                         magic_nr=magic_nr, 
                         sim_run_id="FM", 
                         sender_id="EMA",)
-    model.run_setup = [n_days*secsperday, 0.0, 0.0, 1000000000.0]
+    model.run_setup = [run_days*secsperday, startup_days*secsperday, 0.0, 
+                       1000000000.0]
     model.n_replications = 1
     model.uncertainties = uncertainty_factory()
     model.outcomes = outcome_factory()
  
-#     n_experiments = 50
-#     with MultiprocessingEvaluator(model) as evaluator:
-#         results = evaluator.perform_experiments(n_experiments, 
-#                                                 reporting_interval=1)
-#     save_results(results, './results/test {}.tar.gz'.format(n_experiments))
+    n_experiments = 100
+    with MultiprocessingEvaluator(model) as evaluator:
+        results = evaluator.perform_experiments(n_experiments, 
+                                                reporting_interval=1)
+    save_results(results, './results/test {}.tar.gz'.format(n_experiments))
     
-    results = perform_experiments(model, 2, reporting_interval=1)
+#     results = perform_experiments(model, 2, reporting_interval=1)
     print(results[1])
     fs.terminate()
