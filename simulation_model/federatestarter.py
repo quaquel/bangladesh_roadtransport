@@ -179,7 +179,7 @@ class FederateStarter(object):
         #logger.info("data dir ", data_dir)
         with open(redirectStdout, 'w') as f1, open(redirectStderr, 'w') as f2:
             try:
-                args = [softwareCode, args_before, model_file, str(instanceId), 
+                args = [softwareCode, args_before, '-Xmx4G', model_file, str(instanceId), 
                         str(m_port), args_after[-1]]
                 process = subprocess.Popen(args, stdout=f1, stderr=f2)
                 self.log.info("started the java process")
