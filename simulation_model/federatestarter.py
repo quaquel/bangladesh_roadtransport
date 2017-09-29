@@ -18,6 +18,7 @@ import zmq
 from zmq.error import ZMQError, ZMQBindError
 
 from message_v2 import message_encode, message_decode
+from ema_workbench.util import ema_logging
 
 
 class FederateStarter(object):
@@ -113,6 +114,7 @@ class FederateStarter(object):
                     raise ValueError("ZMQ error : "+e)
                 else:
                     self.log.info("model started successfully")
+            
             elif message_type == "FM.8": #FEDERATE KILL 
                 payload = message[8][1] # instance id to be killed
                 sim_run_id = message[1][1] 
@@ -210,15 +212,18 @@ class FederateStarter(object):
                                payload=[])
         message = message_encode(content)
         
+        socket = self.model_processes[receiver_id][1]
+        
         try:
-            self.model_processes[receiver_id][1].send(message)
+            socket.send(message)
             self.no_messages += 1
         except ZMQError as e:
             raise ValueError("ZMQ error : "+e)
         
         #receive status
         try:
-            r_msg = self.model_processes[receiver_id][1].recv()
+            self.log("check receive for FS.1")
+            r_msg = socket.recv()
             r_message = message_decode(r_msg)
             expected_type = "MC.1"
             self.check_received_message(r_message, expected_type)
