@@ -206,11 +206,11 @@ if __name__ == "__main__":
                         sim_run_id="FM", 
                         sender_id="EMA",)
     model.run_setup = [n_days*secsperday, 0.0, 0.0, 1000000000.0]
-    model.n_replications = 1
+    model.n_replications = 10
     model.uncertainties = uncertainty_factory()
     model.outcomes = outcome_factory()
  
-    n_experiments = 50
+    n_experiments = 1000
     with MultiprocessingEvaluator(model) as evaluator:
         results = evaluator.perform_experiments(n_experiments, 
                                                 reporting_interval=1)
