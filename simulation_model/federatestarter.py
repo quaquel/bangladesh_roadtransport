@@ -176,6 +176,7 @@ class FederateStarter(object):
             except ZMQError as e:
                 self.log.info("Trying to assign port {} but {}".format(m_port, str(e)))
             else:
+                dummy_socket.unbind('tcp://*:{}'.format(m_port))
                 dummy_socket.close()
                 break
         
