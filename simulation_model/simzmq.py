@@ -366,16 +366,20 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
             r_message = message_decode(r_msg)
             debug("FederateStarted : " + str(r_message))
             expected_type = "FS.2"
-            error, fields = self.check_received_message(r_message, run_id, expected_type)
+            error, fields = self.check_received_message(r_message, run_id, 
+                                                        expected_type)
             if error:
-                raise EMAError("Wrong message : the field(s) '{}' does not match.".format(', '.join(fields)))
+                raise EMAError(("Wrong message : the field(s) '{}' "
+                                "does not match.").format(', '.join(fields)))
             else:
                 payload = [x[1] for x in r_message[8:]]
                 if payload[0] == self.m_receiver:
                     if payload[1] in ['started', 'running', 'ended']:
-                        debug("Federate {} has been started successfully.".format(payload[0]))
+                        debug(("Federate {} has been started "
+                               "successfully.").format(payload[0]))
                     else:
-                        EMAError("Error in starting federate {} : ".format(payload[0]), payload[2])
+                        EMAError(("Error in starting"
+                                  "federate {} : {}").format(payload[0]), payload[2])
                 m_port = payload[2] 
         except ZMQError as e:
             debug("model initialization message could not be received.")
