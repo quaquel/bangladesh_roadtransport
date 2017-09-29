@@ -1,1 +1,85 @@
-Cannot read file parameters.txt with the names (and default values) of the model parameters
+Received: FS.1, payload = |
+Received: FM.2, payload = |864000.0 (Double) | 0.0 (Double) | 0.0 (Double) | 1.0E9 (Double) | 1 (Long) | 0 (Long) | 
+Received: FM.3, payload = |Textile_production (String) | 0.8740195275824792 (Double) | 
+Received: FM.3, payload = |Textile_consumption (String) | 0.18220858663423067 (Double) | 
+Received: FM.3, payload = |Textile_export (String) | 1.8076264237505235 (Double) | 
+Received: FM.3, payload = |Textile_import (String) | 0.4018269542319576 (Double) | 
+Received: FM.3, payload = |Garment_production (String) | 1.8226276750932668 (Double) | 
+Received: FM.3, payload = |Garment_consumption (String) | 0.07464651544035661 (Double) | 
+Received: FM.3, payload = |Garment_export (String) | 0.6586773438481334 (Double) | 
+Received: FM.3, payload = |Garment_import (String) | 1.8557535550112567 (Double) | 
+Received: FM.3, payload = |Steel_production (String) | 1.4677095251303207 (Double) | 
+Received: FM.3, payload = |Steel_consumption (String) | 1.7176126000473535 (Double) | 
+Received: FM.3, payload = |Steel_export (String) | 0.7373753494009304 (Double) | 
+Received: FM.3, payload = |Steel_import (String) | 0.8850492837100334 (Double) | 
+Received: FM.3, payload = |Brick_production (String) | 0.26165090533150703 (Double) | 
+Received: FM.3, payload = |Brick_consumption (String) | 1.661268431106278 (Double) | 
+Received: FM.3, payload = |Brick_export (String) | 1.6649141906586231 (Double) | 
+Received: FM.3, payload = |Brick_import (String) | 1.497366597600637 (Double) | 
+Received: FM.3, payload = |Food_production (String) | 0.2857252723239223 (Double) | 
+Received: FM.3, payload = |Food_consumption (String) | 1.429049399695025 (Double) | 
+Received: FM.3, payload = |Food_export (String) | 1.1342638188584278 (Double) | 
+Received: FM.3, payload = |Food_import (String) | 0.06292565611370216 (Double) | 
+Received: FM.3, payload = |Textile_road (String) | 0.4384146616140229 (Double) | 
+Received: FM.3, payload = |Textile_rail (String) | 0.13024020471303072 (Double) | 
+Received: FM.3, payload = |Textile_water (String) | 0.6662928281440189 (Double) | 
+Received: FM.3, payload = |Garment_road (String) | 0.5706862957650337 (Double) | 
+Received: FM.3, payload = |Garment_rail (String) | 0.978287577295496 (Double) | 
+Received: FM.3, payload = |Garment_water (String) | 0.09143533569553136 (Double) | 
+Received: FM.3, payload = |Steel_road (String) | 0.21589666399362822 (Double) | 
+Received: FM.3, payload = |Steel_rail (String) | 0.6523701747709065 (Double) | 
+Received: FM.3, payload = |Steel_water (String) | 0.3338518709951746 (Double) | 
+Received: FM.3, payload = |Brick_road (String) | 0.45005166970292027 (Double) | 
+Received: FM.3, payload = |Brick_rail (String) | 0.6670842691383547 (Double) | 
+Received: FM.3, payload = |Brick_water (String) | 0.6128115288106023 (Double) | 
+Received: FM.3, payload = |Food_road (String) | 0.7678691882078972 (Double) | 
+Received: FM.3, payload = |Food_rail (String) | 0.6556852913760649 (Double) | 
+Received: FM.3, payload = |Food_water (String) | 0.02170158102939823 (Double) | 
+Received: FM.3, payload = |Flood_area (String) | 2009-0304 (String) | 
+Received: FM.3, payload = |Flood_duration (String) | 4.548870909439914 (Double) | 
+Received: FM.3, payload = |Water_cost (String) | 3.3392498757007214 (Double) | 
+Received: FM.3, payload = |Road_cost (String) | 7.581676770101921 (Double) | 
+Received: FM.3, payload = |Trs_cost (String) | 262.4807197463297 (Double) | 
+Received: FM.3, payload = |Damage_road_n (String) | 0.7720309191860093 (Double) | 
+Received: FM.3, payload = |Damage_road_r (String) | 0.6802190251245306 (Double) | 
+Received: FM.3, payload = |Damage_road_z (String) | 0.9563343645643377 (Double) | 
+Received: FM.3, payload = |Damage_bridge_a (String) | 0.3235151244349684 (Double) | 
+Received: FM.3, payload = |Damage_bridge_b (String) | 0.3779911795756628 (Double) | 
+Received: FM.3, payload = |Damage_bridge_c (String) | 0.8328418299446209 (Double) | 
+Received: FM.3, payload = |Damage_bridge_d (String) | 0.7865347699630375 (Double) | 
+Received: FM.3, payload = |Damage_waterway_1 (String) | 0.7748358829274874 (Double) | 
+Received: FM.3, payload = |Damage_waterway_2 (String) | 0.726271989558276 (Double) | 
+Received: FM.3, payload = |Damage_waterway_3 (String) | 0.631395030777555 (Double) | 
+Received: FM.3, payload = |Damage_waterway_4 (String) | 0.5658917039115329 (Double) | 
+Received: FM.3, payload = |Damage_ferry (String) | 0.8644708143973194 (Double) | 
+Received: FM.3, payload = |Damage_ports (String) | 0.6665321926924754 (Double) | 
+Received: FM.3, payload = |Damage_terminals (String) | 0.5268695248734185 (Double) | 
+Received: FM.3, payload = |Damage_railways (String) | 0.7459007416989757 (Double) | 
+Received: FM.3, payload = |Damage_railstations (String) | 0.6387768182734599 (Double) | 
+Received: FM.4, payload = |
+java.lang.NullPointerException
+	at nl.tudelft.pa.wbtransport.CentroidRoutesModel.readRoadsCsv5(CentroidRoutesModel.java:1352)
+	at nl.tudelft.pa.wbtransport.CentroidRoutesModel.constructModel(CentroidRoutesModel.java:233)
+	at nl.tudelft.simulation.dsol.simulators.DEVSSimulator.initialize(DEVSSimulator.java:85)
+	at org.opentrafficsim.core.dsol.OTSDEVSSimulator.initialize(OTSDEVSSimulator.java:36)
+	at nl.tudelft.pa.wbtransport.CentroidRoutesEMA.processSimStart(CentroidRoutesEMA.java:380)
+	at nl.tudelft.pa.wbtransport.CentroidRoutesEMA.startListener(CentroidRoutesEMA.java:230)
+	at nl.tudelft.pa.wbtransport.CentroidRoutesEMA.<init>(CentroidRoutesEMA.java:138)
+	at nl.tudelft.pa.wbtransport.CentroidRoutesEMA.main(CentroidRoutesEMA.java:117)
+Received: FM.5, payload = |
+Received: FM.5, payload = |
+Received: FM.6, payload = |Textile_TransportCost (String) | 
+Received: FM.6, payload = |Garment_TransportCost (String) | 
+Received: FM.6, payload = |Steel_TransportCost (String) | 
+Received: FM.6, payload = |Brick_TransportCost (String) | 
+Received: FM.6, payload = |Food_TransportCost (String) | 
+Received: FM.6, payload = |Textile_TravelTime (String) | 
+Received: FM.6, payload = |Garment_TravelTime (String) | 
+Received: FM.6, payload = |Steel_TravelTime (String) | 
+Received: FM.6, payload = |Brick_TravelTime (String) | 
+Received: FM.6, payload = |Food_TravelTime (String) | 
+Received: FM.6, payload = |Textile_UnsatisfiedDemand (String) | 
+Received: FM.6, payload = |Garment_UnsatisfiedDemand (String) | 
+Received: FM.6, payload = |Steel_UnsatisfiedDemand (String) | 
+Received: FM.6, payload = |Brick_UnsatisfiedDemand (String) | 
+Received: FM.6, payload = |Food_UnsatisfiedDemand (String) | 
