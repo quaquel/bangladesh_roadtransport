@@ -13,9 +13,9 @@ from __future__ import (unicode_literals, print_function, division)
 
 import os
 import time
+import uuid
 import zmq
 
-from random import randint
 from zmq.error import ZMQError
 
 from ema_workbench.em_framework.model import AbstractModel, SingleReplication
@@ -222,7 +222,7 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
         self.context = zmq.Context()  
         self.fs_socket = self.context.socket(zmq.REQ)  # @UndefinedVariable
         
-        identity = u"%04x-%04x" % (randint(0, 0x10000), randint(0, 0x10000))
+        identity = str(uuid.uuid4())
         self.fs_socket.setsockopt_string(zmq.IDENTITY, identity) # @UndefinedVariable
         try:
             self.fs_socket.connect("tcp://{}:{}".format(self.ip_toconnect, 
@@ -236,7 +236,7 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
         # TODO:: bit of a hack due to lack of reset on dsol
         ema_logging.info("starting new model")
 
-        self.instance_id = u"%04x-%04x" % (randint(0, 0x10000), randint(0, 0x10000))
+        self.instance_id = str(uuid.uuid4())
         self.m_receiver = self.receiver_tag + '.' + str(self.instance_id)  
         self.sender_id = self.sender_id + '.' + str(self.instance_id) 
         
@@ -255,7 +255,7 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
         self.m_socket = self.context.socket(zmq.REQ) # @UndefinedVariable
         
         # TODO:: should this not be a UUID (using uuid library)?
-        identity = u"%04x-%04x" % (randint(0, 0x10000), randint(0, 0x10000))
+        identity = str(uuid.uuid4())
         self.m_socket.setsockopt_string(zmq.IDENTITY, identity) # @UndefinedVariable
         self.m_socket.connect("tcp://{}:{}".format(self.ip_toconnect, 
                                                    m_port))

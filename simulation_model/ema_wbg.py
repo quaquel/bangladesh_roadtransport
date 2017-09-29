@@ -92,7 +92,7 @@ class BGD_TransportModel(SimZMQModel):
             time.sleep(2)
         
         #4) === COLLECT THE SIMULATION RESULTS ===
-        results = damage_ratios.copy() # TODO:: add beta function results
+        results = damage_ratios.copy()
         for outcome in self.outcomes:
             if outcome.name.startswith('Damage_'):
                 continue 
@@ -119,8 +119,9 @@ def uncertainty_factory():
     
     socioeconomic_parameters = [pair[0]+'_'+pair[1] for pair in 
                                 itertools.product(goods, activity)]
-    socioeconomic_unc = [RealParameter(prm, 0, 2) for prm in 
-                         socioeconomic_parameters]
+    socioeconomic_unc = []
+#     socioeconomic_unc = [RealParameter(prm, 0, 2) for prm in 
+#                          socioeconomic_parameters]
 
     transport_parameters = [pair[0]+'_'+pair[1] for pair in 
                             itertools.product(goods, modes)]
@@ -215,11 +216,11 @@ if __name__ == "__main__":
     model.outcomes = outcome_factory()
  
     n_experiments = 100
-    with MultiprocessingEvaluator(model) as evaluator:
-        results = evaluator.perform_experiments(n_experiments, 
-                                                reporting_interval=1)
-    save_results(results, './results/test {}.tar.gz'.format(n_experiments))
+#     with MultiprocessingEvaluator(model) as evaluator:
+#         results = evaluator.perform_experiments(n_experiments, 
+#                                                 reporting_interval=1)
+#     save_results(results, './results/test {}.tar.gz'.format(n_experiments))
     
-#     results = perform_experiments(model, 2, reporting_interval=1)
+    results = perform_experiments(model, 2, reporting_interval=1)
     print(results[1])
     fs.terminate()

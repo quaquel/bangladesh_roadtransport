@@ -12,6 +12,7 @@ import socket
 import subprocess
 import sys
 import time
+import uuid
 import zmq
 
 from zmq.error import ZMQError, ZMQBindError
@@ -180,20 +181,20 @@ class FederateStarter(object):
         #logger.info("data dir ", data_dir)
         with open(redirectStdout, 'w') as f1, open(redirectStderr, 'w') as f2:
             try:
-                args = [softwareCode, args_before, '-Xmx4G', model_file, str(instanceId), 
-                        str(m_port), args_after[-1]]
+                args = [softwareCode, args_before, '-Xmx4G', model_file, 
+                        str(instanceId), str(m_port), args_after[-1]]
                 process = subprocess.Popen(args, stdout=f1, stderr=f2)
                 self.log.info("started the java process")
             except (ValueError, TypeError, IOError, OSError) as e:
                 self.log.info("Error in {} {}: ".format(instanceId, e))
-            except Exception:
-                self.log.info("Error in {}: ".format(instanceId))
+            except Exception as e:
+                self.log.info("Error in {}: {}".format(instanceId, e))
 
         #connect socket to port of model
-        identity = u"%04x-%04x" % (random.randint(0, 0x10000), random.randint(0, 0x10000))
+        identity = str(uuid.uuid4())
 
         m_socket = self.context.socket(zmq.REQ)  # @UndefinedVariable
-        m_socket.setsockopt_string(zmq.IDENTITY, identity)       # @UndefinedVariable
+        m_socket.setsockopt_string(zmq.IDENTITY, identity) # @UndefinedVariable
         m_socket.connect("tcp://localhost:{}".format(m_port))
         
         #add the model id to the list
