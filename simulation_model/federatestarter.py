@@ -54,7 +54,7 @@ class FederateStarter(object):
         self.no_messages = 0
         self.context = zmq.Context()   
         self.fm_socket = self.context.socket(zmq.ROUTER)  # @UndefinedVariable
-        
+
         try:
             self.fm_socket.bind("tcp://*:{}".format(fm_port))
         except ZMQBindError as e:
@@ -67,60 +67,59 @@ class FederateStarter(object):
         # so that they can be accessed easily when necessary, e.g. for 
         # termination                                  
         self.log.info("Running the Federate Starter on port: %s" % fm_port)
+        self.loop()
         
-        loop = True
-        while loop:
-            address, _, b_message = self.fm_socket.recv_multipart()
-            #b_message = self.fm_socket.recv()
-            message = message_decode(b_message)        
 
-            #type_id of the Start Federate message sent by the 
-            # federate manager (e.g. workbench)
-            expected_types = ["FM.1", "FM.8"]        
+    def loop(self):
+        while True:
+            address, _, b_message = self.fm_socket.recv_multipart()
+            message = message_decode(b_message)        
             
             #checking if the message arrived at the right place
-            error, fields = self.check_received_message(message, expected_types) 
-            if error:
-                raise ValueError(("Wrong message : the field(s) '{}' " 
-                                  "does not match.").format(', '.join(fields)))
+            self.check_received_message(message, ["FM.1", "FM.8"]  ) 
+
+            message_type = message[4][1]
+            if message_type == "FM.1": #FEDERATE START MESSAGE
+                self.log.info("federate start message received")
+                
+                sim_run_id = message[1][1] 
+                fm_id = message[2][1]
+                payload = [x[1] for x in message[8:]]
+                
+                # === instantiate a model ===
+                model_id = self.start_federate(payload)
+                
+                # === request status ===
+                wait = True
+                while wait:
+                    self.log.info("requesting status")
+                    ret = self.request_status(sim_run_id, model_id)
+                    wait, status, error_msg = ret
+            
+                # === send a message back to the federate manager ===       
+                m_port = self.model_processes[model_id][2]
+                content = self.prepare_message(sim_run_id=sim_run_id, 
+                                               receiver=fm_id, 
+                                               message_type='FS.2',
+                                               status=1,
+                                               payload=[model_id, status, 
+                                                        m_port, error_msg])
+                            
+                message = message_encode(content)
+                try:
+                    self.fm_socket.send_multipart([address, b'', message])
+                    self.no_messages += 1
+                except ZMQError as e:
+                    raise ValueError("ZMQ error : "+e)
+                else:
+                    self.log.info("model started successfully")
+            elif message_type == "FM.8": #FEDERATE KILL 
+                payload = message[8][1] # instance id to be killed
+                sim_run_id = message[1][1] 
+                fm_id = message[2][1]
+                self.kill_federate(payload, sim_run_id, fm_id, address)
             else:
-                if message[4][1] == "FM.1": #FEDERATE START MESSAGE
-                    sim_run_id = message[1][1] 
-                    fm_id = message[2][1]
-                    payload = [x[1] for x in message[8:]]
-                    
-                    # === instantiate a model ===
-                    model_id = self.start_federate(payload)
-                    self.log.info(("federate start message has been received "
-                                   "for model {}").format(model_id))
-                    
-                    # === request status ===
-                    wait = True
-                    while wait:
-                        ret = self.request_status(sim_run_id, model_id)
-                        wait, status, error_msg = ret
-                        time.sleep(2)
- 
-                    # === send a message back to the federate manager ===       
-                    m_port = self.model_processes[model_id][2]
-                    content = self.prepare_message(sim_run_id=sim_run_id, 
-                                                   receiver=fm_id, 
-                                                   message_type='FS.2',
-                                                   status=1,
-                                                   payload=[model_id, status, 
-                                                            m_port, error_msg])
-                                
-                    message = message_encode(content)
-                    try:
-                        self.fm_socket.send_multipart([address, b'', message])
-                        self.no_messages += 1
-                    except ZMQError as e:
-                        raise ValueError("ZMQ error : "+e)
-                elif message[4][1] == "FM.8": #FEDERATE KILL 
-                    payload = message[8][1] # instance id to be killed
-                    sim_run_id = message[1][1] 
-                    fm_id = message[2][1]
-                    self.kill_federate(payload, sim_run_id, fm_id, address)
+                ValueError("unknown message type: {}".format(message_type))
 
 
     def initialize_logger(self):
@@ -167,41 +166,40 @@ class FederateStarter(object):
             try:
                 dummy_socket.bind('tcp://*:{}'.format(m_port))
             except ZMQError as e:
-                print(e)
                 self.log.info("Trying to assign port {} but {}".format(m_port, str(e)))
             else:
                 dummy_socket.close()
                 break
         
         #the chosen port can be seized by another process in the meantime    
+        identity = str(uuid.uuid4())
+
+        m_socket = self.context.socket(zmq.REQ)  # @UndefinedVariable
+        m_socket.setsockopt_string(zmq.IDENTITY, identity) # @UndefinedVariable
+        m_socket.connect("tcp://localhost:{}".format(m_port))        
         
         #instantiate the model
         #args after to include the input data directory
         #data_dir = argsAfter[-1]
-        #logger.info("data dir ", data_dir)
         with open(redirectStdout, 'w') as f1, open(redirectStderr, 'w') as f2:
             try:
                 args = [softwareCode, args_before, '-Xmx4G', model_file, 
                         str(instanceId), str(m_port), args_after[-1]]
                 process = subprocess.Popen(args, stdout=f1, stderr=f2)
-                self.log.info("started the java process")
             except (ValueError, TypeError, IOError, OSError) as e:
                 self.log.info("Error in {} {}: ".format(instanceId, e))
             except Exception as e:
                 self.log.info("Error in {}: {}".format(instanceId, e))
+            else:
+                self.log.info("started process pid: {}".format(process.pid))
 
-        #connect socket to port of model
-        identity = str(uuid.uuid4())
 
-        m_socket = self.context.socket(zmq.REQ)  # @UndefinedVariable
-        m_socket.setsockopt_string(zmq.IDENTITY, identity) # @UndefinedVariable
-        m_socket.connect("tcp://localhost:{}".format(m_port))
-        
         #add the model id to the list
         self.model_processes[instanceId] = (process, m_socket, m_port, 
                                     working_directory,delete_working_directory)
         
         return instanceId
+
 
     def request_status(self, sim_run_id, receiver_id):
         #ask the status of the model with FS.1 message
@@ -223,24 +221,21 @@ class FederateStarter(object):
             r_msg = self.model_processes[receiver_id][1].recv()
             r_message = message_decode(r_msg)
             expected_type = "MC.1"
-            error, fields = self.check_received_message(r_message,
-                                                        expected_type)
-            if error:
-                raise ValueError("Wrong message : the field(s) '{}' does not match.".format(', '.join(fields)))
-            else:
-                payload = [x[1] for x in r_message[8:]]
-                error_msg = ''
-                #Does it come from the right model instance?
-                if r_message[2][1] == receiver_id:
-                    status = payload[1]
-                    if status == 'running':
-                        wait = True
-                    elif status in ['started', 'ended']:
-                        wait = False
-                    elif status == 'error':
-                        wait = False     
-                        error_msg = payload[2]   
-                        raise ValueError("Error in model id {} : ".format(receiver_id), payload[2])
+            self.check_received_message(r_message, expected_type)
+
+            payload = [x[1] for x in r_message[8:]]
+            error_msg = ''
+            #Does it come from the right model instance?
+            if r_message[2][1] == receiver_id:
+                status = payload[1]
+                if status == 'running':
+                    wait = True
+                elif status in ['started', 'ended']:
+                    wait = False
+                elif status == 'error':
+                    wait = False     
+                    error_msg = payload[2]   
+                    raise ValueError("Error in model id {} : ".format(receiver_id), payload[2])
         except ZMQError as e:
                 raise ValueError("Status could not be received. "+str(e))
         return wait, status, error_msg
@@ -339,6 +334,10 @@ class FederateStarter(object):
         ------
         bool, list of str
         
+        Raises
+        ------
+        ValueError if check fails
+        
         '''
         error = False
         wrong_fields = []
@@ -357,7 +356,11 @@ class FederateStarter(object):
             if message[4][1] not in expected_type:
                 wrong_fields.append(message[4][0])
                 error = True
-        return error, wrong_fields     
+                
+        if error:
+            raise ValueError(("Wrong message : the field(s) '{}' " 
+                              "does not match.").format(', '.join(wrong_fields)))
+
 
 
 #     def find_free_port(self):

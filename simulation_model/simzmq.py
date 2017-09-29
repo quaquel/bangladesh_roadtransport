@@ -251,11 +251,9 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
                    self.del_wd, self.del_stdout, self.del_stdin]
         
         m_port = self.start_federate(payload)
-        
-        self.m_socket = self.context.socket(zmq.REQ) # @UndefinedVariable
-        
-        # TODO:: should this not be a UUID (using uuid library)?
+
         identity = str(uuid.uuid4())
+        self.m_socket = self.context.socket(zmq.REQ) # @UndefinedVariable
         self.m_socket.setsockopt_string(zmq.IDENTITY, identity) # @UndefinedVariable
         self.m_socket.connect("tcp://{}:{}".format(self.ip_toconnect, 
                                                    m_port))
