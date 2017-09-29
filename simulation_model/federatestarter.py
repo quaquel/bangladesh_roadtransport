@@ -166,7 +166,8 @@ class FederateStarter(object):
             try:
                 dummy_socket.bind('tcp://*:{}'.format(m_port))
             except ZMQError as e:
-                self.log.info("Trying to assign port {} but {}".format(m_port, e))
+                print(e)
+                self.log.info("Trying to assign port {} but {}".format(m_port, str(e)))
             else:
                 dummy_socket.close()
                 break
@@ -185,7 +186,7 @@ class FederateStarter(object):
                 self.log.info("started the java process")
             except (ValueError, TypeError, IOError, OSError) as e:
                 self.log.info("Error in {} {}: ".format(instanceId, e))
-            except:
+            except Exception:
                 self.log.info("Error in {}: ".format(instanceId))
 
         #connect socket to port of model
