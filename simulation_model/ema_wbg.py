@@ -220,9 +220,10 @@ if __name__ == "__main__":
     model.outcomes = outcomes
  
     n_experiments = 28
-    with MultiprocessingEvaluator(model) as evaluator:
-        results = evaluator.perform_experiments(n_experiments, reporting_interval=1)
-#     results = perform_experiments(model, 2, reporting_interval=1)
+#     with MultiprocessingEvaluator(model) as evaluator:
+#         results = evaluator.perform_experiments(n_experiments, 
+#                                                 reporting_interval=1)
+    results = perform_experiments(model, 2, reporting_interval=1)
     
     save_results(results, './results/test {}.tar.gz'.format(n_experiments))
     print(results[1])
