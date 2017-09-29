@@ -184,9 +184,9 @@ class FederateStarter(object):
                 process = subprocess.Popen(args, stdout=f1, stderr=f2)
                 self.log.info("started the java process")
             except (ValueError, TypeError, IOError, OSError) as e:
-                self.log.info("Error in {} : ".format(instanceId), e)
+                self.log.info("Error in {} {}: ".format(instanceId, e))
             except:
-                self.log.info("Error in {} : ".format(instanceId))
+                self.log.info("Error in {}: ".format(instanceId))
 
         #connect socket to port of model
         identity = u"%04x-%04x" % (random.randint(0, 0x10000), random.randint(0, 0x10000))
