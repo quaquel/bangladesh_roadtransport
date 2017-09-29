@@ -1,0 +1,64 @@
+Flood_area	1987-0132	Selection	"1986-0096,2004-0298,2007-0311,1995-0101,2007-0161,2005-0375,1999-0225,1995-0487,1999-0736,1991-0224,2012-0175,1964-0039,1995-0243,1987-0132,2016-0288,2004-0509,2014-0581,1996-0104,1999-0277,1990-0609,1991-0764,2008-0285,1995-0100,2012-0382,1994-0754,2002-0402,2014-0290,1998-0203,1993-0028,2001-0459,2009-0304,1993-0045,1988-0294,1985-0299,1993-0196,2005-0590,2010-0269,2005-0261,1992-0190,2015-0293,2001-0393,2015-0253,2000-0373,1985-0012,2011-0262,1989-0119,2003-0303,2006-0502,1990-0095,1992-0213,2010-0676,2008-0385,2003-0283,2009-0294"		Flood area	Select from picklist
+Flood_duration	30	Double	0	365	Flood duration	(days)
+Damage_road_n	0.1	Double	0	1	Damage N-roads	(0-1) where 0 is undamaged and 1 is unpassable
+Damage_road_r	0.3	Double	0	1	Damage R-roads	(0-1) where 0 is undamaged and 1 is unpassable
+Damage_road_z	0.5	Double	0	1	Damage Z-roads	(0-1) where 0 is undamaged and 1 is unpassable
+Damage_ferry	0.4	Double	0	1	Damage Ferries	(0-1) where 0 is undamaged and 1 is unpassable
+Damage_bridge_a	0.1	Double	0	1	Damage A-bridges	(0-1) where 0 is undamaged and 1 is unpassable
+Damage_bridge_b	0.3	Double	0	1	Damage B-bridges	(0-1) where 0 is undamaged and 1 is unpassable
+Damage_bridge_c	0.5	Double	0	1	Damage C-bridges	(0-1) where 0 is undamaged and 1 is unpassable
+Damage_bridge_d	0.7	Double	0	1	Damage D-bridges	(0-1) where 0 is undamaged and 1 is unpassable
+Damage_waterway_1	0.1	Double	0	1	Damage waterway type 1	(0-1) where 0 is undamaged and 1 is unpassable
+Damage_waterway_2	0.2	Double	0	1	Damage waterway type 2	(0-1) where 0 is undamaged and 1 is unpassable
+Damage_waterway_3	0.4	Double	0	1	Damage waterway type 3	(0-1) where 0 is undamaged and 1 is unpassable
+Damage_waterway_4	0.6	Double	0	1	Damage waterway type 4	(0-1) where 0 is undamaged and 1 is unpassable
+Damage_terminals	0.7	Double	0	1	Damage waterway terminals	(0-1) where 0 is undamaged and 1 is unpassable
+Damage_ports	0.2	Double	0	1	Damage ports	(0-1) where 0 is undamaged and 1 is unpassable
+Damage_railways	0	Double	0	1	Damage railways	(0-1) where 0 is undamaged and 1 is unpassable
+Damage_railstations	0	Double	0	1	Damage Reil stations	(0-1) where 0 is undamaged and 1 is unpassable
+Road_cost	6.25	Double	0	1.00E+09	Road cost per ton-km	
+Water_cost	2.19	Double	0	1.00E+09	Waterway cost per ton-km	
+Trs_cost	300	Double	0	1.00E+09	Transshipment cost per ton	
+Textile_road	1	Double	0	1	Fraction textile by road	(0-1)
+Textile_rail	0	Double	0	1	Fraction textile by rail	(0-1)
+Textile_water	0	Double	0	1	Fraction textile by waterway	(0-1)
+Garment_road	1	Double	0	1	Fraction garment by road	(0-1)
+Garment_rail	0	Double	0	1	Fraction garment by rail	(0-1)
+Garment_water	0	Double	0	1	Fraction garment by waterway	(0-1)
+Steel_road	1	Double	0	1	Fraction steel by road	(0-1)
+Steel_rail	0	Double	0	1	Fraction steel by rail	(0-1)
+Steel_water	0	Double	0	1	Fraction steel by waterway	(0-1)
+Brick_road	1	Double	0	1	Fraction brick by road	(0-1)
+Brick_rail	0	Double	0	1	Fraction brick by rail	(0-1)
+Brick_water	0	Double	0	1	Fraction brick by waterway	(0-1)
+Food_road	1	Double	0	1	Fraction food by road	(0-1)
+Food_rail	0	Double	0	1	Fraction food by rail	(0-1)
+Food_water	0	Double	0	1	Fraction food by waterway	(0-1)
+Textile_production	1	Double	0	2	Production factor textile	(0-2) where 1 is current production
+Textile_consumption	1	Double	0	2	Consumption factor textile	(0-2) where 1 is current consumption
+Textile_export	1	Double	0	2	Export factor textile	(0-2) where 1 is current export
+Textile_import	1	Double	0	2	Import factor textile	(0-2) where 1 is current import
+Garment_production	1	Double	0	2	Production factor garment	(0-2) where 1 is current production
+Garment_consumption	1	Double	0	2	Consumption factor garment	(0-2) where 1 is current consumption
+Garment_export	1	Double	0	2	Export factor garment	(0-2) where 1 is current export
+Garment_import	1	Double	0	2	Import factor garment	(0-2) where 1 is current import
+Steel_production	1	Double	0	2	Production factor steel	(0-2) where 1 is current production
+Steel_consumption	1	Double	0	2	Consumption factor steel	(0-2) where 1 is current consumption
+Steel_export	1	Double	0	2	Export factor steel	(0-2) where 1 is current export
+Steel_import	1	Double	0	2	Import factor steel	(0-2) where 1 is current import
+Brick_production	1	Double	0	2	Production factor bricks	(0-2) where 1 is current production
+Brick_consumption	1	Double	0	2	Consumption factor bricks	(0-2) where 1 is current consumption
+Brick_export	1	Double	0	2	Export factor bricks	(0-2) where 1 is current export
+Brick_import	1	Double	0	2	Import factor bricks	(0-2) where 1 is current import
+Food_production	1	Double	0	2	Production factor food	(0-2) where 1 is current production
+Food_consumption	1	Double	0	2	Consumption factor food	(0-2) where 1 is current consumption
+Food_export	1	Double	0	2	Export factor food	(0-2) where 1 is current export
+Food_import	1	Double	0	2	Import factor food	(0-2) where 1 is current import
+Const_Flooding_Production_Textile	0.7	Double	0	1	Production faxtor flooding textile	"(0-1) where 1 is not affected by flooding, 0 is no production"
+Const_Flooding_Production_Garment	0.8	Double	0	1	Production faxtor flooding garment	"(0-1) where 1 is not affected by flooding, 0 is no production"
+Const_Flooding_Production_Brick	0.6	Double	0	1	Production faxtor flooding bricks	"(0-1) where 1 is not affected by flooding, 0 is no production"
+Const_Flooding_Production_Steel	0.8	Double	0	1	Production faxtor flooding steel	"(0-1) where 1 is not affected by flooding, 0 is no production"
+Const_Flooding_Production_Food	0.5	Double	0	1	Production faxtor flooding food	"(0-1) where 1 is not affected by flooding, 0 is no production"
+Const_AvgSpeed_Road_N	70	Double	0	120	Average truck speed on N-road	km/h
+Const_AvgSpeed_Road_R	50	Double	0	120	Average truck speed on R-road	km/h
+Const_AvgSpeed_Road_Z	30	Double	0	120	Average truck speed on Z-road	km/h
