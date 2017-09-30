@@ -54,6 +54,7 @@ class FederateStarter(object):
         self.no_messages = 0
         self.context = zmq.Context()   
         self.fm_socket = self.context.socket(zmq.ROUTER)  # @UndefinedVariable
+        self.portsinuse = set()
 
         try:
             self.fm_socket.bind("tcp://*:{}".format(fm_port))
@@ -169,6 +170,9 @@ class FederateStarter(object):
         #assign a port number
         while True:
             m_port = random.randint(self.min_port, self.max_port) 
+            
+            if m_port in self.portsinuse: continue
+            
             #check if it is in use:
             dummy_socket = self.context.socket(zmq.REP)  # @UndefinedVariable
             try:
@@ -185,7 +189,8 @@ class FederateStarter(object):
 
         m_socket = self.context.socket(zmq.REQ)  # @UndefinedVariable
         m_socket.setsockopt_string(zmq.IDENTITY, identity) # @UndefinedVariable
-        m_socket.connect("tcp://localhost:{}".format(m_port))        
+        m_socket.connect("tcp://localhost:{}".format(m_port))   
+        self.portsinuse.add(m_port)     
         
         #instantiate the model
         #args after to include the input data directory
@@ -252,6 +257,8 @@ class FederateStarter(object):
                     wait = False     
                     error_msg = payload[2]   
                     raise ValueError("Error in model id {} : ".format(receiver_id), payload[2])
+            else:
+                self.log.info("wrong receive FS.1")
         except ZMQError as e:
                 raise ValueError("Status could not be received. "+str(e))
         return wait, status, error_msg
@@ -259,7 +266,7 @@ class FederateStarter(object):
              
     def kill_federate(self, model_id, sim_run_id, fm_id, address):
         try:
-            process, socket, _, wd, remove = self.model_processes.pop(model_id)
+            process, socket, port, wd, remove = self.model_processes.pop(model_id)
         except KeyError:
             ValueError(("Model {} is unknown to the "
                         "FederateStarter").format(model_id))
@@ -275,13 +282,14 @@ class FederateStarter(object):
             
             try:
                 socket.send(message)
+                self.no_messages += 1
             except ZMQError as e:
                 raise
             else:
                 model_killed = True
                 self.log.info("killed federate {}".format(model_id))
             socket.close()
-            self.no_messages += 1
+            self.portsinuse.remove(port)
             
             #check if the model is running, if so, kill forcibly
             alive = process.poll()
