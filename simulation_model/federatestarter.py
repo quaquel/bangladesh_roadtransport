@@ -238,7 +238,12 @@ class FederateStarter(object):
         #receive status
         try:
             self.log.info("check receive for FS.1")
-            r_msg = socket.recv()
+            try:
+                r_msg = socket.recv(flags=zmq.NOBLOCK)  # @UndefinedVariable
+            except zmq.Again as e:
+                self.log.info(e)
+                raise e    
+            
             r_message = message_decode(r_msg)
             expected_type = "MC.1"
             self.check_received_message(r_message, expected_type)
