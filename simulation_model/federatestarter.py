@@ -172,11 +172,11 @@ class FederateStarter(object):
             #check if it is in use:
             dummy_socket = self.context.socket(zmq.REP)  # @UndefinedVariable
             try:
-                dummy_socket.bind('tcp://*:{}'.format(m_port))
+                dummy_socket.bind('tcp://127.0.0.1:{}'.format(m_port))
             except ZMQError as e:
                 self.log.info("Trying to assign port {} but {}".format(m_port, str(e)))
             else:
-                dummy_socket.unbind('tcp://*:{}'.format(m_port))
+                dummy_socket.unbind('tcp://127.0.0.1:{}'.format(m_port))
                 dummy_socket.close()
                 break
         
