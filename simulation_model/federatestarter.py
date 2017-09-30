@@ -88,7 +88,7 @@ class FederateStarter(object):
                 fm_id = message[2][1]
                 payload = [x[1] for x in message[8:]]
             
-                self.log.info("start model {}".format(payload[4].split(' ')[0]))     
+                self.log.info("starting model {}".format(payload[4].split(' ')[0]))     
                 # === instantiate a model ===
                 model_id = self.start_federate(payload)
                 
@@ -200,15 +200,14 @@ class FederateStarter(object):
                 args = [softwareCode, args_before, '-Xmx4G', model_file, 
                         str(instance_id), str(m_port), args_after[-1]]
                 process = subprocess.Popen(args, stdout=f1, stderr=f2)
-            except (ValueError, TypeError, IOError, OSError) as e:
-                self.log.info("Error in {} {}: ".format(instance_id, e))
             except Exception as e:
-                self.log.info("Error in {}: {}".format(instance_id, e))
-                raise e
+                self.log.info("Error in {} {}: ".format(instance_id, e))
+                raise
             else:
-                self.log.info("started process pid: {}".format(process.pid))
+                self.log.info("started process pid: {}, "
+                              "listening on {}".format(process.pid, m_port))
 
-        # for debug in my sanity
+        # for debug and my sanity
         if instance_id in self.model_processes:
             raise Exception("instance id not unique")
         
@@ -287,7 +286,8 @@ class FederateStarter(object):
                 raise
             else:
                 model_killed = True
-                self.log.info("killed federate {}".format(model_id))
+                self.log.info(("killed federate {}, " 
+                               "listening on port").format(model_id, port))
             socket.close()
             self.portsinuse.remove(port)
             
