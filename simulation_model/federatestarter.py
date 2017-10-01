@@ -88,9 +88,10 @@ class FederateStarter(object):
                 fm_id = message[2][1]
                 payload = [x[1] for x in message[8:]]
             
-                self.log.info("starting model {}".format(payload[4].split(' ')[0]))     
+#                 self.log.info("starting model {}".format(payload[4].split(' ')[0]))     
                 # === instantiate a model ===
                 model_id = self.start_federate(payload)
+                time.sleep(10) # hack
                 
                 # === request status ===
                 wait = True
@@ -228,21 +229,28 @@ class FederateStarter(object):
         message = message_encode(content)
         
         socket = self.model_processes[receiver_id][1]
-        
-        try:
-            socket.send(message)
-            self.no_messages += 1
-        except ZMQError as e:
-            raise ValueError("ZMQ error : "+e)
+        socket.send(message)
+        self.no_messages += 1
         
         #receive status
         try:
             self.log.info("check receive for FS.1")
-            try:
-                r_msg = socket.recv(flags=zmq.NOBLOCK)  # @UndefinedVariable
-            except zmq.Again as e:
-                self.log.info(e)
-                raise e    
+#             r_msg = socket.recv()  # @UndefinedVariable
+            for _ in range(10):
+                try:
+                    r_msg = socket.recv(flags=zmq.NOBLOCK)  # @UndefinedVariable
+                except ZMQError:
+                    time.sleep(1)
+                else:
+                    break
+            else:
+                raise Exception('recv blocking')
+            
+#             try:
+#                 r_msg = socket.recv(flags=zmq.NOBLOCK)  # @UndefinedVariable
+#             except zmq.Again as e:
+#                 self.log.info(e)
+#                 raise e    
             
             r_message = message_decode(r_msg)
             expected_type = "MC.1"
