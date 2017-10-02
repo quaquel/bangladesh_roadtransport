@@ -280,7 +280,7 @@ class FederateStarter(object):
                                        payload=[model_id, model_killed, ''])
         
             message = message_encode(content)
-            self.send(message, socket, address)
+            self.send(message, self.fm_socket, address)
 
 
     def prepare_message(self, sim_run_id=None, receiver=None, 
