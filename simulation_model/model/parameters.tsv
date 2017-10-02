@@ -54,11 +54,16 @@ Food_production	1	Double	0	2	Production factor food	(0-2) where 1 is current pro
 Food_consumption	1	Double	0	2	Consumption factor food	(0-2) where 1 is current consumption
 Food_export	1	Double	0	2	Export factor food	(0-2) where 1 is current export
 Food_import	1	Double	0	2	Import factor food	(0-2) where 1 is current import
-Const_Flooding_Production_Textile	0.7	Double	0	1	Production faxtor flooding textile	"(0-1) where 1 is not affected by flooding, 0 is no production"
-Const_Flooding_Production_Garment	0.8	Double	0	1	Production faxtor flooding garment	"(0-1) where 1 is not affected by flooding, 0 is no production"
-Const_Flooding_Production_Brick	0.6	Double	0	1	Production faxtor flooding bricks	"(0-1) where 1 is not affected by flooding, 0 is no production"
-Const_Flooding_Production_Steel	0.8	Double	0	1	Production faxtor flooding steel	"(0-1) where 1 is not affected by flooding, 0 is no production"
-Const_Flooding_Production_Food	0.5	Double	0	1	Production faxtor flooding food	"(0-1) where 1 is not affected by flooding, 0 is no production"
+Const_Flooding_Production_Textile	0.7	Double	0	1	Production factor flooding textile	"(0-1) where 1 is not affected by flooding, 0 is no production"
+Const_Flooding_Production_Garment	0.8	Double	0	1	Production factor flooding garment	"(0-1) where 1 is not affected by flooding, 0 is no production"
+Const_Flooding_Production_Brick	0.6	Double	0	1	Production factor flooding bricks	"(0-1) where 1 is not affected by flooding, 0 is no production"
+Const_Flooding_Production_Steel	0.8	Double	0	1	Production factor flooding steel	"(0-1) where 1 is not affected by flooding, 0 is no production"
+Const_Flooding_Production_Food	0.5	Double	0	1	Production factor flooding food	"(0-1) where 1 is not affected by flooding, 0 is no production"
 Const_AvgSpeed_Road_N	70	Double	0	120	Average truck speed on N-road	km/h
 Const_AvgSpeed_Road_R	50	Double	0	120	Average truck speed on R-road	km/h
 Const_AvgSpeed_Road_Z	30	Double	0	120	Average truck speed on Z-road	km/h
+Const_NFactor	1	Double	0	100	Resistance factor N-roads	Attractiveness factor for centroid choice (less is better)
+Const_RFactor	2	Double	0	100	Resistance factor R-roads	Attractiveness factor for centroid choice (less is better)
+Const_ZFactor	10	Double	0	100	Resistance factor Z-roads	Attractiveness factor for centroid choice (less is better)
+Const_Ferry_Speed	20	Double	1	75	Average ferry speed	km/h
+Const_Ferry_Wait	4	Double	0	48	Average truck waiting for ferry	hours

@@ -234,7 +234,7 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
     @method_logger
     def start_new_model(self):        
         # TODO:: bit of a hack due to lack of reset on dsol
-        ema_logging.info("starting new model")
+        ema_logging.debug("starting new model")
 
         self.instance_id = str(uuid.uuid4())
         self.m_receiver = self.receiver_tag + '.' + str(self.instance_id)  
@@ -260,7 +260,7 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
         
         # ===send the Simulation Run Control message===
         self.sim_run_control()
-        ema_logging.info("new model started")
+        ema_logging.debug("new model started")
               
     @method_logger
     def run_experiment(self, experiment):
@@ -282,7 +282,7 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
             self.set_value(run_id, payload)   
          
         #2) === RUN THE SIMULATION ===
-        self.StartSimulation(run_id)
+        self.start_simulation(run_id)
              
         # 3) === REQUEST STATUS ===
         wait = True
@@ -309,7 +309,7 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
 
         """
         super(SimZMQModel, self).reset_model()
-        self.KillFederate()
+        self.kill_federate()
         self.m_socket.close()
         
     
@@ -404,21 +404,28 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
         try:
             r_msg = self.m_socket.recv()
             r_message = message_decode(r_msg)
-            expected_type = "MC.2"
-            error, fields = self.check_received_message(r_message, run_id, expected_type)
-            if error:
-                raise EMAError("Wrong message : the field(s) '{}' does not match.".format(', '.join(fields)))
-            else:
-                payload = [x[1] for x in r_message[8:]]
-                #payload has 3 fields: uniqueid, status, error
-                if payload[0] == self.nr_messages-1: #unique_message_id, since no other message was sent after the sim_run_control message, this should be equal to the previous value.
-                    if payload[1]:
-                        debug("Model has been initialized successfully.")
-                    else:
-                        EMAError("Error in sim run control: ", payload[2])
         except ZMQError as e:
             debug("sim_run_control acknowledgement could not be received.")
             raise EMAError(str(e))
+        
+        expected_type = "MC.2"
+        error, fields = self.check_received_message(r_message, run_id, 
+                                                    expected_type)
+        if error:
+            raise EMAError(("Wrong message : the field(s) '{}' "
+                            "does not match.").format(', '.join(fields)))
+        else:
+            payload = [x[1] for x in r_message[8:]]
+            # payload has 3 fields: unique_id, status, error
+            # unique_message_id, since no other message was sent after the 
+            # sim_run_control message, this should be equal to the previous 
+            # value.
+            if payload[0] == self.nr_messages-1: 
+                if payload[1]:
+                    debug("Model has been initialized successfully.")
+                else:
+                    raise EMAError(("Error in sim run "
+                                    "control: {}").format(payload[2]))
     
     @method_logger 
     def set_value(self, run_id, payload):
@@ -434,23 +441,29 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
         try:
             r_msg = self.m_socket.recv()
             r_message = message_decode(r_msg)
-            expected_type = "MC.2"
-            error, fields = self.check_received_message(r_message, run_id, 
-                                                        expected_type)
-            if error:
-                raise EMAError("Wrong message : the field(s) '{}' does not match.".format(', '.join(fields)))
-            else:
-                r_payload = [x[1] for x in r_message[8:]]
-                if r_payload[1]:
-                    debug("Parameter {} has been set successfully for simulation {}.".format(payload[0], run_id))
-                else:
-                    warning("Error in setting parameter {} in simulation {}: ".format(payload[0], run_id), r_payload[2])
         except ZMQError as e:
             debug("Parameter setting acknowledgement could not be received.")
             raise EMAError(str(e))
-    
+        
+        expected_type = "MC.2"
+        error, fields = self.check_received_message(r_message, run_id, 
+                                                    expected_type)
+        if error:
+            raise EMAError(("Wrong message : the field(s) '{}' "
+                            "does not match.").format(', '.join(fields)))
+        else:
+            r_payload = [x[1] for x in r_message[8:]]
+            if r_payload[1]:
+                debug(("Parameter {} has been set successfully "
+                       "for simulation {}.").format(payload[0], run_id))
+            else:
+                warning(("Error in setting parameter {} "
+                         "in simulation {}: ").format(payload[0], run_id), 
+                                                      r_payload[2])
+
+
     @method_logger 
-    def StartSimulation(self, run_id):
+    def start_simulation(self, run_id):
         content = self.prepare_message(run_id=run_id,
                                        receiver=self.m_receiver, 
                                        message_type="FM.4",
@@ -462,21 +475,24 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
 
         try:
             r_msg = self.m_socket.recv()
-            r_message = message_decode(r_msg)
-            expected_type = "MC.2"
-            error, fields = self.check_received_message(r_message, run_id, 
-                                                        expected_type)
-            if error:
-                raise EMAError("Wrong message : the field(s) '{}' does not match.".format(', '.join(fields)))
-            else:
-                payload = [x[1] for x in r_message[8:]]
-                if payload[1]:
-                    debug("Simulation {} has been started successfully.".format(run_id))
-                else:
-                    EMAError("Error in starting simulation {} : ".format(run_id), payload[2])
         except ZMQError as e:
                 debug("Sim start acknowledgement could not be received.")
                 raise EMAError(str(e))
+        
+        r_message = message_decode(r_msg)
+        expected_type = "MC.2"
+        error, fields = self.check_received_message(r_message, run_id, 
+                                                    expected_type)
+        if error:
+            raise EMAError((("Wrong message : the field(s) '{}' "
+                             "does not match.")).format(', '.join(fields)))
+        else:
+            payload = [x[1] for x in r_message[8:]]
+            if payload[1]:
+                debug("Simulation {} has been started successfully.".format(run_id))
+            else:
+                EMAError("Error in starting simulation {} : ".format(run_id), payload[2])
+
     
     @method_logger
     def RequestStatus(self, run_id):
@@ -561,14 +577,7 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
         return o_value 
     
     @method_logger
-    def SimulationReset(self):
-        #TODO:: do something here
-        
-        
-        pass
-    
-    @method_logger
-    def KillAll(self):
+    def kill_all(self):
         run_id = 0
         content = self.prepare_message(run_id=run_id,
                                        receiver=self.fs_receiver, 
@@ -598,7 +607,7 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
             raise EMAError(str(e))
     
     @method_logger
-    def KillFederate(self):
+    def kill_federate(self):
         run_id = 0
         content = self.prepare_message(run_id=run_id, receiver=self.fs_receiver, 
                                        message_type="FM.8", status=1, 

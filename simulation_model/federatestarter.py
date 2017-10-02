@@ -8,14 +8,13 @@ from __future__ import unicode_literals
 import logging
 import random
 import shutil
-import socket
 import subprocess
 import sys
 import time
 import uuid
 import zmq
 
-from zmq.error import ZMQError, ZMQBindError
+from zmq.error import ZMQError
 
 from message_v2 import message_encode, message_decode
 
@@ -51,25 +50,23 @@ class FederateStarter(object):
         self.sender_id = sender_id 
         self.min_port = min_port
         self.max_port = max_port
-        self.no_messages = 0
+        self.nr_messages = 0
+
+        self.portsinuse = set()
+        self.model_processes = {} 
+        
         self.context = zmq.Context()   
         self.fm_socket = self.context.socket(zmq.ROUTER)  # @UndefinedVariable
-        self.portsinuse = set()
-
-        try:
-            self.fm_socket.bind("tcp://*:{}".format(fm_port))
-        except ZMQBindError as e:
-            self.log.info(e)
-            
-        # dictionary in the {model_id : (process, socket, port_no)} format       
-        self.model_processes = {}  
-        
-        # model ids and their corresponding processes are kept in a dictionary, 
-        # so that they can be accessed easily when necessary, e.g. for 
-        # termination                                  
+        self.fm_socket.bind("tcp://*:{}".format(fm_port))
         self.log.info("Running the Federate Starter on port: %s" % fm_port)
         self.loop()
         
+    def send(self, message, socket, address=None):
+        if address is None:
+            socket.send(message)
+        else:
+            socket.send_multipart([address, b'', message])
+        self.nr_messages += 1
 
     def loop(self):
         while True:
@@ -84,48 +81,12 @@ class FederateStarter(object):
             self.log.info("{} received from {}".format(message_type, sender))
             
             if message_type == "FM.1": #FEDERATE START MESSAGE
-                sim_run_id = message[1][1] 
-                fm_id = message[2][1]
-                payload = [x[1] for x in message[8:]]
-            
-#                 self.log.info("starting model {}".format(payload[4].split(' ')[0]))     
-                # === instantiate a model ===
-                model_id = self.start_federate(payload)
-                time.sleep(10) # hack
-                
-                # === request status ===
-                wait = True
-                while wait:
-                    self.log.info("requesting status")
-                    ret = self.request_status(sim_run_id, model_id)
-                    wait, status, error_msg = ret
-            
-                # === send a message back to the federate manager ===       
-                m_port = self.model_processes[model_id][2]
-                content = self.prepare_message(sim_run_id=sim_run_id, 
-                                               receiver=fm_id, 
-                                               message_type='FS.2',
-                                               status=1,
-                                               payload=[model_id, status, 
-                                                        m_port, error_msg])
-                            
-                message = message_encode(content)
-                try:
-                    self.fm_socket.send_multipart([address, b'', message])
-                    self.no_messages += 1
-                except ZMQError as e:
-                    raise ValueError("ZMQ error : "+e)
-                else:
-                    self.log.info("model started successfully")
-            
+                self._handle_fm1(address, message)
             elif message_type == "FM.8": #FEDERATE KILL 
-                payload = message[8][1] # instance id to be killed
-                sim_run_id = message[1][1] 
-                fm_id = message[2][1]
-                self.kill_federate(payload, sim_run_id, fm_id, address)
+                self._handle_fm8(address, message)
             else:
                 ValueError("unknown message type: {}".format(message_type))
-            self.log.info("{} handled for {}".format(message_type, sender))
+            self.log.info("{} handled for {} \n".format(message_type, sender))
 
 
     def initialize_logger(self):
@@ -146,8 +107,37 @@ class FederateStarter(object):
         logger.addHandler(handler)
         logger.propagate = False
         self.log = logger
-                                      
-    def start_federate(self, payload):
+
+
+    def _handle_fm1(self, address, message):
+        simrunid = message[1][1] 
+        fm_id = message[2][1]
+        payload = [x[1] for x in message[8:]]
+    
+        # === instantiate a model ===
+        model_id = self.start_federate(simrunid, payload)
+    
+        # === send a message back to the federate manager ===       
+        m_port = self.model_processes[model_id][2]
+        content = self.prepare_message(sim_run_id=simrunid, 
+                                       receiver=fm_id, 
+                                       message_type='FS.2',
+                                       status=1,
+                                       payload=[model_id, 'started', 
+                                                m_port, ''])
+                    
+        message = message_encode(content)
+        self.send(message, self.fm_socket, address)
+        self.log.info("model started successfully")
+        
+    def _handle_fm8(self, address, message):
+        payload = message[8][1] # instance id to be killed
+        sim_run_id = message[1][1] 
+        fm_id = message[2][1]
+        self.kill_federate(payload, sim_run_id, fm_id, address)
+
+                              
+    def start_federate(self, simrunid, payload):
         softwareCode = payload[1]
         args_before = payload[2] # TODO:: split on space
         model_file = payload[3]
@@ -159,39 +149,21 @@ class FederateStarter(object):
         # TODO:: should be part of the attributes of the federate
         # might be different between federates
         working_directory = payload[5]
-        redirectStdin = payload[6]
+        # redirectStdin = payload[6]
         redirectStdout = payload[7]
         redirectStderr = payload[8]
         delete_working_directory = payload[9]
-        deleteStdout = payload[10]
-        deleteStdin = payload[11]
+        #deleteStdout = payload[10]
+        #deleteStdin = payload[11]
         
         instance_id = args_after[0]
         
         #assign a port number
-        while True:
-            m_port = random.randint(self.min_port, self.max_port) 
-            
-            if m_port in self.portsinuse: continue
-            
-            #check if it is in use:
-            dummy_socket = self.context.socket(zmq.REP)  # @UndefinedVariable
-            try:
-                dummy_socket.bind('tcp://127.0.0.1:{}'.format(m_port))
-            except ZMQError as e:
-                self.log.info("Trying to assign port {} but {}".format(m_port, str(e)))
-            else:
-                dummy_socket.unbind('tcp://127.0.0.1:{}'.format(m_port))
-                dummy_socket.close()
-                break
+        m_port = self.get__random_port()
+        self.portsinuse.add(m_port)     
         
         #the chosen port can be seized by another process in the meantime    
         identity = str(uuid.uuid4())
-
-        m_socket = self.context.socket(zmq.REQ)  # @UndefinedVariable
-        m_socket.setsockopt_string(zmq.IDENTITY, identity) # @UndefinedVariable
-        m_socket.connect("tcp://localhost:{}".format(m_port))   
-        self.portsinuse.add(m_port)     
         
         #instantiate the model
         #args after to include the input data directory
@@ -208,80 +180,67 @@ class FederateStarter(object):
                 self.log.info("started process pid: {}, "
                               "listening on {}".format(process.pid, m_port))
 
-        # for debug and my sanity
-        if instance_id in self.model_processes:
-            raise Exception("instance id not unique")
-        
+        m_socket = self.context.socket(zmq.REQ)  # @UndefinedVariable
+        m_socket.setsockopt_string(zmq.IDENTITY, identity) # @UndefinedVariable
+        m_socket.connect("tcp://localhost:{}".format(m_port))   
+
+        self.wait_for_started_model(simrunid, instance_id, m_socket)
+                
         #add the model id to the list
         self.model_processes[instance_id] = (process, m_socket, m_port, 
                                     working_directory,delete_working_directory)
-        
+
         return instance_id
 
 
-    def request_status(self, sim_run_id, receiver_id):
+    def wait_for_started_model(self, simrunid, receiverid, socket):
         #ask the status of the model with FS.1 message
-        content = self.prepare_message(sim_run_id=sim_run_id, 
-                               receiver=receiver_id, 
+        content = self.prepare_message(sim_run_id=simrunid, 
+                               receiver=receiverid, 
                                message_type='FS.1',
                                status=1,
                                payload=[])
         message = message_encode(content)
         
-        socket = self.model_processes[receiver_id][1]
-        socket.send(message)
-        self.no_messages += 1
-        
         #receive status
-        try:
-            self.log.info("check receive for FS.1")
-#             r_msg = socket.recv()  # @UndefinedVariable
-            for _ in range(10):
-                try:
-                    r_msg = socket.recv(flags=zmq.NOBLOCK)  # @UndefinedVariable
-                except ZMQError:
-                    time.sleep(1)
-                else:
-                    break
-            else:
-                raise Exception('recv blocking')
-            
-#             try:
-#                 r_msg = socket.recv(flags=zmq.NOBLOCK)  # @UndefinedVariable
-#             except zmq.Again as e:
-#                 self.log.info(e)
-#                 raise e    
-            
-            r_message = message_decode(r_msg)
-            expected_type = "MC.1"
-            self.check_received_message(r_message, expected_type)
+        while True:
+            self.send(message, socket)
+            bmsg = socket.recv()  # @UndefinedVariable
+            message = message_decode(bmsg)
+            self.check_received_message(message, "MC.1")
 
-            payload = [x[1] for x in r_message[8:]]
-            error_msg = ''
-            #Does it come from the right model instance?
-            if r_message[2][1] == receiver_id:
-                status = payload[1]
-                if status == 'running':
-                    wait = True
-                elif status in ['started', 'ended']:
-                    wait = False
-                elif status == 'error':
-                    wait = False     
-                    error_msg = payload[2]   
-                    raise ValueError("Error in model id {} : ".format(receiver_id), payload[2])
+            payload = [x[1] for x in message[8:]]
+            status = payload[1]
+            if status == 'started':
+                break    
             else:
-                self.log.info("wrong receive FS.1")
-        except ZMQError as e:
-                raise ValueError("Status could not be received. "+str(e))
-        return wait, status, error_msg
+                time.sleep(1)        
+
+    def get__random_port(self):
+        while True:
+            m_port = random.randint(self.min_port, self.max_port) 
+            
+            if m_port in self.portsinuse: 
+                continue
+            
+            #check if it is in use:
+            dummy_socket = self.context.socket(zmq.REP)  # @UndefinedVariable
+            try:
+                dummy_socket.bind('tcp://127.0.0.1:{}'.format(m_port))
+            except ZMQError as e:
+                self.log.info("Trying to assign port {} but {}".format(m_port, str(e)))
+            else:
+                dummy_socket.unbind('tcp://127.0.0.1:{}'.format(m_port))
+                dummy_socket.close()
+                return m_port
 
              
     def kill_federate(self, model_id, sim_run_id, fm_id, address):
         try:
             process, socket, port, wd, remove = self.model_processes.pop(model_id)
         except KeyError:
-            ValueError(("Model {} is unknown to the "
-                        "FederateStarter").format(model_id))
+            raise ValueError(("Model {} is unknown to the "
+                              "FederateStarter").format(model_id))
         else:
             #send an fs.3 message to the model as a REQ with id
             content = self.prepare_message(sim_run_id=sim_run_id, 
@@ -291,11 +250,10 @@ class FederateStarter(object):
                                        payload=[])
             message = message_encode(content)
             model_killed = False
-            
-            try:
-                socket.send(message)
-                self.no_messages += 1
-            except ZMQError as e:
+
+            try:            
+                self.send(message, socket)
+            except ZMQError:
                 raise
             else:
                 model_killed = True
@@ -322,11 +280,7 @@ class FederateStarter(object):
                                        payload=[model_id, model_killed, ''])
         
             message = message_encode(content)
-            try:
-                self.fm_socket.send_multipart([address, b'', message])
-                self.no_messages += 1
-            except ZMQError as e:
-                raise ValueError("ZMQ error : "+e)
+            self.send(message, socket, address)
 
 
     def prepare_message(self, sim_run_id=None, receiver=None, 
@@ -349,7 +303,7 @@ class FederateStarter(object):
         content.append(('sender_id', self.sender_id))
         content.append(('receiver_id', receiver))
         content.append(('msg_type_id', message_type))
-        content.append(('unique_msg_no', self.no_messages))
+        content.append(('unique_msg_no', self.nr_messages))
         content.append(('msg_status_id', int(status).to_bytes(1, byteorder='big')))
         content.append(('no_fields', len(payload))) # F1: "load federate", F2: directory, F3: file_name
         
