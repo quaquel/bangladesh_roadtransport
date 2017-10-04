@@ -56,8 +56,8 @@ class BGD_TransportModel(SimZMQModel):
     def run_experiment(self, experiment):
         self.start_new_model()
         run_id = experiment.id
-        
-        #1) === SETTING THE PARAMETER VALUES ONE BY ONE ===
+#         
+#         #1) === SETTING THE PARAMETER VALUES ONE BY ONE ===
         water_depth = experiment.pop('Flood_depth')
         damage_ratios = {}
         for key in self.infrastructure:
@@ -72,18 +72,18 @@ class BGD_TransportModel(SimZMQModel):
                 tm = experiment.pop(key+'_Tm')
                 damage = beta_growth_function(water_depth, w_max=wm, t_m=tm)
                 damage_ratios['Damage_'+key] = damage
-        
-        for key, value in experiment.items():
-            # send the parameters that are not included above
-            payload = [key, value]
-            self.set_value(run_id, payload) 
-            
-        for key, value in damage_ratios.items():
-            payload = [key, value]
-            self.set_value(run_id, payload)
+         
+#         for key, value in experiment.items():
+#             # send the parameters that are not included above
+#             payload = [key, value]
+#             self.set_value(run_id, payload) 
+#             
+#         for key, value in damage_ratios.items():
+#             payload = [key, value]
+#             self.set_value(run_id, payload)
         
         #2) === RUN THE SIMULATION ===
-        self.StartSimulation(run_id)
+        self.start_simulation(run_id)
             
         # 3) === REQUEST STATUS ===
         wait = True
@@ -112,14 +112,15 @@ def uncertainty_factory():
     fnc_parameters = ['Wmax', 'Tm']
     flood_ids = pd.read_excel('./data/Scenario_data.xlsx', 
                              sheetname='FloodArea_2')['Flood_ID']
+    flood_ids = flood_ids[::12]
     boundaries = pd.read_excel('./data/Scenario_data.xlsx', 
                                sheetname='Damage_parameters')
     boundaries = boundaries.drop('Infrastructure', axis=1)
     boundaries = boundaries.set_index('Parameter')
     
-    socioeconomic_parameters = [pair[0]+'_'+pair[1] for pair in 
-                                itertools.product(goods, activity)]
-    socioeconomic_unc = []
+#     socioeconomic_parameters = [pair[0]+'_'+pair[1] for pair in 
+#                                 itertools.product(goods, activity)]
+#     socioeconomic_unc = []
 #     socioeconomic_unc = [RealParameter(prm, 0, 2) for prm in 
 #                          socioeconomic_parameters]
 
@@ -147,13 +148,13 @@ def uncertainty_factory():
             upper = boundaries.loc[parameter, 'Upper']
             damage_uncertainties.append(RealParameter(parameter, lower, upper))
             
-    other_unc = [CategoricalParameter('Flood_area', flood_ids),
+    other_unc = [CategoricalParameter('Flood_area', flood_ids, pff=True),
                  RealParameter('Flood_duration', 1, 90),
                  RealParameter('Flood_depth', 0, 5),
                  RealParameter('Water_cost', 1, 5),
                  RealParameter('Road_cost', 3,9),
                  RealParameter('Trs_cost', 200, 500)]
-    return socioeconomic_unc + transport_unc + damage_uncertainties + other_unc
+    return transport_unc + damage_uncertainties + other_unc
 
 def outcome_factory():
     # define outcomes
@@ -198,7 +199,7 @@ if __name__ == "__main__":
                         software_code='java',
                         args_before='-jar', 
                         args_after=directory, # TODO:: directory where the jar resides
-                        fullPathModelFile='./model/bgd.jar', 
+                        fullPathModelFile='./model/bgdapp.jar', 
                         redirectStdin='', 
                         redirectStdout="out.txt",
                         redirectStderr="err.txt",
@@ -215,12 +216,15 @@ if __name__ == "__main__":
     model.uncertainties = uncertainty_factory()
     model.outcomes = outcome_factory()
  
-    n_experiments = 500
-    with MultiprocessingEvaluator(model) as evaluator:
+    n_experiments = 1000
+    with MultiprocessingEvaluator(model, n_processes=45) as evaluator:
         results = evaluator.perform_experiments(n_experiments, 
-                                                reporting_interval=1)
-    save_results(results, './results/test {}.tar.gz'.format(n_experiments))
-    
-#    results = perform_experiments(model, 2, reporting_interval=1)
+                                                uncertainty_sampling='pff'
+                                                reporting_interval=10)
+    save_results(results, './results/pff 5 flood scenarios {}.tar.gz'.format(n_experiments))
+     
+#     results = perform_experiments(model, 2, reporting_interval=1, 
+#                                   uncertainty_sampling='pff')
+    save_results(results, 'reference.tar.gz')
     print(results[1])
     fs.terminate()
