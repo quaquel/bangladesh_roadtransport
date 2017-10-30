@@ -1,5 +1,5 @@
-Flood_area	1987-0132	Selection	"1986-0096,2004-0298,2007-0311,1995-0101,2007-0161,2005-0375,1999-0225,1995-0487,1999-0736,1991-0224,2012-0175,1964-0039,1995-0243,1987-0132,2016-0288,2004-0509,2014-0581,1996-0104,1999-0277,1990-0609,1991-0764,2008-0285,1995-0100,2012-0382,1994-0754,2002-0402,2014-0290,1998-0203,1993-0028,2001-0459,2009-0304,1993-0045,1988-0294,1985-0299,1993-0196,2005-0590,2010-0269,2005-0261,1992-0190,2015-0293,2001-0393,2015-0253,2000-0373,1985-0012,2011-0262,1989-0119,2003-0303,2006-0502,1990-0095,1992-0213,2010-0676,2008-0385,2003-0283,2009-0294"		Flood area	Select from picklist
-Flood_duration	30	Double	0	365	Flood duration	(days)
+Flood_area	1987-0132	Selection	"NON_FLOODED,1986-0096,2004-0298,2007-0311,1995-0101,2007-0161,2005-0375,1999-0225,1995-0487,1999-0736,1991-0224,2012-0175,1964-0039,1995-0243,1987-0132,2016-0288,2004-0509,2014-0581,1996-0104,1999-0277,1990-0609,1991-0764,2008-0285,1995-0100,2012-0382,1994-0754,2002-0402,2014-0290,1998-0203,1993-0028,2001-0459,2009-0304,1993-0045,1988-0294,1985-0299,1993-0196,2005-0590,2010-0269,2005-0261,1992-0190,2015-0293,2001-0393,2015-0253,2000-0373,1985-0012,2011-0262,1989-0119,2003-0303,2006-0502,1990-0095,1992-0213,2010-0676,2008-0385,2003-0283,2009-0294"		Flood area	Select from picklist
+Flood_duration	30	Double	0	365	Flood duration	"(days, starting at flood start day)"
 Damage_road_n	0.1	Double	0	1	Damage N-roads	(0-1) where 0 is undamaged and 1 is unpassable
 Damage_road_r	0.3	Double	0	1	Damage R-roads	(0-1) where 0 is undamaged and 1 is unpassable
 Damage_road_z	0.5	Double	0	1	Damage Z-roads	(0-1) where 0 is undamaged and 1 is unpassable
@@ -54,16 +54,44 @@ Food_production	1	Double	0	2	Production factor food	(0-2) where 1 is current pro
 Food_consumption	1	Double	0	2	Consumption factor food	(0-2) where 1 is current consumption
 Food_export	1	Double	0	2	Export factor food	(0-2) where 1 is current export
 Food_import	1	Double	0	2	Import factor food	(0-2) where 1 is current import
+Const_Flood_StartDay	0	Double	0	365	Day when the flood starts	(days; 0 is from start of simulation)
 Const_Flooding_Production_Textile	0.7	Double	0	1	Production factor flooding textile	"(0-1) where 1 is not affected by flooding, 0 is no production"
 Const_Flooding_Production_Garment	0.8	Double	0	1	Production factor flooding garment	"(0-1) where 1 is not affected by flooding, 0 is no production"
 Const_Flooding_Production_Brick	0.6	Double	0	1	Production factor flooding bricks	"(0-1) where 1 is not affected by flooding, 0 is no production"
 Const_Flooding_Production_Steel	0.8	Double	0	1	Production factor flooding steel	"(0-1) where 1 is not affected by flooding, 0 is no production"
 Const_Flooding_Production_Food	0.5	Double	0	1	Production factor flooding food	"(0-1) where 1 is not affected by flooding, 0 is no production"
-Const_AvgSpeed_Road_N	70	Double	0	120	Average truck speed on N-road	km/h
-Const_AvgSpeed_Road_R	50	Double	0	120	Average truck speed on R-road	km/h
-Const_AvgSpeed_Road_Z	30	Double	0	120	Average truck speed on Z-road	km/h
+Const_Fraction_Local_Consumption_Textile	0.8	Double	0	1	Fraction local consumption textile	"(0-1), 1 = local demand maximally sourced in district"
+Const_Fraction_Local_Consumption_Garment	0.8	Double	0	1	Fraction local consumption garment	"(0-1), 1 = local demand maximally sourced in district"
+Const_Fraction_Local_Consumption_Brick	0.8	Double	0	1	Fraction local consumption bricks	"(0-1), 1 = local demand maximally sourced in district"
+Const_Fraction_Local_Consumption_Steel	0.8	Double	0	1	Fraction local consumption steel	"(0-1), 1 = local demand maximally sourced in district"
+Const_Fraction_Local_Consumption_Food	0.8	Double	0	1	Fraction local consumption food	"(0-1), 1 = local demand maximally sourced in district"
 Const_NFactor	1	Double	0	100	Resistance factor N-roads	Attractiveness factor for centroid choice (less is better)
 Const_RFactor	2	Double	0	100	Resistance factor R-roads	Attractiveness factor for centroid choice (less is better)
 Const_ZFactor	10	Double	0	100	Resistance factor Z-roads	Attractiveness factor for centroid choice (less is better)
-Const_Ferry_Speed	20	Double	1	75	Average ferry speed	km/h
-Const_Ferry_Wait	4	Double	0	48	Average truck waiting for ferry	hours
+Const_AvgSpeed_Road_N	45	Double	1	120	Average truck speed on N-road	km/h
+Const_AvgSpeed_Road_R	22.5	Double	1	120	Average truck speed on R-road	km/h
+Const_AvgSpeed_Road_Z	9	Double	1	120	Average truck speed on Z-road	km/h
+Const_Ferry_Speed	10	Double	1	75	Average ferry speed	km/h
+Const_Ferry_Wait	8	Double	0	120	Average waing time for ferry	hours
+Const_Barge_Speed_Cat1	15	Double	1	75	Average barge speed cat I	km/h
+Const_Barge_Speed_Cat2	12	Double	1	75	Average barge speed cat II	km/h
+Const_Barge_Speed_Cat3	10	Double	1	75	Average barge speed cat III	km/h
+Const_Barge_Speed_Cat4	5	Double	1	75	Average barge speed cat IV	km/h
+Const_Barge_Tranship_Cat1	4	Double	0	120	Average transhipment time barge I	Waterway cat I (in hours)
+Const_Barge_Tranship_Cat2	8	Double	0	120	Average transhipment time barge II	Waterway cat II (in hours)
+Const_Barge_Tranship_Cat3	12	Double	0	120	Average transhipment time barge III	Waterway cat III (in hours)
+Const_Barge_Tranship_Cat4	24	Double	0	120	Average transhipment time barge IV	Waterway cat IV (in hours)
+Const_Rail_Speed	20	Double	1	100	Average rail speed	km/h
+Const_Rail_Tranship	24	Double	0	120	Average transhipment time rail	hours
+Intervention_1	0	Boolean	0	1	Dhaka-Chittagong Highway Expansion	N1 from 2 lanes to 4
+Intervention_2	0	Boolean	0	1	Expansion of R504	Hamayetpur–Singair– Manikganj 4 lanes
+Intervention_3	0	Boolean	0	1	Padma Bridge	on N8 between Louhajong to Madaripur
+Intervention_4	0	Boolean	0	1	2nd Padma Bridge	 connecting N5 and N7 between Paturia and Goalanda
+Intervention_5	0	Boolean	0	1	South-Asia Road Connectivity Project	"N4 upgrade; doubling Benapole, Burimar land ports"
+Intervention_6	0	Boolean	0	1	Upgrading the Dhaka by-pass road	N105 upgrade to 4 lanes
+Intervention_7	0	Boolean	0	1	East Bangladesh Bridge Improvement	Class A bridges on 12 roads
+Intervention_8	0	Boolean	0	1	Improving  Bangabandhu bridge (N405)	N405 to become disruption-proof
+Intervention_9	0	Boolean	0	1	Improve highly critical regional roads	"R164, R890, R710 to N-level"
+Intervention_10	0	Boolean	0	1	Capacity Class I and Class II waterways	Larger ships on Class I and Class II waterways
+Intervention_11	0	Boolean	0	1	Development of Chittagong Port	Import/Export at Chittagong increased by 25%
+Intervention_12	0	Boolean	0	1	Development of Mongla Port	25% of import/export shifted from Chittagong to Mongla
