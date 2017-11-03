@@ -174,7 +174,7 @@ def outcome_factory():
     return outcomes
 
 if __name__ == "__main__":       
-    ema_logging.log_to_stderr(ema_logging.INFO)
+    ema_logging.log_to_stderr(ema_logging.DEBUG)
     
     ip = 'localhost'
     federatestarter_port = '5555'
@@ -199,7 +199,7 @@ if __name__ == "__main__":
                         software_code='java',
                         args_before='-jar', 
                         args_after=directory, # TODO:: directory where the jar resides
-                        fullPathModelFile='./model/bgdapp.jar', 
+                        fullPathModelFile='./model/bgd.jar', 
                         redirectStdin='', 
                         redirectStdout="out.txt",
                         redirectStderr="err.txt",
@@ -216,12 +216,14 @@ if __name__ == "__main__":
     model.uncertainties = uncertainty_factory()
     model.outcomes = outcome_factory()
  
+    n_floods = len(model.uncertainties['Flood_area'].categories)
+ 
     n_experiments = 1000
-    with MultiprocessingEvaluator(model, n_processes=45) as evaluator:
+    with MultiprocessingEvaluator(model, n_processes=30) as evaluator:
         results = evaluator.perform_experiments(n_experiments, 
-                                                uncertainty_sampling='pff'
+                                                uncertainty_sampling='pff',
                                                 reporting_interval=10)
-    save_results(results, './results/pff 5 flood scenarios {}.tar.gz'.format(n_experiments))
+    save_results(results, './results/pff {} flood scenarios {}.tar.gz'.format(n_floods, n_experiments))
      
 #     results = perform_experiments(model, 2, reporting_interval=1, 
 #                                   uncertainty_sampling='pff')

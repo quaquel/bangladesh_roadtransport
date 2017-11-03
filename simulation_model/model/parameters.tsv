@@ -19,21 +19,21 @@ Damage_railstations	0	Double	0	1	Damage Reil stations	(0-1) where 0 is undamaged
 Road_cost	6.25	Double	0	1.00E+09	Road cost per ton-km	
 Water_cost	2.19	Double	0	1.00E+09	Waterway cost per ton-km	
 Trs_cost	300	Double	0	1.00E+09	Transshipment cost per ton	
-Textile_road	1	Double	0	1	Fraction textile by road	(0-1)
+Textile_road	0.8	Double	0	1	Fraction textile by road	(0-1)
 Textile_rail	0	Double	0	1	Fraction textile by rail	(0-1)
-Textile_water	0	Double	0	1	Fraction textile by waterway	(0-1)
-Garment_road	1	Double	0	1	Fraction garment by road	(0-1)
+Textile_water	0.2	Double	0	1	Fraction textile by waterway	(0-1)
+Garment_road	0.8	Double	0	1	Fraction garment by road	(0-1)
 Garment_rail	0	Double	0	1	Fraction garment by rail	(0-1)
-Garment_water	0	Double	0	1	Fraction garment by waterway	(0-1)
-Steel_road	1	Double	0	1	Fraction steel by road	(0-1)
+Garment_water	0.2	Double	0	1	Fraction garment by waterway	(0-1)
+Steel_road	0.8	Double	0	1	Fraction steel by road	(0-1)
 Steel_rail	0	Double	0	1	Fraction steel by rail	(0-1)
-Steel_water	0	Double	0	1	Fraction steel by waterway	(0-1)
-Brick_road	1	Double	0	1	Fraction brick by road	(0-1)
+Steel_water	0.2	Double	0	1	Fraction steel by waterway	(0-1)
+Brick_road	0.8	Double	0	1	Fraction brick by road	(0-1)
 Brick_rail	0	Double	0	1	Fraction brick by rail	(0-1)
-Brick_water	0	Double	0	1	Fraction brick by waterway	(0-1)
-Food_road	1	Double	0	1	Fraction food by road	(0-1)
+Brick_water	0.2	Double	0	1	Fraction brick by waterway	(0-1)
+Food_road	0.8	Double	0	1	Fraction food by road	(0-1)
 Food_rail	0	Double	0	1	Fraction food by rail	(0-1)
-Food_water	0	Double	0	1	Fraction food by waterway	(0-1)
+Food_water	0.2	Double	0	1	Fraction food by waterway	(0-1)
 Textile_production	1	Double	0	2	Production factor textile	(0-2) where 1 is current production
 Textile_consumption	1	Double	0	2	Consumption factor textile	(0-2) where 1 is current consumption
 Textile_export	1	Double	0	2	Export factor textile	(0-2) where 1 is current export

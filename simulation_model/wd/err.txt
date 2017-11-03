@@ -1,2 +1,0 @@
-Exception in thread "main" java.lang.NullPointerException
-	at nl.tudelft.pa.wbtransport.CentroidRoutesApp.main(CentroidRoutesApp.java:129)
