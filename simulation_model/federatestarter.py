@@ -96,7 +96,8 @@ class FederateStarter(object):
         logger = logging.getLogger(__name__)
         
         # create a file handler
-        handler = logging.StreamHandler(sys.stdout)
+#         handler = logging.StreamHandler(sys.stdout)
+        handler = logging.FileHandler('federatestarter.log')
         handler.setLevel(logging.INFO)
         
         # # create a logging format
@@ -195,7 +196,7 @@ class FederateStarter(object):
 
     def wait_for_started_model(self, simrunid, receiverid, socket):
         #ask the status of the model with FS.1 message
-        time.sleep(5)
+        time.sleep(1)
         content = self.prepare_message(sim_run_id=simrunid, 
                                receiver=receiverid, 
                                message_type='FS.1',

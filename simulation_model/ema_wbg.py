@@ -56,8 +56,8 @@ class BGD_TransportModel(SimZMQModel):
     def run_experiment(self, experiment):
         self.start_new_model()
         run_id = experiment.id
-#         
-#         #1) === SETTING THE PARAMETER VALUES ONE BY ONE ===
+        
+        #         #1) === SETTING THE PARAMETER VALUES ONE BY ONE ===
         water_depth = experiment.pop('Flood_depth')
         damage_ratios = {}
         for key in self.infrastructure:
@@ -73,14 +73,14 @@ class BGD_TransportModel(SimZMQModel):
                 damage = beta_growth_function(water_depth, w_max=wm, t_m=tm)
                 damage_ratios['Damage_'+key] = damage
          
-#         for key, value in experiment.items():
-#             # send the parameters that are not included above
-#             payload = [key, value]
-#             self.set_value(run_id, payload) 
-#             
-#         for key, value in damage_ratios.items():
-#             payload = [key, value]
-#             self.set_value(run_id, payload)
+        for key, value in experiment.items():
+            # send the parameters that are not included above
+            payload = [key, value]
+            self.set_value(run_id, payload) 
+             
+        for key, value in damage_ratios.items():
+            payload = [key, value]
+            self.set_value(run_id, payload)
         
         #2) === RUN THE SIMULATION ===
         self.start_simulation(run_id)
@@ -107,6 +107,12 @@ class BGD_TransportModel(SimZMQModel):
     
 
 def uncertainty_factory():
+    
+# [GARMENT_IMPORT, GARMENT_PRODUCTION, FOOD_CONSUMPTION, STEEL_CONSUMPTION, 
+#  TEXTILE_PRODUCTION, TEXTILE_CONSUMPTION, BRICK_EXPORT, FOOD_IMPORT, 
+#  STEEL_IMPORT, GARMENT_CONSUMPTION, STEEL_PRODUCTION, BRICK_PRODUCTION, 
+#  STEEL_EXPORT, TEXTILE_EXPORT, BRICK_IMPORT, GARMENT_EXPORT, TEXTILE_IMPORT, 
+#  BRICK_CONSUMPTION, FOOD_PRODUCTION, FOOD_EXPORT] 
     activity = ['production', 'consumption', 'export', 'import']
     modes = ['road', 'rail', 'water']
     fnc_parameters = ['Wmax', 'Tm']
@@ -148,9 +154,9 @@ def uncertainty_factory():
             upper = boundaries.loc[parameter, 'Upper']
             damage_uncertainties.append(RealParameter(parameter, lower, upper))
             
-    other_unc = [CategoricalParameter('Flood_area', flood_ids, pff=True),
-                 RealParameter('Flood_duration', 1, 90),
-                 RealParameter('Flood_depth', 0, 5),
+    other_unc = [CategoricalParameter('Flood_area', flood_ids),
+                 RealParameter('Flood_duration', 30, 90),
+                 RealParameter('Flood_depth', 1, 5),
                  RealParameter('Water_cost', 1, 5),
                  RealParameter('Road_cost', 3,9),
                  RealParameter('Trs_cost', 200, 500)]
@@ -219,11 +225,11 @@ if __name__ == "__main__":
     n_floods = len(model.uncertainties['Flood_area'].categories)
  
     n_experiments = 1000
-    with MultiprocessingEvaluator(model) as evaluator:
+    with MultiprocessingEvaluator(model, n_processes=30) as evaluator:
         results = evaluator.perform_experiments(n_experiments, 
-                                                uncertainty_sampling='pff',
+                                                sampler = 'pff',
                                                 reporting_interval=10)
-    save_results(results, './results/pff {} flood scenarios {}.tar.gz'.format(n_floods, n_experiments))
+#     save_results(results, './results/tests.tar.gz'.format(n_floods, n_experiments))
      
 #     results = perform_experiments(model, 2, reporting_interval=1, 
 #                                   uncertainty_sampling='pff')

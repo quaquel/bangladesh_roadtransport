@@ -101,7 +101,8 @@ class ZmqProcess(multiprocessing.Process):
             stream.on_recv(callback)
 
         return stream, int(port)
-    
+
+
 class FederateStarter(ZmqProcess):
     """
     Main processes for the Ponger. It handles ping requests and sends back
@@ -131,7 +132,8 @@ class FederateStarter(ZmqProcess):
         logger = logging.getLogger(__name__)
         
         # create a file handler
-        handler = logging.StreamHandler(sys.stdout)
+#         handler = logging.StreamHandler(sys.stdout)
+        handler = logging.FileHandler('federatestarter.log')
         handler.setLevel(logging.INFO)
         
         # # create a logging format
