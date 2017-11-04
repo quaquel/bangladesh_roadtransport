@@ -224,10 +224,10 @@ if __name__ == "__main__":
  
     n_floods = len(model.uncertainties['Flood_area'].categories)
  
-    n_experiments = 1000
+    n_experiments = 100
     with MultiprocessingEvaluator(model, n_processes=30) as evaluator:
-        results = evaluator.perform_experiments(n_experiments, 
-                                                sampler = 'pff',
+        results = evaluator.perform_experiments(n_experiments,
+                                                uncertainty_sampling='pff',
                                                 reporting_interval=10)
     save_results(results, './results/pff {} floods {} cases.tar.gz'.format(n_floods, n_experiments))
      
