@@ -229,7 +229,7 @@ if __name__ == "__main__":
         results = evaluator.perform_experiments(n_experiments, 
                                                 sampler = 'pff',
                                                 reporting_interval=10)
-#     save_results(results, './results/tests.tar.gz'.format(n_floods, n_experiments))
+    save_results(results, './results/pff {} floods {} cases.tar.gz'.format(n_floods, n_experiments))
      
 #     results = perform_experiments(model, 2, reporting_interval=1, 
 #                                   uncertainty_sampling='pff')
