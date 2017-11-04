@@ -195,6 +195,7 @@ class FederateStarter(object):
 
     def wait_for_started_model(self, simrunid, receiverid, socket):
         #ask the status of the model with FS.1 message
+        time.sleep(5)
         content = self.prepare_message(sim_run_id=simrunid, 
                                receiver=receiverid, 
                                message_type='FS.1',

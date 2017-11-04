@@ -174,7 +174,7 @@ def outcome_factory():
     return outcomes
 
 if __name__ == "__main__":       
-    ema_logging.log_to_stderr(ema_logging.DEBUG)
+    ema_logging.log_to_stderr(ema_logging.INFO)
     
     ip = 'localhost'
     federatestarter_port = '5555'
@@ -219,7 +219,7 @@ if __name__ == "__main__":
     n_floods = len(model.uncertainties['Flood_area'].categories)
  
     n_experiments = 1000
-    with MultiprocessingEvaluator(model, n_processes=30) as evaluator:
+    with MultiprocessingEvaluator(model) as evaluator:
         results = evaluator.perform_experiments(n_experiments, 
                                                 uncertainty_sampling='pff',
                                                 reporting_interval=10)
