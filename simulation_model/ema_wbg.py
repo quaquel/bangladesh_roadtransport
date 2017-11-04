@@ -154,7 +154,7 @@ def uncertainty_factory():
             upper = boundaries.loc[parameter, 'Upper']
             damage_uncertainties.append(RealParameter(parameter, lower, upper))
             
-    other_unc = [CategoricalParameter('Flood_area', flood_ids),
+    other_unc = [CategoricalParameter('Flood_area', flood_ids, pff=True),
                  RealParameter('Flood_duration', 30, 90),
                  RealParameter('Flood_depth', 1, 5),
                  RealParameter('Water_cost', 1, 5),
