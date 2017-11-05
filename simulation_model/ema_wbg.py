@@ -118,7 +118,7 @@ def uncertainty_factory():
     fnc_parameters = ['Wmax', 'Tm']
     flood_ids = pd.read_excel('./data/Scenario_data.xlsx', 
                              sheetname='FloodArea_2')['Flood_ID']
-    flood_ids = flood_ids[::12]
+    # flood_ids = flood_ids[::12]
     boundaries = pd.read_excel('./data/Scenario_data.xlsx', 
                                sheetname='Damage_parameters')
     boundaries = boundaries.drop('Infrastructure', axis=1)
