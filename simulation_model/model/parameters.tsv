@@ -83,3 +83,15 @@ Const_Barge_Tranship_Cat3	12	Double	0	120	Average transhipment time barge III	Wa
 Const_Barge_Tranship_Cat4	24	Double	0	120	Average transhipment time barge IV	Waterway cat IV (in hours)
 Const_Rail_Speed	20	Double	1	100	Average rail speed	km/h
 Const_Rail_Tranship	24	Double	0	120	Average transhipment time rail	hours
+Intervention_1	0	Boolean	0	1	Dhaka-Chittagong Highway Expansion	N1 from 2 lanes to 4
+Intervention_2	0	Boolean	0	1	Expansion of R504	Hamayetpur–Singair– Manikganj 4 lanes
+Intervention_3	0	Boolean	0	1	Padma Bridge	on N8 between Louhajong to Madaripur
+Intervention_4	0	Boolean	0	1	2nd Padma Bridge	 connecting N5 and N7 between Paturia and Goalanda
+Intervention_5	0	Boolean	0	1	South-Asia Road Connectivity Project	"N4 upgrade; doubling Benapole, Burimar land ports"
+Intervention_6	0	Boolean	0	1	Upgrading the Dhaka by-pass road	N105 upgrade to 4 lanes
+Intervention_7	0	Boolean	0	1	East Bangladesh Bridge Improvement	Class A bridges on 12 roads
+Intervention_8	0	Boolean	0	1	Improving  Bangabandhu bridge (N405)	N405 to become disruption-proof
+Intervention_9	0	Boolean	0	1	Improve highly critical regional roads	"R164, R890, R710 to N-level"
+Intervention_10	0	Boolean	0	1	Capacity Class I and Class II waterways	Larger ships on Class I and Class II waterways
+Intervention_11	0	Boolean	0	1	Development of Chittagong Port	Import/Export at Chittagong increased by 25%
+Intervention_12	0	Boolean	0	1	Development of Mongla Port	25% of import/export shifted from Chittagong to Mongla

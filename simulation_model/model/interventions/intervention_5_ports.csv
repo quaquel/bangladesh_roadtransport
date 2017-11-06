@@ -1,0 +1,5 @@
+portname,productname,importfactor,importdelta,exportfactor,exportdelta
+Benapole,Food,2,,2,
+Benapole,Textile,2,,2,
+Burimari,Garment,,,,20000
+Burimari,Textile,,,,20000

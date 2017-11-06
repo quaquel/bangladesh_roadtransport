@@ -1,10 +1,24 @@
-Id,Name,Lat,Lon,Road,LRP,ImportMTon,ExportMTon,ImportGoods,ExportGoods
-Benapole,Benapole Land Port,23.041645,88.894349,N706,N706_LRPE,1252250,300274,Textile|Food,Textile
-Sonamosjid,Sonamosjid Land Port,24.840663,88.142106,N6,N6_LRPE,1746993,0,Food,Textile
-Hilli,Hilli  Land Port,25.281176,89.007816,Z5503,Z5503_LRPE,851759,23870,Food|Brick,Food|Garment
-Burimari,Burimari Land Port,26.40466,88.924345,N509,N509_LRPE,935141,0,Food|Brick,Garment|Textile
-Akhaura,Akhaura Land Port,23.841927,91.249095,Z1202,Z1202_LRPE,251,278377,Food,Brick
-Bibirbazar,Bibirbazar Land Port,23.460596,91.248359,N101,N101_LRPE,24,63596,Food,Brick|Textile
-Banglabandha,Banglabandha Land Port,26.629808,88.412786,N5,N5_LRPE,515700,14513,Food,Textile
-Teknaf,Teknaf Land Port,20.768376,92.336139,Z1099,Z1099_LRPE,105755,6504,Food,Garment
-Bhomra,Bhomra Land Port ,22.668104,88.950791,N715,N715_LRPE,1458413,44299,Food,Garment|Textile
+Id,Name,Lat,Lon,Road,LRP,Product,ImportTon,ExportTon
+Benapole,Benapole Land Port,23.041645,88.894349,N706,N706_LRPE,Food,626125,
+Benapole,,,,,,Textile,626125,300274
+Sonamosjid,Sonamosjid Land Port,24.840663,88.142106,N6,N6_LRPE,Food,1746993,
+Sonamosjid,,,,,,Textile,,0
+Hilli,Hilli  Land Port,25.281176,89.007816,Z5503,Z5503_LRPE,Food,425880,11935
+Hilli,,,,,,Brick,425880,
+Hilli,,,,,,Garment,,11935
+Burimari,Burimari Land Port,26.40466,88.924345,N509,N509_LRPE,Food,467570,
+Burimari,,,,,,Brick,467570,
+Burimari,,,,,,Garment,,0
+Burimari,,,,,,Textile,,0
+Akhaura,Akhaura Land Port,23.841927,91.249095,Z1202,Z1202_LRPE,Food,251,
+Akhaura,,,,,,Brick,,278377
+Bibirbazar,Bibirbazar Land Port,23.460596,91.248359,N101,N101_LRPE,Food,24,
+Bibirbazar,,,,,,Brick,,31798
+Bibirbazar,,,,,,Textile,,31798
+Banglabandha,Banglabandha Land Port,26.629808,88.412786,N5,N5_LRPE,Food,515700,
+Banglabandha,,,,,,Textile,,14513
+Teknaf,Teknaf Land Port,20.768376,92.336139,Z1099,Z1099_LRPE,Food,105755,
+Teknaf,,,,,,Garment,,6504
+Bhomra,Bhomra Land Port ,22.668104,88.950791,N715,N715_LRPE,Food,1458413,
+Bhomra,,,,,,Garment,,22150
+Bhomra,,,,,,Textile,,22150

@@ -1,9 +1,9 @@
-Id,Name,Lat,Lon,Road,LRP,Product,ImportTon,ExportTon,Source,,,
-Chittagong,Chittagong Port,22.2984719,91.7922219,N111,N111_LRPE,Textile,967000,978886,"Statistical year book 2015 table 7.44, www.cicr.org.in/pdf/Kranthi_art/Raw_cotton_textile_export_july_2014.pdf",,,
-Chittagong,,,,,,Garment,,2760449,Statistical year book 2015 table 7.44,,,
-Chittagong,,,,,,Food,6849127,123846,Statistical year book 2015 table 7.44,,,
-Chittagong,,,,,,Brick,14209572,,Statistical year book 2015 table 7.47,,,
-Chittagong,,,,,,Steel,,93506,Sum of District_level_data_v7,,,
-Mongla,Mongla Port,22.5293327,89.5894441,N7,N7_LRPE,Textile,,53674,Statistical year book 2015 table 7.45,,,
-Mongla,,,,,,Food,140832,34260,Statistical year book 2015 table 7.45 and 7.46,,,
-Mongla,,,,,,Brick,1236442,,Statistical year book 2015 table 7.46,,,
+Id,Name,Lat,Lon,Road,LRP,Product,ImportTon,ExportTon,Source
+Chittagong,Chittagong Port,22.2984719,91.7922219,N111,N111_LRPE,Textile,967000,978886,"Statistical year book 2015 table 7.44, www.cicr.org.in/pdf/Kranthi_art/Raw_cotton_textile_export_july_2014.pdf"
+Chittagong,,,,,,Garment,,2760449,Statistical year book 2015 table 7.44
+Chittagong,,,,,,Food,6849127,123846,Statistical year book 2015 table 7.44
+Chittagong,,,,,,Brick,14209572,,Statistical year book 2015 table 7.47
+Chittagong,,,,,,Steel,,93506,Sum of District_level_data_v7
+Mongla,Mongla Port,22.5293327,89.5894441,N7,N7_LRPE,Textile,,53674,Statistical year book 2015 table 7.45
+Mongla,,,,,,Food,140832,34260,Statistical year book 2015 table 7.45 and 7.46
+Mongla,,,,,,Brick,1236442,,Statistical year book 2015 table 7.46

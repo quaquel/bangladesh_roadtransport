@@ -1,0 +1,11 @@
+portname,productname,importfactor,importdelta,exportfactor,exportdelta
+Chittagong,Textile,,-241750,,-244721.5
+Chittagong,Garment,,0,,-690112.25
+Chittagong,Food,,-1712281.75,,-30961.5
+Chittagong,Brick,,-3552393,,0
+Chittagong,Steel,,0,,-23376.5
+Mongla,Textile,,241750,,244721.5
+Mongla,Garment,,0,,690112.25
+Mongla,Food,,1712281.75,,30961.5
+Mongla,Brick,,3552393,,0
+Mongla,Steel,,0,,23376.5
