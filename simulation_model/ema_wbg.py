@@ -22,6 +22,7 @@ from ema_workbench.util.ema_logging import method_logger
 from simzmq import SimZMQModel
 from federatestarter import FederateStarter
 from ema_workbench.em_framework.evaluators import perform_experiments
+from ema_workbench.em_framework.parameters import Policy
 
 goods = ['Textile', 'Garment', 'Steel', 'Brick', 'Food']
     
@@ -221,14 +222,18 @@ if __name__ == "__main__":
     model.n_replications = 1
     model.uncertainties = uncertainty_factory()
     model.outcomes = outcome_factory()
+    model.levers = [CategoricalParameter('Intervention_{}'.format(i), [False, True]) for i in range(1,13)]
  
     n_floods = len(model.uncertainties['Flood_area'].categories)
  
     n_experiments = 100
-    with MultiprocessingEvaluator(model, n_processes=30) as evaluator:
+    with MultiprocessingEvaluator(model, n_processes=2) as evaluator:
+        policies = [Policy('Intervention_{}'.format(i), **{'Intervention_{}'.format(i):True}) for i in range(1,13)]
+        policies.append(Policy('no intervention', **{}))
         results = evaluator.perform_experiments(n_experiments,
+                                                policies,
                                                 uncertainty_sampling='pff',
-                                                reporting_interval=10)
+                                                reporting_interval=1)
     save_results(results, './results/pff {} floods {} cases.tar.gz'.format(n_floods, n_experiments))
      
 #     results = perform_experiments(model, 2, reporting_interval=1, 
