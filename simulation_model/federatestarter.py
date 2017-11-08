@@ -98,7 +98,7 @@ class FederateStarter(object):
         
         # create a file handler
 #         handler = logging.StreamHandler(sys.stdout)
-        handler = logging.FileHandler('federatestarter.log')
+        handler = logging.FileHandler('federatestarter.log', mode='w')
         handler.setLevel(logging.INFO)
         
         # # create a logging format
