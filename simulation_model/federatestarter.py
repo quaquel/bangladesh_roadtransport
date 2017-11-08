@@ -17,6 +17,7 @@ import zmq
 from zmq.error import ZMQError
 
 from message_v2 import message_encode, message_decode
+import itertools
 
 
 class FederateStarter(object):
@@ -205,10 +206,19 @@ class FederateStarter(object):
                                payload=[])
         message = message_encode(content)
         
+        poller = zmq.Poller()
+        poller.register(socket, zmq.POLLIN)  # @UndefinedVariable
+        
         #receive status
-        while True:
+        for i in range(100):
             self.send(message, socket)
-            bmsg = socket.recv()  # @UndefinedVariable
+#             bmsg = socket.recv()  # @UndefinedVariable
+            evts = poller.poll(1000)
+            if not evts:
+                self.log.info('retrying {}'.format(i))
+            else:
+                bmsg = evts[0][0].recv(zmq.NOBLOCK)  # @UndefinedVariable
+            
             message = message_decode(bmsg)
             self.check_received_message(message, "MC.1")
 
@@ -217,7 +227,9 @@ class FederateStarter(object):
             if status == 'started':
                 break    
             else:
-                time.sleep(1)        
+                time.sleep(1) 
+        else:
+            raise Exception("failure to successfully start a model")       
 
     def get__random_port(self):
         while True:
