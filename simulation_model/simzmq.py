@@ -222,8 +222,8 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
         self.context = zmq.Context()  
         self.fs_socket = self.context.socket(zmq.REQ)  # @UndefinedVariable
         
-#         identity = str(uuid.uuid4())
-#         self.fs_socket.setsockopt_string(zmq.IDENTITY, identity) # @UndefinedVariable
+        identity = str(uuid.uuid4())
+        self.fs_socket.setsockopt_string(zmq.IDENTITY, identity) # @UndefinedVariable
         try:
             self.fs_socket.connect("tcp://{}:{}".format(self.ip_toconnect, 
                                                         self.fs_port))
