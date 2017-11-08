@@ -164,7 +164,7 @@ class FederateStarter(object):
         self.portsinuse.add(m_port)     
         
         #the chosen port can be seized by another process in the meantime    
-        identity = str(uuid.uuid4())
+#         identity = str(uuid.uuid4())
         
         #instantiate the model
         #args after to include the input data directory
@@ -182,7 +182,7 @@ class FederateStarter(object):
                               "listening on {}".format(process.pid, m_port))
 
         m_socket = self.context.socket(zmq.REQ)  # @UndefinedVariable
-        m_socket.setsockopt_string(zmq.IDENTITY, identity) # @UndefinedVariable
+#         m_socket.setsockopt_string(zmq.IDENTITY, identity) # @UndefinedVariable
         m_socket.connect("tcp://localhost:{}".format(m_port))   
 
         self.wait_for_started_model(simrunid, instance_id, m_socket)

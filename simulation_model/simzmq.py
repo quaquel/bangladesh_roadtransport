@@ -222,8 +222,8 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
         self.context = zmq.Context()  
         self.fs_socket = self.context.socket(zmq.REQ)  # @UndefinedVariable
         
-        identity = str(uuid.uuid4())
-        self.fs_socket.setsockopt_string(zmq.IDENTITY, identity) # @UndefinedVariable
+#         identity = str(uuid.uuid4())
+#         self.fs_socket.setsockopt_string(zmq.IDENTITY, identity) # @UndefinedVariable
         try:
             self.fs_socket.connect("tcp://{}:{}".format(self.ip_toconnect, 
                                                         self.fs_port))
@@ -252,9 +252,9 @@ class SimZMQModel(SingleReplication, WorkingDirectoryModel):
         
         m_port = self.start_federate(payload)
 
-        identity = str(uuid.uuid4())
+#         identity = str(uuid.uuid4())
         self.m_socket = self.context.socket(zmq.REQ) # @UndefinedVariable
-        self.m_socket.setsockopt_string(zmq.IDENTITY, identity) # @UndefinedVariable
+#         self.m_socket.setsockopt_string(zmq.IDENTITY, identity) # @UndefinedVariable
         self.m_socket.connect("tcp://{}:{}".format(self.ip_toconnect, 
                                                    m_port))
         
