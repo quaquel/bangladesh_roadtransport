@@ -116,10 +116,9 @@ class FederateStarter(object):
         payload = [x[1] for x in message[8:]]
     
         # === instantiate a model ===
-        model_id = self.start_federate(simrunid, payload)
+        model_id, m_port = self.start_federate(simrunid, payload)
     
         # === send a message back to the federate manager ===       
-        m_port = self.model_processes[model_id][2]
         content = self.prepare_message(sim_run_id=simrunid, 
                                        receiver=fm_id, 
                                        message_type='FS.2',
@@ -186,12 +185,14 @@ class FederateStarter(object):
         m_socket.connect("tcp://localhost:{}".format(m_port))   
 
         self.wait_for_started_model(simrunid, instance_id, m_socket)
-                
+        
+        m_socket.close()
+        
         #add the model id to the list
-        self.model_processes[instance_id] = (process, m_socket, m_port, 
+        self.model_processes[instance_id] = (process, m_port, 
                                     working_directory,delete_working_directory)
 
-        return instance_id
+        return instance_id, m_port
 
 
     def wait_for_started_model(self, simrunid, receiverid, socket):
@@ -239,7 +240,7 @@ class FederateStarter(object):
              
     def kill_federate(self, model_id, sim_run_id, fm_id, address):
         try:
-            process, socket, port, wd, remove = self.model_processes.pop(model_id)
+            process, port, wd, remove = self.model_processes.pop(model_id)
         except KeyError:
             raise ValueError(("Model {} is unknown to the "
                               "FederateStarter").format(model_id))
@@ -252,7 +253,12 @@ class FederateStarter(object):
                                        payload=[])
             message = message_encode(content)
             model_killed = False
+            
 
+            socket = self.context.socket(zmq.REQ)  # @UndefinedVariable
+#             m_socket.setsockopt_string(zmq.IDENTITY, identity) # @UndefinedVariable
+            socket.connect("tcp://localhost:{}".format(port))            
+            
             try:            
                 self.send(message, socket)
             except ZMQError:
@@ -268,6 +274,7 @@ class FederateStarter(object):
             alive = process.poll()
             
             if alive is None:
+                self.log.inf("forcefully trying to kill process")
                 process.kill()
                 model_killed = True
             #clean the directory
