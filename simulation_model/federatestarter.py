@@ -208,14 +208,14 @@ class FederateStarter(object):
         
         poller = zmq.Poller()
         poller.register(socket, zmq.POLLIN)  # @UndefinedVariable
-        
+        self.send(message, socket)        
         #receive status
         for i in range(100):
-            self.send(message, socket)
 #             bmsg = socket.recv()  # @UndefinedVariable
             evts = poller.poll(1000)
             if not evts:
                 self.log.info('retrying {}'.format(i))
+                continue
             else:
                 bmsg = evts[0][0].recv(zmq.NOBLOCK)  # @UndefinedVariable
             
@@ -279,19 +279,20 @@ class FederateStarter(object):
                 model_killed = True
                 self.log.info(("killed federate {}, " 
                                "listening on port").format(model_id, port))
-            socket.close()
-            self.portsinuse.remove(port)
-            
+            time.sleep(1)
             #check if the model is running, if so, kill forcibly
             alive = process.poll()
             
             if alive is None:
-                self.log.inf("forcefully trying to kill process")
+                self.log.info("forcefully trying to kill process")
                 process.kill()
                 model_killed = True
             #clean the directory
             if remove:
                 shutil.rmtree(wd)
+
+            socket.close()
+            self.portsinuse.remove(port)
             
             #send a message FS.4 to the federate manager
             content = self.prepare_message(sim_run_id=sim_run_id, 
