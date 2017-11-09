@@ -205,17 +205,17 @@ class FederateStarter(object):
                                status=1,
                                payload=[])
         message = message_encode(content)
+        self.send(message, socket)
+
         
         poller = zmq.Poller()
         poller.register(socket, zmq.POLLIN)  # @UndefinedVariable
-        
         #receive status
         for i in range(100):
-            self.send(message, socket)
-#             bmsg = socket.recv()  # @UndefinedVariable
             evts = poller.poll(1000)
             if not evts:
                 self.log.info('retrying {}'.format(i))
+                continue
             else:
                 bmsg = evts[0][0].recv(zmq.NOBLOCK)  # @UndefinedVariable
             
