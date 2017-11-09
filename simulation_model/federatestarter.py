@@ -97,7 +97,7 @@ class FederateStarter(object):
         
         # create a file handler
 #         handler = logging.StreamHandler(sys.stdout)
-        handler = logging.FileHandler('federatestarter.log')
+        handler = logging.FileHandler('federatestarter.log', mode='w')
         handler.setLevel(logging.INFO)
         
         # # create a logging format
@@ -197,7 +197,7 @@ class FederateStarter(object):
 
     def wait_for_started_model(self, simrunid, receiverid, socket):
         #ask the status of the model with FS.1 message
-        time.sleep(1)
+        time.sleep(5)
         content = self.prepare_message(sim_run_id=simrunid, 
                                receiver=receiverid, 
                                message_type='FS.1',
@@ -267,19 +267,21 @@ class FederateStarter(object):
                 model_killed = True
                 self.log.info(("killed federate {}, " 
                                "listening on port").format(model_id, port))
-            socket.close()
-            self.portsinuse.remove(port)
             
+            time.sleep(3)
             #check if the model is running, if so, kill forcibly
             alive = process.poll()
             
             if alive is None:
-                self.log.inf("forcefully trying to kill process")
+                self.log.info("forcefully trying to kill process")
                 process.kill()
                 model_killed = True
             #clean the directory
             if remove:
                 shutil.rmtree(wd)
+            
+            socket.close()
+            self.portsinuse.remove(port)
             
             #send a message FS.4 to the federate manager
             content = self.prepare_message(sim_run_id=sim_run_id, 
