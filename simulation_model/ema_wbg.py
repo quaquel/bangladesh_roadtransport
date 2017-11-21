@@ -119,7 +119,7 @@ def uncertainty_factory():
     fnc_parameters = ['Wmax', 'Tm']
     flood_ids = pd.read_excel('./data/Scenario_data.xlsx', 
                              sheetname='FloodArea_2')['Flood_ID']
-    # flood_ids = flood_ids[::12]
+    flood_ids = flood_ids[::10]
     boundaries = pd.read_excel('./data/Scenario_data.xlsx', 
                                sheetname='Damage_parameters')
     boundaries = boundaries.drop('Infrastructure', axis=1)
@@ -226,15 +226,15 @@ if __name__ == "__main__":
  
     n_floods = len(model.uncertainties['Flood_area'].categories)
  
-    n_experiments = 100
-    with MultiprocessingEvaluator(model, n_processes=2) as evaluator:
+    n_experiments = 1000
+    with MultiprocessingEvaluator(model, n_processes=40) as evaluator:
         policies = [Policy('Intervention_{}'.format(i), **{'Intervention_{}'.format(i):True}) for i in range(1,13)]
         policies.append(Policy('no intervention', **{}))
         results = evaluator.perform_experiments(n_experiments,
                                                 policies,
                                                 uncertainty_sampling='pff',
                                                 reporting_interval=1)
-    save_results(results, './results/pff {} floods {} cases.tar.gz'.format(n_floods, n_experiments))
+    save_results(results, './results/pff {} floods {} cases with interventions.tar.gz'.format(n_floods, n_experiments))
      
 #     results = perform_experiments(model, 2, reporting_interval=1, 
 #                                   uncertainty_sampling='pff')
