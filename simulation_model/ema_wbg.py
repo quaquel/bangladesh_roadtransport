@@ -222,7 +222,7 @@ if __name__ == "__main__":
     model.n_replications = 1
     model.uncertainties = uncertainty_factory()
     model.outcomes = outcome_factory()
-    model.levers = [CategoricalParameter('Intervention_{}'.format(i), [False, True]) for i in range(1,13)]
+#     model.levers = [CategoricalParameter('Intervention_{}'.format(i), [False, True]) for i in range(1,13)]
  
     n_floods = len(model.uncertainties['Flood_area'].categories)
  
